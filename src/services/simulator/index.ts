@@ -1,36 +1,34 @@
 import { create } from 'zustand';
 import { Pokemon } from '../../models/Pokemon';
+import { Berry } from '../../models/Berries';
 
-type Berry = {
-    firmness: string;
-    weightGain: number;
-};
+export type BerryState = Berry;
 
-type PokemonState = {
+export type PokemonState = {
     fedBerries: Berry[];
 } & Pokemon;
 
 type PokemonStore = {
-    selectedPokemon: PokemonState | null;
+    selectedPokemon: PokemonState | undefined;
     pokemonList: PokemonState[];
     setSelectedPokemon: (pokemon: PokemonState) => void;
     deleteSelectedPokemon: () => void;
-    feedPokemon: (berry: Berry) => void;
+    feedPokemon: (berry: BerryState) => void;
     getBerryGain: (firmness: string) => number;
     addPokemon: (pokemon: Pokemon) => void;
 };
 
 const berriesGain: Record<string, number> = {
-    'Very-soft': 2,
-    'Soft': 3,
-    'Hard': 5,
-    'Very-Hard': 8,
-    'Super-Hard': 10,
+    'Very-soft': 20,
+    'Soft': 30,
+    'Hard': 50,
+    'Very-Hard': 80,
+    'Super-Hard': 100,
 };
 
 const usePokemonStore = create<PokemonStore>((set) => ({
     /// Selected pokemon
-    selectedPokemon: null,
+    selectedPokemon: undefined,
     /// List of pokemon
     pokemonList: [],
     /**
@@ -55,7 +53,7 @@ const usePokemonStore = create<PokemonStore>((set) => ({
      * Delete the selected pokemon
      */
     deleteSelectedPokemon: () => {
-        set(() => ({ selectedPokemon: null }));
+        set(() => ({ selectedPokemon: undefined }));
     },
     /**
      * Feed the selected pokemon with a berry
@@ -65,20 +63,24 @@ const usePokemonStore = create<PokemonStore>((set) => ({
         set((state) => {
             if (state.selectedPokemon) {
                 // Check for last fed berry, if it's the same firmness, the pokemon is poisoned
-                const latestFedBerry = state.selectedPokemon.fedBerries[state.selectedPokemon.fedBerries.length - 1];
+                const latestFedBerry = state?.selectedPokemon?.fedBerries[state?.selectedPokemon?.fedBerries?.length - 1];
 
-                if (latestFedBerry && latestFedBerry.firmness === berry.firmness) {
+                if (latestFedBerry && latestFedBerry?.firmness === berry?.firmness) {
                     // Pokemon is poisoned, handle weight loss
-                    const weightLoss = state.getBerryGain(berry.firmness) * 2; // Weight loss formula
+                    const weightLoss = state.getBerryGain(berry.firmness.name) * 2; // Weight loss formula
                     state.selectedPokemon.weight -= weightLoss;
                 }
 
                 // Update the fed berries for the selected Pokemon
-                state.selectedPokemon.fedBerries = [...state.selectedPokemon.fedBerries, berry];
+                state.selectedPokemon.fedBerries = [...state?.selectedPokemon?.fedBerries, berry];
 
                 // Update the selected Pokemon's weight based on the berry's firmness 
-                state.selectedPokemon.weight += state.getBerryGain(berry.firmness);
+                state.selectedPokemon.weight += state.getBerryGain(berry?.firmness?.name);
             }
+            // update selected pokemon to the pokemonList
+            const pokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.name === state.selectedPokemon?.name);
+            state.pokemonList[pokemonIndex] = state.selectedPokemon as PokemonState;
+
             return state;
         });
     },

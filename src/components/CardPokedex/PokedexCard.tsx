@@ -2,7 +2,7 @@
 import { Card } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { usePokemonGetByName } from "../../repositories/pokemon";
+import { usePokemonGetByName } from "../../repositories/pokemons";
 import { pokemonData } from "../../utils/constants";
 import "./style.scss";
 

@@ -5,7 +5,7 @@ import {
   Ruler
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { usePokemonGetByName } from "../../repositories/pokemon";
+import { usePokemonGetByName } from "../../repositories/pokemons";
 import { pokemonData } from "../../utils/constants";
 import style from "./style.module.scss";
 import usePokemonStore from "../../services/simulator";

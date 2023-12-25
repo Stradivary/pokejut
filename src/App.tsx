@@ -20,7 +20,7 @@ const theme = createTheme({
 function App() {
   return (
     <MantineProvider theme={theme} withCssVariables defaultColorScheme="dark">
-      <Notifications />
+      <Notifications withinPortal />
       <ModalsProvider>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />

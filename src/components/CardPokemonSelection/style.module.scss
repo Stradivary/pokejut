@@ -1,0 +1,41 @@
+.card-pokemon-box {
+  width: 100%;
+  z-index: 1000;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.card-pokemon {
+  border-left-width: 5px;
+
+  &:hover {
+    border-left-width: 10px;
+  }
+}
+
+.card-pokemon-img {
+  position: relative;
+  width: 256px;
+  margin-inline: 20px;
+  margin-block: auto;
+
+  @media screen and (max-width: 1224px) {
+    width: 200px;
+    transform: scale(1.2);
+    top: 8px;
+    margin-inline: 25px;
+    margin-block: auto;
+  }
+}
+
+
+.card-pokemon-name {
+  position: relative;
+  font-size: clamp(1.725rem, 5vw, 2rem);
+  line-height: 120%;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+}

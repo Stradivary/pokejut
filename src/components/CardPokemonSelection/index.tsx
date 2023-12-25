@@ -1,24 +1,20 @@
-import { Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 import {
   Barbell,
-  Gauge,
-  HandFist,
-  Heartbeat,
-  Ruler,
-  ShieldChevron,
-  ShieldPlus,
-  Sword,
+  Ruler
 } from "@phosphor-icons/react";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePokemonGetByName } from "../../repositories/pokemons";
 import { pokemonData } from "../../utils/constants";
-import "./style.module.scss";
+import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
+import usePokemonStore from "../../services/simulator";
 
-export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }) => {
-  const [color, setColor] = useState<string | null>("#fff");
+export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; }> = ({ pokemonName, index }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
-
-
+  const [color, setColor] = useState<string | null>("#fff");
+  const navigate = useNavigate();
+  const { pokemonList, setSelectedPokemon } = usePokemonStore();
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon?.type === pokemonType
@@ -39,40 +35,27 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
   }, [pokemonName]);
 
 
-  useEffect(() => {
-    if (pokemon) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, [pokemon]);
-
-  const statIcons: Record<string, ReactNode> = {
-    hp: <Heartbeat size={24} weight="duotone" alt="hit points" />,
-    attack: <HandFist size={24} weight="duotone" alt="attack" />,
-    defense: <ShieldChevron size={24} weight="duotone" alt="defense" />,
-    'special-attack': <Sword size={24} weight="duotone" alt="special attack" />,
-    'special-defense': <ShieldPlus size={24} weight="duotone" alt="special defense" />,
-    speed: <Gauge size={24} weight="duotone" alt="speed" />,
-  };
 
   return (
-    <div
-      className={"card-pokemon"}
+    <Paper
+      className={styles["card-pokemon"]}
+      shadow="sm"
+      withBorder
       style={{
         marginTop: 40,
-        backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
+        borderLeftColor: `${color}`,
         viewTransitionName: "pokemon-card"
+      }}
+      onClick={() => {
+        setSelectedPokemon(pokemonList?.[index] ?? undefined);
+        navigate(`./${index}`);
       }}
     >
       <Group>
         <Image
           loading="lazy"
           draggable={false}
-          className="card-pokemon-img"
+          className={styles["card-pokemon-img"]}
           style={{
             viewTransitionName: "pokemon-image"
           }}
@@ -86,7 +69,7 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
           alt="Pokémon selecionado"
         />
         <Stack my={24}>
-          <span className="card-pokemon-name">{pokemon?.name}</span>
+          <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
           <Group align="center">
             {pokemon?.types.map((type: any, i: number) => {
               return (
@@ -117,24 +100,10 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
             </Group>
           </Group>
 
-          <SimpleGrid cols={2}>
-            {pokemon?.stats.map((stats: any) => {
-              return (
-                <Group>
-                  {statIcons[stats.stat.name] ?? <></>}
-                  <span>{stats.base_stat}</span>
-                </Group>
-              );
-            })}
 
-          </SimpleGrid>
         </Stack>
 
       </Group>
-
-
-
-
-    </div>
+    </Paper>
   );
 };

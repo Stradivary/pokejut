@@ -15,7 +15,16 @@ const routes = [
             // },
             {
                 path: "/pokemon",
-                lazy: () => import("./views/pokemon"),
+                children: [
+                    {
+                        path: "/pokemon",
+                        lazy: () => import("./views/pokemon"),
+                    },
+                    {
+                        path: "/pokemon/:id",
+                        lazy: () => import("./views/pokemon.$id"),
+                    },
+                ]
             },
             {
                 path: "/pokedex",
