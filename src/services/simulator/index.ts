@@ -1,21 +1,19 @@
 import { create } from 'zustand';
+import { Pokemon } from '../../models/Pokemon';
 
 type Berry = {
     firmness: string;
     weightGain: number;
 };
 
-type Pokemon = {
-    name: string;
-    weight: number;
+type PokemonState = {
     fedBerries: Berry[];
-    [key: string]: any;
-};
+} & Pokemon;
 
 type PokemonStore = {
-    selectedPokemon: Pokemon | null;
-    pokemonList: Pokemon[];
-    setSelectedPokemon: (pokemon: Pokemon) => void;
+    selectedPokemon: PokemonState | null;
+    pokemonList: PokemonState[];
+    setSelectedPokemon: (pokemon: PokemonState) => void;
     deleteSelectedPokemon: () => void;
     feedPokemon: (berry: Berry) => void;
     getBerryGain: (firmness: string) => number;
@@ -40,7 +38,11 @@ const usePokemonStore = create<PokemonStore>((set) => ({
      * @param pokemon pokemon to add to the list
      */
     addPokemon: (pokemon) => {
-        set((state) => ({ pokemonList: [...state.pokemonList, pokemon] }));
+        const newPokemon = {
+            ...pokemon,
+            fedBerries: [],
+        };
+        set((state) => ({ pokemonList: [...state.pokemonList, newPokemon] }));
     },
     /**
      * Set the selected pokemon

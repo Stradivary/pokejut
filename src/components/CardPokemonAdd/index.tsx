@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 import { usePokemonGetByName } from "../../repositories/pokemon";
 import { pokemonData } from "../../utils/constants";
 import style from "./style.module.scss";
+import usePokemonStore from "../../services/simulator";
+import { notifications } from "@mantine/notifications";
 
 
 export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }) {
-
+  const { addPokemon } = usePokemonStore();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   function getColorByType(pokemonType: string) {
@@ -83,14 +85,14 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
           <Group gap={16} justify="center" wrap="nowrap">
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {pokemon?.height / 10} M
+                {(pokemon?.height ?? 0) / 10} M
               </Text>
               <Ruler size={16} weight="duotone" />
             </Group>
 
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {pokemon?.weight / 10} Kg
+                {(pokemon?.weight ?? 0) / 10} Kg
               </Text>
               <Barbell size={16} weight="duotone" />
             </Group>
@@ -112,7 +114,19 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
 
           <Button
             type="button"
+            className={style["btn-choose"]}
             variant="gradient"
+            onClick={() => {
+              if (pokemon) {
+                notifications.show({
+                  title: "Pokemon berhasil ditambahkan",
+                  message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
+                  color: "blue",
+                  icon: <Image src="/svgs/pokeball.svg" alt="Pokeball" />,
+                });
+                addPokemon(pokemon);
+              }
+            }}
             gradient={{ from: "dark", to: color ?? "blue", deg: 350 }}
           >
             I Choose You

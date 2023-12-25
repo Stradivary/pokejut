@@ -1,5 +1,6 @@
 import { useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Pokemon } from "../../models/Pokemon";
 
 export const usePokemonGetEveryting = () => {
     return useQuery({
@@ -13,12 +14,13 @@ export const usePokemonGetAll = (filter: { offset: number; limit: number; }) => 
 
     return useQuery({
         queryKey: ["pokemon", "getAll", filter],
-        queryFn: () => {
+        queryFn: async () => {
             const payload = new URLSearchParams({
                 offset: String(filter.offset) || "0",
                 limit: String(filter.limit) || "10",
             }).toString();
-            return axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`).then((res) => res.data);
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`);
+            return res.data;
         },
     });
 };
@@ -33,15 +35,15 @@ const getOffsetAndLimitFromUrl = (url?: string) => {
 };
 
 export const usePokemonInfiniteGetAll = (filter: { limit: number; }) => {
-
     return useSuspenseInfiniteQuery({
         queryKey: ["pokemon", "getAll", filter],
-        queryFn: ({ pageParam = 0 }) => {
+        queryFn: async ({ pageParam = 0 }) => {
             const payload = new URLSearchParams({
                 offset: String(pageParam) || "0",
                 limit: String(filter.limit) || "10",
             }).toString();
-            return axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`).then((res) => res.data);
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`);
+            return res.data;
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
@@ -53,9 +55,9 @@ export const usePokemonInfiniteGetAll = (filter: { limit: number; }) => {
 };
 
 export const usePokemonGetByName = (name?: string) => {
-    return useQuery({
+    return useQuery<Pokemon>({
         queryKey: ["pokemon", name],
-        queryFn: () => axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) => res.data),
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) => res.data),
         enabled: !!name,
     });
 };
@@ -65,7 +67,7 @@ export const usePokemonGetByName = (name?: string) => {
 export const usePokemonGetByType = (type?: string) => {
     return useQuery({
         queryKey: ["pokemon", "type", type],
-        queryFn: () => axios.get(`https://pokeapi.co/api/v2/type/${type}`).then((res) => res.data),
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/type/${type}`).then((res) => res.data),
         enabled: !!type,
     });
 };
@@ -73,7 +75,7 @@ export const usePokemonGetByType = (type?: string) => {
 export const usePokemonGetByAbility = (ability?: string) => {
     return useQuery({
         queryKey: ["pokemon", "ability", ability],
-        queryFn: () => axios.get(`https://pokeapi.co/api/v2/ability/${ability}`).then((res) => res.data),
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/ability/${ability}`).then((res) => res.data),
         enabled: !!ability,
     });
 };

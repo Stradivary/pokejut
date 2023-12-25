@@ -9,12 +9,12 @@ import {
   ShieldPlus,
   Sword,
 } from "@phosphor-icons/react";
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { usePokemonGetByName } from "../../repositories/pokemon";
 import { pokemonData } from "../../utils/constants";
 import "./style.scss";
 
-export function CardPokemon({ pokemonName }: { pokemonName?: string; }) {
+export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName }) => {
   const [color, setColor] = useState<string | null>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
@@ -104,14 +104,14 @@ export function CardPokemon({ pokemonName }: { pokemonName?: string; }) {
           <Group>
             <Group align="center">
               <Text className="pokemon-stats">
-                {pokemon?.height / 10} M
+                {(pokemon?.height ?? 0) / 10} M
               </Text>
               <Ruler size={24} weight="duotone" />
             </Group>
 
             <Group align="center">
               <Text className="pokemon-stats">
-                {pokemon?.weight / 10} Kg
+                {(pokemon?.weight ?? 0) / 10} Kg
               </Text>
               <Barbell size={24} weight="duotone" />
             </Group>
@@ -137,4 +137,4 @@ export function CardPokemon({ pokemonName }: { pokemonName?: string; }) {
 
     </div>
   );
-}
+};

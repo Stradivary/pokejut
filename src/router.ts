@@ -3,7 +3,7 @@ import { RouteObject, createBrowserRouter } from "react-router-dom";
 const routes = [
     {
         path: "/",
-        lazy: () => import("./routes/_layout"),
+        lazy: () => import("./views/_layout"),
         children: [
             // {
             //     path: "/",
@@ -15,24 +15,24 @@ const routes = [
             // },
             {
                 path: "/pokemon",
-                lazy: () => import("./routes/pokemon"),
+                lazy: () => import("./views/pokemon"),
             },
             {
                 path: "/pokedex",
                 children: [
                     {
                         path: "/pokedex",
-                        lazy: () => import("./routes/pokedex"),
+                        lazy: () => import("./views/pokedex"),
                     },
                     {
                         path: "/pokedex/:id",
-                        lazy: () => import("./routes/pokedex.$id"),
+                        lazy: () => import("./views/pokedex.$id"),
                     },
                 ]
             },
             {
                 path: "/settings",
-                lazy: () => import("./routes/settings"),
+                lazy: () => import("./views/settings"),
             }
         ],
     },
