@@ -3,13 +3,11 @@ import { Outlet, useParams } from "react-router-dom";
 import usePokemonStore from "../services/simulator";
 import { PokemonCollection } from "../components/PokemonCollection";
 
-export function Component() {
-    const { id } = useParams();
+export function Component() { 
     const { pokemonList } = usePokemonStore();
     return (
         <Stack>
             <Title order={1}>Pokemon Kamu</Title>
-
             <PokemonCollection pokemonList={pokemonList} />
         </Stack>
     );

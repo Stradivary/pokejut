@@ -1,5 +1,4 @@
-import { Center, SimpleGrid, Text } from "@mantine/core";
-import { Link, NavLink } from "react-router-dom";
+import { Center, SimpleGrid, Text } from "@mantine/core"; 
 import { PokemonState } from "../services/simulator";
 import { CardPokemonSelect } from "./CardPokemonSelection";
 
