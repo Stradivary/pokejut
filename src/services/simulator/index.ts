@@ -2,13 +2,14 @@ import { create } from 'zustand';
 import { Pokemon } from '../../models/Pokemon';
 import { Berry } from '../../models/Berries';
 
-export type BerryState = Berry;
-
+export type BerryState = Partial<Berry>;
+// Optional Pokemon properties
 export type PokemonState = {
-    fedBerries: Berry[];
-} & Pokemon;
+    fedBerries: BerryState[];
+} & Partial<Omit<Pokemon, 'weight'>> & { weight: number; };
 
-type PokemonStore = {
+
+export type PokemonStore = {
     selectedPokemon: PokemonState | undefined;
     pokemonList: PokemonState[];
     setSelectedPokemon: (pokemon: PokemonState) => void;
@@ -16,9 +17,11 @@ type PokemonStore = {
     feedPokemon: (berry: BerryState) => void;
     getBerryGain: (firmness: string) => number;
     addPokemon: (pokemon: Pokemon) => void;
+    checkEvolution: (pokemon: PokemonState) => void;
+    evolvePokemon: (pokemon: PokemonState) => void;
 };
 
-const berriesGain: Record<string, number> = {
+export const berriesGain: Record<string, number> = {
     'Very-soft': 20,
     'Soft': 30,
     'Hard': 50,
@@ -26,7 +29,7 @@ const berriesGain: Record<string, number> = {
     'Super-Hard': 100,
 };
 
-const usePokemonStore = create<PokemonStore>((set) => ({
+export const usePokemonStore = create<PokemonStore>((set) => ({
     /// Selected pokemon
     selectedPokemon: undefined,
     /// List of pokemon
@@ -67,7 +70,7 @@ const usePokemonStore = create<PokemonStore>((set) => ({
 
                 if (latestFedBerry && latestFedBerry?.firmness === berry?.firmness) {
                     // Pokemon is poisoned, handle weight loss
-                    const weightLoss = state.getBerryGain(berry.firmness.name) * 2; // Weight loss formula
+                    const weightLoss = state.getBerryGain(berry?.firmness?.name ?? "") * 2; // Weight loss formula
                     state.selectedPokemon.weight -= weightLoss;
                 }
 
@@ -75,7 +78,7 @@ const usePokemonStore = create<PokemonStore>((set) => ({
                 state.selectedPokemon.fedBerries = [...state?.selectedPokemon?.fedBerries, berry];
 
                 // Update the selected Pokemon's weight based on the berry's firmness 
-                state.selectedPokemon.weight += state.getBerryGain(berry?.firmness?.name);
+                state.selectedPokemon.weight += state.getBerryGain(berry?.firmness?.name ?? "");
             }
             // update selected pokemon to the pokemonList
             const pokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.name === state.selectedPokemon?.name);
@@ -92,6 +95,30 @@ const usePokemonStore = create<PokemonStore>((set) => ({
     getBerryGain: (firmness) => {
         return berriesGain[firmness] ?? 1;
     },
+    /**
+     * Check if a pokemon can evolve
+     * @param pokemon pokemon to check
+     */
+    checkEvolution: (pokemon) => {
+        // const evolution = pokemon?.evolution_chain?.evolves_to?.[0]?.species?.name;
+        // if (evolution && pokemon.weight >= 1000) {
+        //     // Pokemon can evolve
+        //     pokemon.name = evolution;
+        // }
+    },
+    /**
+     * Evolve a pokemon
+     * @param pokemon pokemon to evolve
+     * @returns evolved pokemon
+        */
+    evolvePokemon: (pokemon) => {
+        set((state) => {
+            // Update the pokemonList with the evolved pokemon
+            const pokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.name === state.selectedPokemon?.name);
+            state.pokemonList[pokemonIndex] = pokemon;
+            return state;
+        });
+    }
 }));
 
 export default usePokemonStore;

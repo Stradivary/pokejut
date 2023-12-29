@@ -129,6 +129,7 @@ export const Pokemon = z.object({
     name: z.string(),
     order: z.number(),
     past_abilities: z.array(z.unknown()),
+    evolution_chain: z.array(z.unknown()),
     past_types: z.array(z.unknown()),
     species: z.object({ name: z.string(), url: z.string() }),
     sprites: spritesSchema,
