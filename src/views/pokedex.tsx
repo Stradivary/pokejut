@@ -18,7 +18,7 @@ const PokedexPage = () => {
             <Title order={1}>Pokedex</Title>
             <Group justify="space-between" mb={45}>
                 <Group>
-                    {pokemonData?.map(({ type, color, img }: any, index: number) => (
+                    {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => (
                         <Tooltip key={index} label={type} position="bottom" withArrow>
                             <ActionIcon color={color} c="white" radius="xl" variant="subtle">
                                 <Image src={img} alt={type} />
@@ -30,9 +30,9 @@ const PokedexPage = () => {
             </Group>
 
             <SimpleGrid mt={32} verticalSpacing={56} spacing={12} cols={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}>
-                {binding?.data?.pages?.map((page: any, index: number) => (
+                {binding?.data?.pages?.map((page: { results: { name: string; }[]; }, index: number) => (
                     <React.Fragment key={index + '- page'}>
-                        {page?.results?.map(({ name }: any, i: number) => (
+                        {page?.results?.map(({ name }: { name: string; }) => (
                             <CardAddPokemon pokemonName={name} />
                         ))}
                     </React.Fragment>
@@ -45,7 +45,7 @@ const PokedexPage = () => {
                     loading={binding?.isFetchingNextPage}
                     disabled={!binding?.hasNextPage}
                 >
-                    {binding?.isFetchingNextPage ? 'Menampilkan lebih banyak...' : binding?.hasNextPage ? 'Tampilkan lebih banyak' : 'Semua Pokemon ditampilkan'}
+                    {binding?.isFetchingNextPage ? 'Menampilkan lebih bunknownak...' : binding?.hasNextPage ? 'Tampilkan lebih bunknownak' : 'Semua Pokemon ditampilkan'}
                 </Button>
             </Center>
             <Center>

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Pokemon } from '../../models/Pokemon';
 import { Berry } from '../../models/Berries';
+import { Pokemon } from '../../models/Pokemon';
 
 export type BerryState = Partial<Berry>;
 // Optional Pokemon properties
@@ -75,7 +75,7 @@ export const usePokemonStore = create<PokemonStore>((set) => ({
                 }
 
                 // Update the fed berries for the selected Pokemon
-                state.selectedPokemon.fedBerries = [...state?.selectedPokemon?.fedBerries, berry];
+                state.selectedPokemon.fedBerries = [...[...state?.selectedPokemon?.fedBerries ?? []], berry];
 
                 // Update the selected Pokemon's weight based on the berry's firmness 
                 state.selectedPokemon.weight += state.getBerryGain(berry?.firmness?.name ?? "");
@@ -99,7 +99,7 @@ export const usePokemonStore = create<PokemonStore>((set) => ({
      * Check if a pokemon can evolve
      * @param pokemon pokemon to check
      */
-    checkEvolution: (pokemon) => {
+    checkEvolution: () => {
         // const evolution = pokemon?.evolution_chain?.evolves_to?.[0]?.species?.name;
         // if (evolution && pokemon.weight >= 1000) {
         //     // Pokemon can evolve

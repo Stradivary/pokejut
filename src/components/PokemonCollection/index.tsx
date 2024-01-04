@@ -1,6 +1,6 @@
-import { Center, SimpleGrid, Text } from "@mantine/core"; 
-import { PokemonState } from "../services/simulator";
-import { CardPokemonSelect } from "./CardPokemonSelection";
+import { Center, SimpleGrid, Text } from "@mantine/core";
+import { PokemonState } from "../../services/simulator";
+import { CardPokemonSelect } from "../CardPokemonSelection";
 
 export const PokemonCollection = ({ pokemonList }: { pokemonList: PokemonState[]; }) => {
     return (
@@ -10,8 +10,8 @@ export const PokemonCollection = ({ pokemonList }: { pokemonList: PokemonState[]
                     <Text>Belum ada pokemon</Text>
                 </Center>
             )}
-            {pokemonList.map(({ fedBerries, ...pokemon }, index) => (
-                <CardPokemonSelect key={index} index={index} pokemonName={pokemon.name ?? ""} />
+            {pokemonList.map(({ name }, index) => (
+                <CardPokemonSelect key={index} index={index} pokemonName={name ?? ""} />
             ))}
         </SimpleGrid>
     );

@@ -24,7 +24,7 @@ export const MainNavbar = ({
             to={item.to}
             unstable_viewTransition
             variant="subtle" />
-    )), [location.pathname]);
+    )), [location.pathname, data]);
     return <>
         <AppShell.Section>
             <Group>

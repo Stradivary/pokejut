@@ -1,16 +1,8 @@
 import { AppShell, Burger, Group, ScrollArea, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ArchiveBox, CircleHalf, Gear } from "@phosphor-icons/react";
 import { Outlet } from "react-router-dom";
 import { MainNavbar } from "../components/Navbar/MainNavbar";
-import { NavItemData } from "../components/Navbar/types";
-
-
-export const data: NavItemData[] = [
-    { icon: <ArchiveBox />, label: 'Pokedex', to: '/pokedex' },
-    { icon: <CircleHalf />, label: 'My Pokemon', to: '/pokemon' },
-    { icon: <Gear />, label: 'Settings', to: '/settings' }
-];
+import { data } from "./data";
 
 
 export function Component() {
@@ -45,5 +37,5 @@ export function Component() {
             </AppShell.Main>
         </AppShell>
     );
-};
+}
 Component.DisplayName = 'MainPage';

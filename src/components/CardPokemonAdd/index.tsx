@@ -1,15 +1,15 @@
 
 import { Button, Center, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import {
   Barbell,
   Ruler
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { usePokemonGetByName } from "../../repositories/pokemons";
+import usePokemonStore from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
 import style from "./style.module.scss";
-import usePokemonStore from "../../services/simulator";
-import { notifications } from "@mantine/notifications";
 
 
 export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }) {
@@ -69,7 +69,7 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
         <Stack gap={16} >
           <Text className={style.pokemonName} px={20}>{pokemon?.name}</Text>
           <Group align="center" justify="center" >
-            {pokemon?.types.map((type: any, i: number) => {
+            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
               return (
                 <Image
                   loading="lazy"
@@ -99,7 +99,7 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
           </Group>
 
           {/* <SimpleGrid mt={24} cols={3}>
-            {pokemon?.stats.map((stats: any) => {
+            {pokemon?.stats.map((stats: unknown) => {
               return (
                 <Group>
                   {statIcons[stats.stat.name] ?? <></>}

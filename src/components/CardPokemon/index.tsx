@@ -36,7 +36,7 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
       const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
       setColor(Color);
     }
-  }, [pokemonName]);
+  }, [pokemonName, pokemon]);
 
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
         <Stack my={24}>
           <span className="card-pokemon-name">{pokemon?.name}</span>
           <Group align="center">
-            {pokemon?.types.map((type: any, i: number) => {
+            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
               return (
                 <Image
                   loading="lazy"
@@ -118,7 +118,7 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
           </Group>
 
           <SimpleGrid cols={2}>
-            {pokemon?.stats.map((stats: any) => {
+            {pokemon?.stats.map((stats: { base_stat: number; stat: { name: string; }; }) => {
               return (
                 <Group>
                   {statIcons[stats.stat.name] ?? <></>}

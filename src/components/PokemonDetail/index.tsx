@@ -12,9 +12,8 @@ import {
 import React, { ReactNode, useEffect, useState } from "react";
 import usePokemonStore, { PokemonState } from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
-import styles from "./style.module.scss";
 import { BerriesFeeder } from "./BerriesFeeder";
-import { useNavigate } from "react-router-dom";
+import styles from "./style.module.scss";
 
 function getColorByType(pokemonType: string) {
   const foundPokemon = pokemonData.find(
@@ -28,12 +27,12 @@ function getColorByType(pokemonType: string) {
 }
 
 export const PokemonDetail: React.FC = () => {
-  const { selectedPokemon: pokemonState, pokemonList } = usePokemonStore();
+  const { selectedPokemon: pokemonState } = usePokemonStore();
   const [color, setColor] = useState<string | undefined>("#fff");
-  const { fedBerries, weight, ...pokemon } = pokemonState ?? {} as PokemonState;
+  const { weight, ...pokemon } = pokemonState ?? {} as PokemonState;
 
   useEffect(() => {
-    const Color = getColorByType(pokemonState ? pokemonState?.types?.[0]?.type?.name : "") ?? undefined;
+    const Color = getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
     setColor(Color);
   }, [pokemonState]);
 
@@ -78,7 +77,7 @@ export const PokemonDetail: React.FC = () => {
             <Text className={styles["card-pokemon-name"]}
             >{pokemon?.name}</Text>
             <Group align="center">
-              {pokemon?.types?.map((type: any, i: number) => {
+              {pokemon?.types?.map((type: { type: { name: string; }; }, i: number) => {
                 return (
                   <Image
                     loading="lazy"
@@ -108,7 +107,7 @@ export const PokemonDetail: React.FC = () => {
             </Group>
 
             <SimpleGrid cols={2}>
-              {pokemon?.stats?.map((stats: any) => {
+              {pokemon?.stats?.map((stats: { base_stat: number; effort: number, stat: { name: string; }; }) => {
                 return (
                   <Group>
                     {statIcons[stats?.stat?.name] ?? <></>}

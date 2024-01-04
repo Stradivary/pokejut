@@ -1,7 +1,6 @@
-import { AppShell, Stack, Title } from "@mantine/core";
-import { Outlet, useParams } from "react-router-dom";
-import usePokemonStore from "../services/simulator";
+import { Stack, Title } from "@mantine/core";
 import { PokemonCollection } from "../components/PokemonCollection";
+import usePokemonStore from "../services/simulator";
 
 export function Component() { 
     const { pokemonList } = usePokemonStore();

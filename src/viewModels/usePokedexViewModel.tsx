@@ -18,7 +18,7 @@ const usePokedexViewModel = () => {
     if (entry?.isIntersecting) {
       fetchNextPage();
     }
-  }, [entry]);
+  }, [entry, fetchNextPage]);
 
   return {
     status,

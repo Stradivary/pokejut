@@ -1,0 +1,2 @@
+# Services
+This folder contains all the services that are used in the application. The service pattern is used to maintain a separation of concerns between dependencies and the business logic. The services are used to handle the business logic and the dependencies are injected into the services. The services are then injected into the controllers.

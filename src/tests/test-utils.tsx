@@ -1,14 +1,14 @@
 
-import { render as testingLibraryRender } from '@testing-library/react';
 import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from "@mantine/modals";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "../utils/query";
 import { Notifications } from "@mantine/notifications";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { render as testingLibraryRender } from '@testing-library/react';
+import { queryClient } from "../utils/query";
 // Import your theme object
-import { theme } from '../utils/theme';
 import React from 'react';
-import { Router, RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { theme } from '../utils/theme';
 
 export function render(ui: React.ReactNode) {
     return testingLibraryRender(<>{ui}</>, {

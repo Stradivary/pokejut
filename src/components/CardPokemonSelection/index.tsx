@@ -4,11 +4,11 @@ import {
   Ruler
 } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { usePokemonGetByName } from "../../repositories/pokemons";
+import usePokemonStore from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
 import styles from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
-import usePokemonStore from "../../services/simulator";
 
 export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; }> = ({ pokemonName, index }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
@@ -32,7 +32,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
       const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
       setColor(Color);
     }
-  }, [pokemonName]);
+  }, [pokemonName, pokemon]);
 
 
 
@@ -71,7 +71,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
         <Stack my={24}>
           <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
           <Group align="center">
-            {pokemon?.types.map((type: any, i: number) => {
+            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
               return (
                 <Image
                   loading="lazy"

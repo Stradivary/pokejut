@@ -1,6 +1,5 @@
-import { Button, Card, Text, Title } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { Link, useParams } from "react-router-dom";
-import { usePokemonGetByName } from "../repositories/pokemons";
 import { CardPokemon } from "../components/CardPokemon";
 
 /**

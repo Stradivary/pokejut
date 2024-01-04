@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 
+// this is routing configuration, we can use it to manage our routes and it's corresponding components
 export const routes = [
     {
         path: "/",
