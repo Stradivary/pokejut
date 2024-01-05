@@ -2,6 +2,11 @@ import { useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Pokemon } from "../../models/Pokemon";
 
+/**
+ * Retrieves all the information about every Pokemon.
+ *
+ * @return {QueryResult} The result of the query, containing the information about every Pokemon.
+ */
 export const usePokemonGetEveryting = () => {
     return useQuery({
         queryKey: ["pokemon", "all"],
@@ -10,6 +15,14 @@ export const usePokemonGetEveryting = () => {
     });
 };
 
+/**
+ * Retrieves a list of Pokémon based on the provided filter options.
+ *
+ * @param {Object} filter - The filter options for the Pokémon list.
+ * @param {number} filter.offset - The offset for pagination.
+ * @param {number} filter.limit - The maximum number of Pokémon to retrieve.
+ * @return {Promise<any>} A promise that resolves to the list of Pokémon.
+ */
 export const usePokemonGetAll = (filter: { offset: number; limit: number; }) => {
 
     return useQuery({
@@ -25,6 +38,12 @@ export const usePokemonGetAll = (filter: { offset: number; limit: number; }) => 
     });
 };
 
+/**
+ * Extracts the offset and limit values from the given URL string.
+ *
+ * @param {string} url - The URL string from which to extract the offset and limit values.
+ * @return {Object} An object containing the extracted offset and limit values.
+ */
 const getOffsetAndLimitFromUrl = (url?: string) => {
     if (!url) return { offset: 0, limit: 10 };
     const urlParams = new URLSearchParams(url.split("?")[1]);
@@ -34,6 +53,13 @@ const getOffsetAndLimitFromUrl = (url?: string) => {
     };
 };
 
+/**
+ * Retrieves all Pokemon data using an infinite query.
+ *
+ * @param {Object} filter - The filter object containing the limit.
+ * @param {number} filter.limit - The maximum number of Pokemon to retrieve.
+ * @return {Object} - The result of the query containing Pokemon data.
+ */
 export const usePokemonInfiniteGetAll = (filter: { limit: number; }) => {
     return useSuspenseInfiniteQuery({
         queryKey: ["pokemon", "getAll", filter],
@@ -54,6 +80,12 @@ export const usePokemonInfiniteGetAll = (filter: { limit: number; }) => {
     });
 };
 
+/**
+ * A hook that fetches a Pokemon by name from the PokeAPI.
+ *
+ * @param {string} name - The name of the Pokemon to fetch.
+ * @return {QueryResult<Pokemon>} The result of the query, containing the Pokemon data.
+ */
 export const usePokemonGetByName = (name?: string) => {
     return useQuery<Pokemon>({
         queryKey: ["pokemon", name],
@@ -80,3 +112,26 @@ export const usePokemonGetByAbility = (ability?: string) => {
     });
 };
 
+export const usePokemonGetByMove = (move?: string) => {
+    return useQuery({
+        queryKey: ["pokemon", "move", move],
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/move/${move}`).then((res) => res.data),
+        enabled: !!move,
+    });
+};
+
+export const usePokemonGetByWeakness = (weakness?: string) => {
+    return useQuery({
+        queryKey: ["pokemon", "weakness", weakness],
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/type/${weakness}`).then((res) => res.data),
+        enabled: !!weakness,
+    });
+};
+
+export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
+    return useQuery({
+        queryKey: ["pokemon", "evolutionChain", evolutionChain],
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/evolution-chain/${evolutionChain}`).then((res) => res.data),
+        enabled: !!evolutionChain,
+    });
+};

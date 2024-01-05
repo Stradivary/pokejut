@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { Berry } from '../../models/Berries';
 import { Pokemon } from '../../models/Pokemon';
+import { PokemonEvolution } from "@/models/Evolution";
 
 export type BerryState = Partial<Berry>;
 // Optional Pokemon properties
 export type PokemonState = {
     fedBerries: BerryState[];
-} & Partial<Omit<Pokemon, 'weight'>> & { weight: number; };
+} & Partial<Omit<Pokemon, 'weight'>> & Partial<PokemonEvolution> & { weight: number; };
 
 
 export type PokemonStore = {
@@ -99,12 +100,12 @@ export const usePokemonStore = create<PokemonStore>((set) => ({
      * Check if a pokemon can evolve
      * @param pokemon pokemon to check
      */
-    checkEvolution: () => {
-        // const evolution = pokemon?.evolution_chain?.evolves_to?.[0]?.species?.name;
-        // if (evolution && pokemon.weight >= 1000) {
-        //     // Pokemon can evolve
-        //     pokemon.name = evolution;
-        // }
+    checkEvolution: (pokemon) => {
+        const evolution = pokemon?.chain?.evolves_to?.[0]?.species?.name;
+        if (evolution && pokemon.weight >= 1000) {
+            // Pokemon can evolve
+            pokemon.name = evolution;
+        }
     },
     /**
      * Evolve a pokemon

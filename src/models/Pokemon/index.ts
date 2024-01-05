@@ -115,7 +115,7 @@ const typeSchema = z.object({
     type: z.object({ name: z.string(), url: z.string() })
 });
 
-export const Pokemon = z.object({
+export const PokemonSchema = z.object({
     abilities: z.array(abilitySchema),
     base_experience: z.number(),
     forms: z.array(versionSchema),
@@ -138,6 +138,7 @@ export const Pokemon = z.object({
     weight: z.number()
 });
 
-export type Pokemon = z.infer<typeof Pokemon>;
+
+export type Pokemon = z.infer<typeof PokemonSchema>;
 
 

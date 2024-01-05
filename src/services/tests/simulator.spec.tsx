@@ -1,6 +1,7 @@
 
 import { beforeEach, describe, vi, it, expect } from 'vitest';
 import { PokemonStore, PokemonState, BerryState } from '../simulator';
+import { Pokemon } from '@/models/Pokemon';
 
 describe('PokemonStore', () => {
     let store: PokemonStore;
@@ -48,7 +49,7 @@ describe('PokemonStore', () => {
     });
 
     it('should add pokemon', () => {
-        const pokemon: Pokemon = { /* your pokemon */ };
+        const pokemon = { /* your pokemon */ } as Pokemon;
         store.addPokemon(pokemon);
         expect(store.addPokemon).toHaveBeenCalledWith(pokemon);
     });
