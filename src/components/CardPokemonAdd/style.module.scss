@@ -39,7 +39,13 @@
   @media screen and (max-width: 1224px) {
     width: 200px;
     transform: scale(1.2);
-    top: -50px;
+    top: -60px;
+  }
+
+  @media screen and (max-width: 480px) {
+    transform: scale(0.8);
+    top: 12px;
+    left: -40px;
   }
 }
 
@@ -49,7 +55,7 @@
   line-height: 120%;
   text-align: center;
   text-transform: capitalize;
-
+  margin-top: auto;
 }
 
 .pokemonName::before {

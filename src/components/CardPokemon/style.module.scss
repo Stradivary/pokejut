@@ -12,7 +12,7 @@
 
 .card-pokemon {
   display: flex;
-  border-radius: 24px; 
+  border-radius: 24px;
   background-position: center left, bottom 50% center;
   background-size: 50%, auto;
   background-repeat: no-repeat;
@@ -35,8 +35,13 @@
     margin-inline: 25px;
     margin-block: auto;
   }
-}
 
+  @media screen and (max-width: 480px) {
+    transform: scale(0.8);
+    top: 12px;
+    left: -20px;
+  }
+}
 
 .card-pokemon-name {
   position: relative;
@@ -44,4 +49,5 @@
   line-height: 120%;
   text-align: center;
   text-transform: capitalize;
+  margin-top: auto;
 }

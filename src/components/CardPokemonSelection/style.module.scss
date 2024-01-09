@@ -23,13 +23,17 @@
 
   @media screen and (max-width: 1224px) {
     width: 200px;
-    transform: scale(1.2);
+    transform: scale(1.1);
     top: 8px;
     margin-inline: 25px;
     margin-block: auto;
   }
+  @media screen and (max-width: 426px) {
+    transform: scale(0.8);
+    top: 12px;
+    left: 50px;
+  }
 }
-
 
 .card-pokemon-name {
   position: relative;

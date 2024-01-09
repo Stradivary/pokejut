@@ -35,6 +35,12 @@
     margin-inline: 25px;
     margin-block: auto;
   }
+  
+  @media screen and (max-width: 426px) {
+    transform: scale(0.8);
+    top: 12px;
+    left: 50px;
+  }
 }
 
 
