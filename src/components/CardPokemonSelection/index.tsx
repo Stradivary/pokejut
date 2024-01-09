@@ -6,7 +6,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePokemonGetByName } from "../../repositories/pokemons";
-import usePokemonStore from "../../services/simulator";
+import { usePokemonStore } from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
 import styles from "./style.module.scss";
 
@@ -25,6 +25,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
       return null;
     }
   }
+
 
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
           }
           alt="Pokémon selecionado"
         />
-        <Stack my={24}>
+        <Stack my={24} align="center" mx="auto">
           <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
           <Group align="center">
             {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {

@@ -1,16 +1,11 @@
-import { Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { usePokemonGetEvolutionChain } from "@/repositories/pokemons";
+import { Code, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   Barbell,
-  Gauge,
-  HandFist,
-  Heartbeat,
-  Ruler,
-  ShieldChevron,
-  ShieldPlus,
-  Sword,
+  Ruler
 } from "@phosphor-icons/react";
-import React, { ReactNode, useEffect, useState } from "react";
-import usePokemonStore, { PokemonState } from "../../services/simulator";
+import React, { useEffect, useState } from "react";
+import { PokemonState, usePokemonStore } from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
@@ -28,23 +23,14 @@ function getColorByType(pokemonType: string) {
 
 export const PokemonDetail: React.FC = () => {
   const { selectedPokemon: pokemonState } = usePokemonStore();
+  const { data: evolveItem } = usePokemonGetEvolutionChain(pokemonState?.id?.toString() ?? "");
   const [color, setColor] = useState<string | undefined>("#fff");
-  const { weight, ...pokemon } = pokemonState ?? {} as PokemonState;
-
+  const { weight, fedBerries, ...pokemon } = pokemonState ?? {} as PokemonState;
   useEffect(() => {
     const Color = getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
     setColor(Color);
   }, [pokemonState]);
 
-
-  const statIcons: Record<string, ReactNode> = {
-    hp: <Heartbeat size={24} weight="duotone" alt="hit points" />,
-    attack: <HandFist size={24} weight="duotone" alt="attack" />,
-    defense: <ShieldChevron size={24} weight="duotone" alt="defense" />,
-    'special-attack': <Sword size={24} weight="duotone" alt="special attack" />,
-    'special-defense': <ShieldPlus size={24} weight="duotone" alt="special defense" />,
-    speed: <Gauge size={24} weight="duotone" alt="speed" />,
-  };
 
   return (
     <SimpleGrid cols={{ base: 1, md: 2 }}>
@@ -56,7 +42,7 @@ export const PokemonDetail: React.FC = () => {
           viewTransitionName: "pokemon-card"
         }}
       >
-        <Group>
+        <Group align="center" mx="auto">
           <Image
             loading="lazy"
             draggable={false}
@@ -73,7 +59,7 @@ export const PokemonDetail: React.FC = () => {
             }
             alt="Pokémon selecionado"
           />
-          <Stack my={24}>
+          <Stack my={24} align="center" mx="auto">
             <Text className={styles["card-pokemon-name"]}
             >{pokemon?.name}</Text>
             <Group align="center">
@@ -106,22 +92,22 @@ export const PokemonDetail: React.FC = () => {
               </Group>
             </Group>
 
-            <SimpleGrid cols={2}>
-              {pokemon?.stats?.map((stats: { base_stat: number; effort: number, stat: { name: string; }; }) => {
-                return (
-                  <Group>
-                    {statIcons[stats?.stat?.name] ?? <></>}
-                    <span>{stats?.base_stat}</span>
-                  </Group>
-                );
-              })}
-            </SimpleGrid>
+            <Text>
+              Evolves to: {evolveItem?.chain?.evolves_to?.[0]?.species?.name ?? "None"}
+            </Text>
+
           </Stack>
 
         </Group>
 
       </Paper>
+
       <BerriesFeeder />
+      <Code>
+        {
+          JSON.stringify(fedBerries, null, 2)
+        }
+      </Code>
     </SimpleGrid>
   );
 };

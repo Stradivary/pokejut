@@ -1,9 +1,10 @@
 import { ActionIcon, Button, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useBerryGetByName } from "../../repositories/berries";
 import { useItemGetByName } from "../../repositories/items";
+import { BerryState } from "@/services/simulator";
 
 
-export const BerryCard = ({ name, selected, onClick, detailed }: { name: string; selected?: boolean; onClick?: () => void; detailed?: boolean; }) => {
+export const BerryCard = ({ name, selected, onClick, detailed }: { name: string; selected?: boolean; onClick?: (berryState: BerryState) => void; detailed?: boolean; }) => {
   const { data: berry } = useBerryGetByName(name);
   const { data } = useItemGetByName(berry?.item?.name);
 
@@ -28,12 +29,12 @@ export const BerryCard = ({ name, selected, onClick, detailed }: { name: string;
             </Group>
           </Stack>
         </Group>
-        <Button onClick={onClick}>Feed Pokemon</Button>
+        <Button onClick={() => onClick?.(berry as BerryState)}>Feed Pokemon</Button>
 
       </SimpleGrid>
     </Paper>
   ) : (
-    <ActionIcon variant={selected ? "filled" : "light"} onClick={onClick}>
+    <ActionIcon variant={selected ? "filled" : "light"} onClick={() => onClick?.(data as BerryState)}>
       <Image
         loading="lazy"
         draggable={false}

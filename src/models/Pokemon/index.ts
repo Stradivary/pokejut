@@ -122,7 +122,7 @@ export const PokemonSchema = z.object({
     game_indices: z.array(z.object({ game_index: z.number(), version: versionSchema })),
     height: z.number(),
     held_items: z.array(z.object({ item: itemSchema, version_details: z.array(versionDetailsSchema) })),
-    id: z.number(),
+    id: z.union([z.number(), z.string()]),
     is_default: z.boolean(),
     location_area_encounters: z.string(),
     moves: z.array(moveSchema),

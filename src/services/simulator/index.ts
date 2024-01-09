@@ -1,125 +1,139 @@
 import { create } from 'zustand';
-import { Berry } from '../../models/Berries';
-import { Pokemon } from '../../models/Pokemon';
+import { v4 as uuidv4 } from 'uuid';
+import { Berry } from '@/models/Berries';
+import { Pokemon } from '@/models/Pokemon';
 import { PokemonEvolution } from "@/models/Evolution";
+import { notifications } from '@mantine/notifications';
 
 export type BerryState = Partial<Berry>;
-// Optional Pokemon properties
-export type PokemonState = {
-    fedBerries: BerryState[];
-} & Partial<Omit<Pokemon, 'weight'>> & Partial<PokemonEvolution> & { weight: number; };
 
+export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<PokemonEvolution, 'id'>> & {
+    pokeId: string;
+    fedBerries: string[];
+    weight: number;
+};
 
 export type PokemonStore = {
     selectedPokemon: PokemonState | undefined;
     pokemonList: PokemonState[];
-    setSelectedPokemon: (pokemon: PokemonState) => void;
+    setSelectedPokemon: (pokemon: PokemonState | undefined) => void;
     deleteSelectedPokemon: () => void;
-    feedPokemon: (berry: BerryState) => void;
-    getBerryGain: (firmness: string) => number;
+    catchPokemon: (pokemon: Pokemon) => void;
+    releasePokemon: (pokemonId: string) => void;
+    feedPokemon: (pokemonId: string, berry: BerryState) => void;
+    getBerryGain: (firmness?: string) => number;
     addPokemon: (pokemon: Pokemon) => void;
-    checkEvolution: (pokemon: PokemonState) => void;
-    evolvePokemon: (pokemon: PokemonState) => void;
+    checkifSelectedPokemonCanEvolve: () => void;
+    evolvePokemon: (pokemonId: string) => void;
 };
 
 export const berriesGain: Record<string, number> = {
-    'Very-soft': 20,
-    'Soft': 30,
-    'Hard': 50,
-    'Very-Hard': 80,
-    'Super-Hard': 100,
+    'very-soft': 20,
+    'soft': 30,
+    'hard': 50,
+    'very-hard': 80,
+    'super-hard': 100,
 };
 
 export const usePokemonStore = create<PokemonStore>((set) => ({
-    /// Selected pokemon
     selectedPokemon: undefined,
-    /// List of pokemon
     pokemonList: [],
-    /**
-     * Add a pokemon to the list
-     * @param pokemon pokemon to add to the list
-     */
-    addPokemon: (pokemon) => {
-        const newPokemon = {
-            ...pokemon,
-            fedBerries: [],
-        };
-        set((state) => ({ pokemonList: [...state.pokemonList, newPokemon] }));
-    },
-    /**
-     * Set the selected pokemon
-     * @param pokemon pokemon to set as selected
-     */
     setSelectedPokemon: (pokemon) => {
         set(() => ({ selectedPokemon: pokemon }));
     },
-    /**
-     * Delete the selected pokemon
-     */
     deleteSelectedPokemon: () => {
         set(() => ({ selectedPokemon: undefined }));
     },
-    /**
-     * Feed the selected pokemon with a berry
-     * @param berry berry to feed the selected pokemon
-     */
-    feedPokemon: (berry) => {
+    catchPokemon: (pokemon) => {
+        const newPokemon: PokemonState = {
+            ...pokemon,
+            pokeId: uuidv4(),
+            fedBerries: [],
+        };
+        set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
+    },
+    releasePokemon: (pokemonId) => {
+        set((state) => ({
+            pokemonList: state.pokemonList.filter((pokemon) => pokemon.pokeId !== pokemonId),
+            selectedPokemon: undefined,
+        }));
+    },
+    feedPokemon: (pokemonId, berry) => {
         set((state) => {
-            if (state.selectedPokemon) {
-                // Check for last fed berry, if it's the same firmness, the pokemon is poisoned
-                const latestFedBerry = state?.selectedPokemon?.fedBerries[state?.selectedPokemon?.fedBerries?.length - 1];
+            const selectedPokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.pokeId === pokemonId);
 
-                if (latestFedBerry && latestFedBerry?.firmness === berry?.firmness) {
-                    // Pokemon is poisoned, handle weight loss
-                    const weightLoss = state.getBerryGain(berry?.firmness?.name ?? "") * 2; // Weight loss formula
-                    state.selectedPokemon.weight -= weightLoss;
+            if (selectedPokemonIndex !== -1) {
+                const updatedPokemonList = [...state.pokemonList];
+                const selectedPokemon = { ...updatedPokemonList[selectedPokemonIndex] };
+
+                const latestFedBerry = selectedPokemon.fedBerries[selectedPokemon.fedBerries.length - 1];
+                const berryFirmness = berry.firmness?.name;
+                const weightGain = state.getBerryGain(berryFirmness);
+                if (latestFedBerry && latestFedBerry === berryFirmness) {
+                    const weightLoss = weightGain * 2;
+                    selectedPokemon.weight -= weightLoss;
+                    notifications.show({
+                        title: "Uh oh!",
+                        message: `You fed your Pokemon a berry of the same firmness, it lost ${weightLoss / 10} kg!`,
+                        color: "red",
+                        autoClose: 2000,
+                    });
+                } else {
+                    notifications.show({
+                        title: "Yay!",
+                        message: `You fed your Pokemon a berry, it gained ${weightGain / 10} kg!`,
+                        color: "teal",
+                        autoClose: 2000,
+                    });
                 }
 
-                // Update the fed berries for the selected Pokemon
-                state.selectedPokemon.fedBerries = [...[...state?.selectedPokemon?.fedBerries ?? []], berry];
+                selectedPokemon.fedBerries = [...selectedPokemon.fedBerries, berry.firmness?.name ?? ""];
+                selectedPokemon.weight += weightGain;
 
-                // Update the selected Pokemon's weight based on the berry's firmness 
-                state.selectedPokemon.weight += state.getBerryGain(berry?.firmness?.name ?? "");
+                updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
+
+                return { pokemonList: updatedPokemonList, selectedPokemon: selectedPokemon };
             }
-            // update selected pokemon to the pokemonList
-            const pokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.name === state.selectedPokemon?.name);
-            state.pokemonList[pokemonIndex] = state.selectedPokemon as PokemonState;
 
             return state;
         });
     },
-    /**
-     * Get the weight gain for a berry based on its firmness
-     * @param firmness firmness of the berry
-     * @returns weight gain for the berry, default is 1 
-     */
     getBerryGain: (firmness) => {
-        return berriesGain[firmness] ?? 1;
+        return berriesGain[firmness ?? ""] ?? 1;
     },
-    /**
-     * Check if a pokemon can evolve
-     * @param pokemon pokemon to check
-     */
-    checkEvolution: (pokemon) => {
-        const evolution = pokemon?.chain?.evolves_to?.[0]?.species?.name;
-        if (evolution && pokemon.weight >= 1000) {
-            // Pokemon can evolve
-            pokemon.name = evolution;
-        }
+    addPokemon: (pokemon) => {
+        const newPokemon: PokemonState = {
+            ...pokemon,
+            pokeId: uuidv4(),
+            fedBerries: [],
+        };
+        set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
     },
-    /**
-     * Evolve a pokemon
-     * @param pokemon pokemon to evolve
-     * @returns evolved pokemon
-        */
-    evolvePokemon: (pokemon) => {
+    checkifSelectedPokemonCanEvolve: () => {
         set((state) => {
-            // Update the pokemonList with the evolved pokemon
-            const pokemonIndex = state.pokemonList.findIndex((pokemon) => pokemon.name === state.selectedPokemon?.name);
-            state.pokemonList[pokemonIndex] = pokemon;
+            const selectedPokemon = state.selectedPokemon;
+            if (selectedPokemon) {
+                const evolution = selectedPokemon?.chain?.evolves_to?.[0];
+                notifications.show({
+                    title: "Evolution!",
+                    message: `Your ${selectedPokemon.name} evolved into ${evolution?.species?.name}!`,
+                    color: "teal",
+                    autoClose: 2000,
+                });
+            }
             return state;
         });
-    }
-}));
 
-export default usePokemonStore;
+    },
+    evolvePokemon: (pokemonId) => {
+        set((state) => {
+            const updatedPokemonList = state.pokemonList.map((pokemon) => {
+                if (pokemon.pokeId === pokemonId) {
+                    return { ...pokemon, name: pokemon?.chain?.evolves_to?.[0]?.species?.name || pokemon.name };
+                }
+                return pokemon;
+            });
+            return { pokemonList: updatedPokemonList, selectedPokemon: updatedPokemonList.find((p) => p.pokeId === pokemonId) };
+        });
+    },
+}));

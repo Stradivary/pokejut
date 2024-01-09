@@ -6,8 +6,8 @@ import {
   Ruler
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { usePokemonGetByName } from "../../repositories/pokemons";
-import usePokemonStore from "../../services/simulator";
+import { usePokemonGetByName, usePokemonGetEvolutionChain } from "../../repositories/pokemons";
+import { usePokemonStore } from "../../services/simulator";
 import { pokemonData } from "../../utils/constants";
 import style from "./style.module.scss";
 
@@ -16,6 +16,7 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
   const { addPokemon } = usePokemonStore();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
+  const { data: evolveItem } = usePokemonGetEvolutionChain(pokemon?.id.toString());
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon.type === pokemonType
@@ -124,7 +125,7 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
                   color: "blue",
                   icon: <Image src="/svgs/pokeball.svg" alt="Pokeball" />,
                 });
-                addPokemon(pokemon);
+                addPokemon({ ...pokemon, ...evolveItem });
               }
             }}
             gradient={{ from: "dark", to: color ?? "blue", deg: 350 }}

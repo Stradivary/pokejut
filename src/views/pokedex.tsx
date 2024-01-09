@@ -7,6 +7,7 @@ import { pokemonData } from '../utils/constants';
 import usePokedexViewModel from '../viewModels/usePokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {
+
     const binding = usePokedexViewModel(); // Use the custom hook
 
     if (binding?.status === 'error') {
@@ -18,13 +19,16 @@ const PokedexPage = () => {
             <Title order={1}>Pokedex</Title>
             <Group justify="space-between" mb={45}>
                 <Group>
-                    {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => (
-                        <Tooltip key={index} label={type} position="bottom" withArrow>
-                            <ActionIcon color={color} c="white" radius="xl" variant="subtle">
-                                <Image src={img} alt={type} />
-                            </ActionIcon>
-                        </Tooltip>
-                    ))}
+                    {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
+                        const isSelected = type === binding.selectedType;
+                        return (
+                            <Tooltip key={index} label={type} position="bottom" withArrow>
+                                <ActionIcon onClick={() => binding.setType(type)} color={color} c="white" size={isSelected ? "md" : "sm"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
+                                    <Image src={img} alt={type} />
+                                </ActionIcon>
+                            </Tooltip>
+                        );
+                    })}
                 </Group>
                 <TextInput leftSection={<MagnifyingGlass />} />
             </Group>
