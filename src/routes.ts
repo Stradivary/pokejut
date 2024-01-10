@@ -4,18 +4,18 @@ import { RouteObject } from "react-router-dom";
 export const routes = [
     {
         path: "/",
-        lazy: () => import("./views/_layout"),
+        lazy: () => import("./presentation/views/_layout"),
         children: [
             {
                 path: "/pokemon",
                 children: [
                     {
                         path: "/pokemon",
-                        lazy: () => import("./views/pokemon"),
+                        lazy: () => import("./presentation/views/pokemon"),
                     },
                     {
                         path: "/pokemon/:id",
-                        lazy: () => import("./views/pokemon.$id"),
+                        lazy: () => import("./presentation/views/pokemon.$id"),
                     },
                 ]
             },
@@ -24,17 +24,17 @@ export const routes = [
                 children: [
                     {
                         path: "/pokedex",
-                        lazy: () => import("./views/pokedex"),
+                        lazy: () => import("./presentation/views/pokedex"),
                     },
                     {
                         path: "/pokedex/:id",
-                        lazy: () => import("./views/pokedex.$id"),
+                        lazy: () => import("./presentation/views/pokedex.$id"),
                     },
                 ]
             },
             {
                 path: "/settings",
-                lazy: () => import("./views/settings"),
+                lazy: () => import("./presentation/views/settings"),
             }
         ],
     },

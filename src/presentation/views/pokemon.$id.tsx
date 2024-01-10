@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { PokemonDetail } from "../components/PokemonDetail";
-import { usePokemonStore } from "../services/simulator";
+import { usePokemonStore } from "@/domain/services/simulator";
 
 /**
  * Pokedex detail page

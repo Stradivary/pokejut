@@ -1,6 +1,6 @@
 import { useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Pokemon } from "../../models/Pokemon";
+import { Pokemon } from "../../schema/Pokemon";
 
 /**
  * Retrieves all the information about every Pokemon.

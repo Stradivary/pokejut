@@ -3,7 +3,7 @@ import { ActionIcon, Button, Center, Group, Image, SimpleGrid, Stack, Text, Text
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
 import CardAddPokemon from '../components/CardPokemonAdd';
-import { pokemonData } from '../utils/constants';
+import { pokemonData } from '../../utils/constants';
 import usePokedexViewModel from '../viewModels/usePokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {

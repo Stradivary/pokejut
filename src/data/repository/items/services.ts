@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { PokemonItem } from "../../models/Items";
+import { PokemonItem } from "../../schema/Items";
 
 export const useItemGetEveryting = () => {
     return useQuery({

@@ -1,6 +1,6 @@
 // PokemonItemAdapter.ts
-import { PokemonItem, pokemonItemSchema } from '../../models/Items'; // replace 'YourFileName' with the actual filename where PokemonItem is defined
-import { pokemonItemDTOSchema, PokemonItemDTO } from '../../models/Items/DTO';
+import { PokemonItem, pokemonItemSchema } from '../../schema/Items'; // replace 'YourFileName' with the actual filename where PokemonItem is defined
+import { pokemonItemDTOSchema, PokemonItemDTO } from '../../schema/Items/DTO';
 
 export class PokemonItemAdapter {
     static toDTO(item: PokemonItem): PokemonItemDTO {
