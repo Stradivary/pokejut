@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
 import { Component as AboutPage } from '../about';
 import { Component as MainPage } from '../_layout';
-import { Component as PokedexPage } from '../pokedex';
-import { Component as PokedexPokemonPage } from '../pokedex.$id';
-import { Component as SettingsPage } from '../settings';
-import { Component as PokemonPage } from '../pokemon';
+import { Component as PokedexPage } from '../pokedex/pokedex';
+import { Component as PokedexPokemonPage } from '../pokedex/pokedex.$id';
+import { Component as SettingsPage } from '../settings/settings';
+import { Component as PokemonPage } from '../pokemon/pokemon';
 import { render } from '@/tests/test-utils';
 
 describe('Component Coverage Tests', () => {

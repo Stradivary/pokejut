@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import { Link, useParams } from "react-router-dom";
-import { CardPokemon } from "../components/CardPokemon";
+import { CardPokemon } from "../../components/CardPokemon";
 
 /**
  * Pokedex detail page

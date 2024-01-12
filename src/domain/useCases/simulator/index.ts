@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
-import { Berry } from '@/models/Berries';
-import { Pokemon } from '@/models/Pokemon';
-import { PokemonEvolution } from "@/models/Evolution";
+import { Berry } from '@/domain/models/Berries';
+import { Pokemon } from '@/domain/models/Pokemon';
+import { PokemonEvolution } from "@/domain/models/Evolution";
 import { notifications } from '@mantine/notifications';
 
 export type BerryState = Partial<Berry>;

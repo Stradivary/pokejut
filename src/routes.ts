@@ -11,11 +11,11 @@ export const routes = [
                 children: [
                     {
                         path: "/pokemon",
-                        lazy: () => import("./presentation/views/pokemon"),
+                        lazy: () => import("./presentation/views/pokemon/pokemon"),
                     },
                     {
                         path: "/pokemon/:id",
-                        lazy: () => import("./presentation/views/pokemon.$id"),
+                        lazy: () => import("./presentation/views/pokemon/pokemon.$id"),
                     },
                 ]
             },
@@ -24,17 +24,17 @@ export const routes = [
                 children: [
                     {
                         path: "/pokedex",
-                        lazy: () => import("./presentation/views/pokedex"),
+                        lazy: () => import("./presentation/views/pokedex/pokedex"),
                     },
                     {
                         path: "/pokedex/:id",
-                        lazy: () => import("./presentation/views/pokedex.$id"),
+                        lazy: () => import("./presentation/views/pokedex/pokedex.$id"),
                     },
                 ]
             },
             {
                 path: "/settings",
-                lazy: () => import("./presentation/views/settings"),
+                lazy: () => import("./presentation/views/settings/settings"),
             }
         ],
     },

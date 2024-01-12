@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useIntersection } from '@mantine/hooks';
-import { usePokemonInfiniteGetAll } from '@/data/repository/pokemons';
+import { useEffect, useState } from "react";
+import { useIntersection } from "@mantine/hooks";
+import { usePokemonInfiniteGetAll } from "@/domain/repository/pokemons";
 
 const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
@@ -14,7 +14,7 @@ const usePokedexViewModel = () => {
     hasNextPage,
   } = usePokemonInfiniteGetAll({ limit: 10 });
 
-  const [selectedType, setType] = useState<string>('');
+  const [selectedType, setType] = useState<string>("");
 
   useEffect(() => {
     if (entry?.isIntersecting) {

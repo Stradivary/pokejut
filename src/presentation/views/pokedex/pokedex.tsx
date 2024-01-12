@@ -2,9 +2,9 @@
 import { ActionIcon, Button, Center, Group, Image, SimpleGrid, Stack, Text, TextInput, Title, Tooltip } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
-import CardAddPokemon from '../components/CardPokemonAdd';
-import { pokemonData } from '../../utils/constants';
-import usePokedexViewModel from '../viewModels/usePokedexViewModel'; // Import the custom hook
+import CardAddPokemon from '../../components/CardPokemonAdd';
+import { pokemonData } from '../../../utils/constants';
+import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {
 

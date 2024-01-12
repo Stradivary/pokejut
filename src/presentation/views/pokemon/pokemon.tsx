@@ -1,6 +1,6 @@
 import { Stack, Title } from "@mantine/core";
-import { PokemonCollection } from "../components/PokemonCollection";
-import { usePokemonStore } from "@/domain/services/simulator";
+import { PokemonCollection } from "../../components/PokemonCollection";
+import { usePokemonStore } from "@/domain/useCases/simulator";
 
 export function Component() {
     const { pokemonList } = usePokemonStore();
