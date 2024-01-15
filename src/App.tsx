@@ -1,6 +1,6 @@
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-import './styles/index.scss';
+import '@/assets/styles/index.scss';
 
 
 import { MantineProvider } from '@mantine/core';

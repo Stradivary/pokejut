@@ -1,22 +1,35 @@
-
-import { Button, Center, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import {
-  Barbell,
-  Ruler
-} from "@phosphor-icons/react";
+  Button,
+  Center,
+  Group,
+  Image,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { Barbell, Ruler } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { usePokemonGetByName, usePokemonGetEvolutionChain } from "../../repositories/pokemons";
-import { usePokemonStore } from "../../services/simulator";
-import { pokemonData } from "../../utils/constants";
+import { usePokemonStore } from "@/domain/useCases/simulator";
+import {
+  usePokemonGetByName,
+  usePokemonGetEvolutionChain,
+} from "@/domain/repository/pokemons";
+import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
 
-
-export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }) {
+export default function CardAddPokemon({
+  pokemonName,
+}: {
+  pokemonName: string;
+}) {
   const { addPokemon } = usePokemonStore();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const { data: evolveItem } = usePokemonGetEvolutionChain(pokemon?.id.toString());
+  const { data: evolveItem } = usePokemonGetEvolutionChain(
+    pokemon?.id.toString()
+  );
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon.type === pokemonType
@@ -44,7 +57,6 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
   //   speed: <Gauge size={24} weight="duotone" alt="speed" />,
   // };
 
-
   return (
     <Paper
       className={style.cardAddPokemon}
@@ -67,21 +79,25 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
           }
           alt={"Selected Pokemon " + pokemon?.name}
         />
-        <Stack gap={16} >
-          <Text className={style.pokemonName} px={20}>{pokemon?.name}</Text>
-          <Group align="center" justify="center" >
-            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
-              return (
-                <Image
-                  loading="lazy"
-                  key={`${pokemon?.name}-${type.type.name}-${i}`}
-                  draggable={false}
-                  w={40}
-                  src={`/types/${type.type.name}.svg`}
-                  alt=""
-                />
-              );
-            })}
+        <Stack gap={16}>
+          <Text className={style.pokemonName} px={20}>
+            {pokemon?.name}
+          </Text>
+          <Group align="center" justify="center">
+            {pokemon?.types.map(
+              (type: { type: { name: string } }, i: number) => {
+                return (
+                  <Image
+                    loading="lazy"
+                    key={`${pokemon?.name}-${type.type.name}-${i}`}
+                    draggable={false}
+                    w={40}
+                    src={`/types/${type.type.name}.svg`}
+                    alt=""
+                  />
+                );
+              }
+            )}
           </Group>
           <Group gap={16} justify="center" wrap="nowrap">
             <Group wrap="nowrap">
@@ -112,7 +128,6 @@ export default function CardAddPokemon({ pokemonName }: { pokemonName: string; }
           </SimpleGrid> */}
         </Stack>
         <Center>
-
           <Button
             type="button"
             className={style["btn-choose"]}

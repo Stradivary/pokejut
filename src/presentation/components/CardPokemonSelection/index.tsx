@@ -5,10 +5,11 @@ import {
 } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePokemonGetByName } from "../../repositories/pokemons";
-import { usePokemonStore } from "../../services/simulator";
-import { pokemonData } from "../../utils/constants";
+
+import { usePokemonGetByName } from "@/domain/repository/pokemons";
+import { pokemonData } from "@/utils/constants";
 import styles from "./style.module.scss";
+import { usePokemonStore } from "@/domain/useCases/simulator";
 
 export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; }> = ({ pokemonName, index }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);

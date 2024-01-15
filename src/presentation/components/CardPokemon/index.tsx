@@ -10,8 +10,8 @@ import {
   Sword,
 } from "@phosphor-icons/react";
 import React, { ReactNode, useEffect, useState } from "react";
-import { usePokemonGetByName } from "../../repositories/pokemons";
-import { pokemonData } from "../../utils/constants";
+import { usePokemonGetByName } from "@/domain/repository/pokemons";
+import { pokemonData } from "@/utils/constants";
 import "./style.module.scss";
 
 export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }) => {

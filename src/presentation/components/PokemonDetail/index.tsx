@@ -1,14 +1,19 @@
-import { usePokemonGetEvolutionChain } from "@/repositories/pokemons";
-import { Code, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
-  Barbell,
-  Ruler
-} from "@phosphor-icons/react";
+  Code,
+  Group,
+  Image,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { Barbell, Ruler } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
-import { PokemonState, usePokemonStore } from "../../services/simulator";
-import { pokemonData } from "../../utils/constants";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
+import { pokemonData } from "@/utils/constants";
+import { usePokemonGetEvolutionChain } from "@/domain/repository/pokemons";
+import { usePokemonStore, PokemonState } from "@/domain/useCases/simulator";
 
 function getColorByType(pokemonType: string) {
   const foundPokemon = pokemonData.find(
@@ -23,14 +28,17 @@ function getColorByType(pokemonType: string) {
 
 export const PokemonDetail: React.FC = () => {
   const { selectedPokemon: pokemonState } = usePokemonStore();
-  const { data: evolveItem } = usePokemonGetEvolutionChain(pokemonState?.id?.toString() ?? "");
+  const { data: evolveItem } = usePokemonGetEvolutionChain(
+    pokemonState?.id?.toString() ?? ""
+  );
   const [color, setColor] = useState<string | undefined>("#fff");
-  const { weight, fedBerries, ...pokemon } = pokemonState ?? {} as PokemonState;
+  const { weight, fedBerries, ...pokemon } =
+    pokemonState ?? ({} as PokemonState);
   useEffect(() => {
-    const Color = getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
+    const Color =
+      getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
     setColor(Color);
   }, [pokemonState]);
-
 
   return (
     <SimpleGrid cols={{ base: 1, md: 2 }}>
@@ -39,7 +47,7 @@ export const PokemonDetail: React.FC = () => {
         style={{
           marginTop: 40,
           backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
-          viewTransitionName: "pokemon-card"
+          viewTransitionName: "pokemon-card",
         }}
       >
         <Group align="center" mx="auto">
@@ -48,33 +56,34 @@ export const PokemonDetail: React.FC = () => {
             draggable={false}
             className={styles["card-pokemon-img"]}
             style={{
-              viewTransitionName: "pokemon-image"
+              viewTransitionName: "pokemon-image",
             }}
             src={
               pokemon?.sprites?.other["official-artwork"]?.front_default
                 ? pokemon?.sprites?.other["official-artwork"]?.front_default
                 : pokemon?.sprites?.other?.home?.front_default
-                  ? pokemon?.sprites?.other?.home?.front_default
-                  : "pokenull.png"
+                ? pokemon?.sprites?.other?.home?.front_default
+                : "pokenull.png"
             }
             alt="Pokémon selecionado"
           />
           <Stack my={24} align="center" mx="auto">
-            <Text className={styles["card-pokemon-name"]}
-            >{pokemon?.name}</Text>
+            <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
             <Group align="center">
-              {pokemon?.types?.map((type: { type: { name: string; }; }, i: number) => {
-                return (
-                  <Image
-                    loading="lazy"
-                    key={i}
-                    draggable={false}
-                    w={40}
-                    src={`/types/${type.type.name}.svg`}
-                    alt=""
-                  />
-                );
-              })}
+              {pokemon?.types?.map(
+                (type: { type: { name: string } }, i: number) => {
+                  return (
+                    <Image
+                      loading="lazy"
+                      key={i}
+                      draggable={false}
+                      w={40}
+                      src={`/types/${type.type.name}.svg`}
+                      alt=""
+                    />
+                  );
+                }
+              )}
             </Group>
             <Group>
               <Group align="center">
@@ -85,30 +94,21 @@ export const PokemonDetail: React.FC = () => {
               </Group>
 
               <Group align="center">
-                <Text className="pokemon-stats">
-                  {(weight ?? 0) / 10} Kg
-                </Text>
+                <Text className="pokemon-stats">{(weight ?? 0) / 10} Kg</Text>
                 <Barbell size={24} weight="duotone" />
               </Group>
             </Group>
 
             <Text>
-              Evolves to: {evolveItem?.chain?.evolves_to?.[0]?.species?.name ?? "None"}
+              Evolves to:{" "}
+              {evolveItem?.chain?.evolves_to?.[0]?.species?.name ?? "None"}
             </Text>
-
           </Stack>
-
         </Group>
-
       </Paper>
 
       <BerriesFeeder />
-      <Code>
-        {
-          JSON.stringify(fedBerries, null, 2)
-        }
-      </Code>
+      <Code>{JSON.stringify(fedBerries, null, 2)}</Code>
     </SimpleGrid>
   );
 };
-
