@@ -1,14 +1,14 @@
 import { Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { PokemonDetail } from "../../components/PokemonDetail";
-import { usePokemonStore } from "@/domain/useCases/simulator";
+import { useSimulator } from "@/domain/useCases/simulator";
 
 /**
  * Pokedex detail page
  * @returns Pokedex detail page
  */
 export function Component() {
-    const { pokemonList } = usePokemonStore();
+    const { pokemonList } = useSimulator();
     if (pokemonList.length === 0) {
         return (
             <div style={{ width: "100%" }}>

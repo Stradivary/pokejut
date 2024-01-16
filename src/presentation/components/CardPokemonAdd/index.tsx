@@ -11,7 +11,7 @@ import {
 import { notifications } from "@mantine/notifications";
 import { Barbell, Ruler } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { usePokemonStore } from "@/domain/useCases/simulator";
+import { useSimulator } from "@/domain/useCases/simulator";
 import {
   usePokemonGetByName,
   usePokemonGetEvolutionChain,
@@ -24,7 +24,7 @@ export default function CardAddPokemon({
 }: {
   pokemonName: string;
 }) {
-  const { addPokemon } = usePokemonStore();
+  const { addPokemon } = useSimulator();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const { data: evolveItem } = usePokemonGetEvolutionChain(

@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
-import { Berry } from '@/domain/models/Berries';
-import { Pokemon } from '@/domain/models/Pokemon';
-import { PokemonEvolution } from "@/domain/models/Evolution";
+import { Berry } from '@/domain/entities/Berries';
+import { Pokemon } from '@/domain/entities/Pokemon';
+import { PokemonEvolution } from "@/domain/entities/Evolution";
 import { notifications } from '@mantine/notifications';
+import { getBerryGain } from '../berry';
 
 export type BerryState = Partial<Berry>;
 
@@ -21,7 +22,6 @@ export type PokemonStore = {
     catchPokemon: (pokemon: Pokemon) => void;
     releasePokemon: (pokemonId: string) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
-    getBerryGain: (firmness?: string) => number;
     addPokemon: (pokemon: Pokemon) => void;
     checkifSelectedPokemonCanEvolve: () => void;
     evolvePokemon: (pokemonId: string) => void;
@@ -35,7 +35,7 @@ export const berriesGain: Record<string, number> = {
     'super-hard': 100,
 };
 
-export const usePokemonStore = create<PokemonStore>((set) => ({
+export const useSimulator = create<PokemonStore>((set) => ({
     selectedPokemon: undefined,
     pokemonList: [],
     setSelectedPokemon: (pokemon) => {
@@ -68,7 +68,7 @@ export const usePokemonStore = create<PokemonStore>((set) => ({
 
                 const latestFedBerry = selectedPokemon.fedBerries[selectedPokemon.fedBerries.length - 1];
                 const berryFirmness = berry.firmness?.name;
-                const weightGain = state.getBerryGain(berryFirmness);
+                const weightGain = getBerryGain(berryFirmness);
                 if (latestFedBerry && latestFedBerry === berryFirmness) {
                     const weightLoss = weightGain * 2;
                     selectedPokemon.weight -= weightLoss;
@@ -97,9 +97,6 @@ export const usePokemonStore = create<PokemonStore>((set) => ({
 
             return state;
         });
-    },
-    getBerryGain: (firmness) => {
-        return berriesGain[firmness ?? ""] ?? 1;
     },
     addPokemon: (pokemon) => {
         const newPokemon: PokemonState = {

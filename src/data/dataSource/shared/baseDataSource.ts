@@ -1,12 +1,12 @@
 import { get } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
 
-export interface IPokeAPIDataSource {
+export interface BaseRemoteDataSource {
     getAll(params: AxiosRequestConfig<any>): Promise<void>;
     getOne(id: string, params: AxiosRequestConfig<any>): Promise<void>;
 }
-export class PokeAPIDataSource implements IPokeAPIDataSource {
-    
+export class BaseRemoteDataSource implements BaseRemoteDataSource {
+
     public baseUrl = 'https://pokeapi.co/api/v2/';
 
     private entity: string;
@@ -16,9 +16,9 @@ export class PokeAPIDataSource implements IPokeAPIDataSource {
     }
 
     async getAll(params: AxiosRequestConfig<any>): Promise<any> {
-        return get(this.baseUrl + this.entity, params)
+        return get(this.baseUrl + this.entity, params);
     }
     async getOne(id: string, params: AxiosRequestConfig<any>): Promise<any> {
-        return get(this.baseUrl + this.entity + '/' + id, params)
+        return get(this.baseUrl + this.entity + '/' + id, params);
     }
 }

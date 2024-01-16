@@ -1,6 +1,6 @@
 // PokemonAdapter.ts
-import { Pokemon, PokemonSchema } from '../../models/Pokemon'; // replace 'YourFileName' with the actual filename where Pokemon is defined
-import { pokemonDTOSchema, PokemonDTO } from '../../models/Pokemon/DTO';
+import { Pokemon, PokemonSchema } from '../../entities/Pokemon'; // replace 'YourFileName' with the actual filename where Pokemon is defined
+import { pokemonDTOSchema, PokemonDTO } from '../../entities/Pokemon/DTO';
 
 export class PokemonAdapter {
     static toDTO(item: Pokemon): PokemonDTO {

@@ -2,7 +2,7 @@ import { Paper, ScrollArea, Text } from "@mantine/core";
 import { useState } from "react";
 import { useBerryGetAll } from "@/domain/repository/berries";
 import { BerryCard } from "./BerryCard";
-import { usePokemonStore } from "@/domain/useCases/simulator";
+import { useSimulator } from "@/domain/useCases/simulator";
 
 export const BerriesFeeder = () => {
   const { data } = useBerryGetAll({
@@ -10,7 +10,7 @@ export const BerriesFeeder = () => {
     offset: 0,
   });
   const [selectedBerry, setSelectedBerry] = useState<string>("");
-  const { feedPokemon, selectedPokemon: pokemonState } = usePokemonStore();
+  const { feedPokemon, selectedPokemon: pokemonState } = useSimulator();
   return (
     <Paper>
       <Text mb={8}>Berries Feeder</Text>

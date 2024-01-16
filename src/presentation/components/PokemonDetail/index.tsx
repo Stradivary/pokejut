@@ -13,7 +13,7 @@ import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
 import { pokemonData } from "@/utils/constants";
 import { usePokemonGetEvolutionChain } from "@/domain/repository/pokemons";
-import { usePokemonStore, PokemonState } from "@/domain/useCases/simulator";
+import { useSimulator, PokemonState } from "@/domain/useCases/simulator";
 
 function getColorByType(pokemonType: string) {
   const foundPokemon = pokemonData.find(
@@ -27,7 +27,7 @@ function getColorByType(pokemonType: string) {
 }
 
 export const PokemonDetail: React.FC = () => {
-  const { selectedPokemon: pokemonState } = usePokemonStore();
+  const { selectedPokemon: pokemonState } = useSimulator();
   const { data: evolveItem } = usePokemonGetEvolutionChain(
     pokemonState?.id?.toString() ?? ""
   );

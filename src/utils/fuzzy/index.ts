@@ -1,7 +1,3 @@
-// implement fuzzy search from list of strings
-
-// Path: src/utils/fuzzy/index.ts
-
 export const fuzzy = (search: string, list: string[]) => {
     const results: { [key: string]: number } = {};
 

@@ -1,6 +1,6 @@
 import { beforeEach, describe, vi, it, expect } from "vitest";
 import { PokemonStore, PokemonState, BerryState } from ".";
-import { Pokemon } from "@/domain/models/Pokemon";
+import { Pokemon } from "@/domain/entities/Pokemon";
 
 describe("PokemonStore", () => {
   let store: PokemonStore;
@@ -13,7 +13,6 @@ describe("PokemonStore", () => {
       setSelectedPokemon: vi.fn(),
       deleteSelectedPokemon: vi.fn(),
       feedPokemon: vi.fn(),
-      getBerryGain: vi.fn(),
       addPokemon: vi.fn(),
       catchPokemon: vi.fn(),
       releasePokemon: vi.fn(),
@@ -46,11 +45,6 @@ describe("PokemonStore", () => {
     expect(store.feedPokemon).toHaveBeenCalledWith(berry);
   });
 
-  it("should get berry gain", () => {
-    const firmness = "hard";
-    store.getBerryGain(firmness);
-    expect(store.getBerryGain).toHaveBeenCalledWith(firmness);
-  });
 
   it("should add pokemon", () => {
     const pokemon = {
