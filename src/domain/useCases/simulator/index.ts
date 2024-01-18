@@ -24,7 +24,7 @@ export type PokemonStore = {
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
     checkifSelectedPokemonCanEvolve: () => void;
-    evolvePokemon: (pokemonId: string) => void;
+    evolveSelectedPokemon: () => void;
 };
 
 export const berriesGain: Record<string, number> = {
@@ -74,14 +74,14 @@ export const useSimulator = create<PokemonStore>((set) => ({
                     selectedPokemon.weight -= weightLoss;
                     notifications.show({
                         title: "Uh oh!",
-                        message: `You fed your Pokemon a berry of the same firmness, it lost ${weightLoss / 10} kg!`,
+                        message: `You fed your Pokemon a berry of the same firmness, it lost ${weightLoss} kg!`,
                         color: "red",
                         autoClose: 2000,
                     });
                 } else {
                     notifications.show({
                         title: "Yay!",
-                        message: `You fed your Pokemon a berry, it gained ${weightGain / 10} kg!`,
+                        message: `You fed your Pokemon a berry, it gained ${weightGain} kg!`,
                         color: "teal",
                         autoClose: 2000,
                     });
@@ -122,15 +122,19 @@ export const useSimulator = create<PokemonStore>((set) => ({
         });
 
     },
-    evolvePokemon: (pokemonId) => {
+    evolveSelectedPokemon: () => {
         set((state) => {
-            const updatedPokemonList = state.pokemonList.map((pokemon) => {
-                if (pokemon.pokeId === pokemonId) {
-                    return { ...pokemon, name: pokemon?.chain?.evolves_to?.[0]?.species?.name || pokemon.name };
-                }
-                return pokemon;
-            });
-            return { pokemonList: updatedPokemonList, selectedPokemon: updatedPokemonList.find((p) => p.pokeId === pokemonId) };
+            const selectedPokemon = state.selectedPokemon;
+            if (selectedPokemon) {
+                const evolution = selectedPokemon?.chain?.evolves_to?.[0];
+                notifications.show({
+                    title: "Evolution!",
+                    message: `Your ${selectedPokemon.name} evolved into ${evolution?.species?.name}!`,
+                    color: "teal",
+                    autoClose: 2000,
+                });
+            }
+            return state;
         });
     },
 }));

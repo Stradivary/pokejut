@@ -1,7 +1,8 @@
-import { Button } from "@mantine/core";
+import { Button, Code } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { PokemonDetail } from "../../components/PokemonDetail";
 import { useSimulator } from "@/domain/useCases/simulator";
+import { EvolutionChain } from "./EvolutionChain";
 
 /**
  * Pokedex detail page
@@ -25,14 +26,13 @@ export function Component() {
     }
     return (
         <div style={{ width: "100%" }}>
-            <Link to=".." unstable_viewTransition>
-                <Button  >
-                    Back
-                </Button>
-            </Link>
+            <Button m="md" component={Link} to=".." >
+                Back
+            </Button>
 
             <PokemonDetail />
 
+            <EvolutionChain />
         </div>
     );
 }

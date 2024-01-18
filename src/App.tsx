@@ -21,7 +21,7 @@ function App() {
       <ModalsProvider>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
-          <Notifications withinPortal />
+          <Notifications withinPortal position='top-right' />
         </QueryClientProvider>
       </ModalsProvider>
     </MantineProvider>

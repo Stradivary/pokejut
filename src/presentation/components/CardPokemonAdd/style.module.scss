@@ -30,20 +30,20 @@
 
 .cardPokemonImg {
   position: relative;
-  top: -30px;
+  // top: -30px;
   width: auto;
-  margin-inline: 20px;
-  transform: scale(1.5);
+  margin-inline: 10px;
+  transform: scale(0.7);
   filter: saturate(1.9);
 
   @media screen and (max-width: 1224px) {
     width: 200px;
-    transform: scale(1.2);
+    transform: scale(1);
     top: -60px;
   }
 
   @media screen and (max-width: 480px) {
-    transform: scale(0.8);
+    transform: scale(0.4);
     top: 12px;
     left: -40px;
   }
@@ -52,7 +52,7 @@
 .pokemonName {
   position: relative;
   font-size: clamp(1.725rem, 5vw, 2rem);
-  line-height: 120%;
+  line-height: 100%;
   text-align: center;
   text-transform: capitalize;
   margin-top: auto;
@@ -60,10 +60,10 @@
 
 .pokemonName::before {
   left: -18px;
-  transform: translateY(-50%);
+  transform: translateY(-20%);
 }
 
 .pokemonName::after {
   right: -18px;
-  transform: translateY(-50%);
+  transform: translateY(-20%);
 }

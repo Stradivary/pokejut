@@ -1,4 +1,5 @@
 import {
+  Badge,
   Code,
   Group,
   Image,
@@ -6,6 +7,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
 import { Barbell, Ruler } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
@@ -26,6 +28,14 @@ function getColorByType(pokemonType: string) {
   }
 }
 
+const firmnesColor: Record<string, string> = {
+  "very-soft": "blue",
+  soft: "green",
+  hard: "yellow",
+  "very-hard": "orange",
+  "super-hard": "red",
+};
+
 export const PokemonDetail: React.FC = () => {
   const { selectedPokemon: pokemonState } = useSimulator();
   const { data: evolveItem } = usePokemonGetEvolutionChain(
@@ -41,8 +51,9 @@ export const PokemonDetail: React.FC = () => {
   }, [pokemonState]);
 
   return (
-    <SimpleGrid cols={{ base: 1, md: 2 }}>
+    <SimpleGrid px="md" cols={{ base: 1, md: 2 }}>
       <Paper
+        
         className={styles["card-pokemon"]}
         style={{
           marginTop: 40,
@@ -62,8 +73,8 @@ export const PokemonDetail: React.FC = () => {
               pokemon?.sprites?.other["official-artwork"]?.front_default
                 ? pokemon?.sprites?.other["official-artwork"]?.front_default
                 : pokemon?.sprites?.other?.home?.front_default
-                ? pokemon?.sprites?.other?.home?.front_default
-                : "pokenull.png"
+                  ? pokemon?.sprites?.other?.home?.front_default
+                  : "pokenull.png"
             }
             alt="Pokémon selecionado"
           />
@@ -71,7 +82,7 @@ export const PokemonDetail: React.FC = () => {
             <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
             <Group align="center">
               {pokemon?.types?.map(
-                (type: { type: { name: string } }, i: number) => {
+                (type: { type: { name: string; }; }, i: number) => {
                   return (
                     <Image
                       loading="lazy"
@@ -88,13 +99,13 @@ export const PokemonDetail: React.FC = () => {
             <Group>
               <Group align="center">
                 <Text className="pokemon-stats">
-                  {(pokemon?.height ?? 0) / 10} M
+                  {(pokemon?.height ?? 0)} M
                 </Text>
                 <Ruler size={24} weight="duotone" />
               </Group>
 
               <Group align="center">
-                <Text className="pokemon-stats">{(weight ?? 0) / 10} Kg</Text>
+                <Text className="pokemon-stats">{(weight ?? 0)} Kg</Text>
                 <Barbell size={24} weight="duotone" />
               </Group>
             </Group>
@@ -108,7 +119,23 @@ export const PokemonDetail: React.FC = () => {
       </Paper>
 
       <BerriesFeeder />
-      <Code>{JSON.stringify(fedBerries, null, 2)}</Code>
+      <Stack>
+        <Title order={5} style={{ textAlign: "center" }}>
+          Your last fed berries
+        </Title>
+        <Group>
+          {
+            fedBerries && fedBerries.length > 0 ? (
+              fedBerries.map((berry) => {
+                return (<Badge color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
+                );
+              })
+            ) : (
+              <Text>No berries fed</Text>
+            )
+          }
+        </Group>
+      </Stack>
     </SimpleGrid>
   );
 };

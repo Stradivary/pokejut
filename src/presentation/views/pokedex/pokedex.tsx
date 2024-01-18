@@ -1,9 +1,9 @@
 // PokedexPage.js
-import { ActionIcon, Button, Center, Group, Image, SimpleGrid, Stack, Text, TextInput, Title, Tooltip } from '@mantine/core';
+import CardAddPokemon from '@/presentation/components/CardPokemonAdd';
+import { pokemonData } from '@/utils/constants';
+import { ActionIcon, Button, Center, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
-import CardAddPokemon from '../../components/CardPokemonAdd';
-import { pokemonData } from '../../../utils/constants';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {
@@ -15,29 +15,31 @@ const PokedexPage = () => {
     }
 
     return (
-        <Stack>
+        <Stack p={10}>
             <Title order={1}>Pokedex</Title>
             <Group justify="space-between" mb={45}>
-                <Group>
-                    {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
-                        const isSelected = type === binding.selectedType;
-                        return (
-                            <Tooltip key={index} label={type} position="bottom" withArrow>
-                                <ActionIcon onClick={() => binding.setType(type)} color={color} c="white" size={isSelected ? "md" : "sm"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
-                                    <Image src={img} alt={type} />
-                                </ActionIcon>
-                            </Tooltip>
-                        );
-                    })}
-                </Group>
-                <TextInput leftSection={<MagnifyingGlass />} />
+                <ScrollArea h={48} w="calc(100vw - 20px)"  >
+                    <Group wrap='nowrap'>
+                        {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
+                            const isSelected = type === binding.selectedType;
+                            return (
+                                <Tooltip key={index} label={type} position="bottom" withArrow>
+                                    <ActionIcon onClick={() => binding.setType(type)} color={color} c="white" size={isSelected ? "lg" : "md"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
+                                        <Image width={32} src={img} alt={type} />
+                                    </ActionIcon>
+                                </Tooltip>
+                            );
+                        })}
+                    </Group>
+                </ScrollArea>
+                <TextInput value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<MagnifyingGlass />} />
             </Group>
 
-            <SimpleGrid mt={32} verticalSpacing={56} spacing={12} cols={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}>
+            <SimpleGrid w={{ base: "calc(100vw - 20px)", md: "calc(75vw - calc(var(--app-shell-footer-offset, 0px) - var(--app-shell-padding)))" }} mt={32} verticalSpacing={56} spacing={12} cols={{ xs: 2, sm: 2, md: 2, lg: 3, xl: 3 }}>
                 {binding?.data?.pages?.map((page: { results: { name: string; }[]; }, index: number) => (
                     <React.Fragment key={index + '- page'}>
                         {page?.results?.map(({ name }: { name: string; }) => (
-                            <CardAddPokemon pokemonName={name} />
+                            <CardAddPokemon pokemonName={name} visibleType={binding.selectedType} />
                         ))}
                     </React.Fragment>
                 ))}
@@ -49,7 +51,7 @@ const PokedexPage = () => {
                     loading={binding?.isFetchingNextPage}
                     disabled={!binding?.hasNextPage}
                 >
-                    {binding?.isFetchingNextPage ? 'Menampilkan lebih bunknownak...' : binding?.hasNextPage ? 'Tampilkan lebih bunknownak' : 'Semua Pokemon ditampilkan'}
+                    {binding?.isFetchingNextPage ? 'Menampilkan lebih banyak...' : binding?.hasNextPage ? 'Tampilkan lebih banyak' : 'Semua Pokemon ditampilkan'}
                 </Button>
             </Center>
             <Center>

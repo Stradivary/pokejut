@@ -1,10 +1,11 @@
-import { PokeAPIDataSource } from "@/data/dataSource/pokeApiDataSource";
+
+import { BaseRemoteDataSource } from "@/data/dataSource/shared/baseDataSource";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const entity = 'berries';
 
-const pokeApiDataSource = new PokeAPIDataSource('berries');
+const pokeApiDataSource = new BaseRemoteDataSource('berry');
 
 const berryOptions = (action: string, params: any, fn: () => Promise<any>) => {
     return queryOptions({

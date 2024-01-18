@@ -104,14 +104,14 @@ export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }
           <Group>
             <Group align="center">
               <Text className="pokemon-stats">
-                {(pokemon?.height ?? 0) / 10} M
+                {(pokemon?.height ?? 0)} M
               </Text>
               <Ruler size={24} weight="duotone" />
             </Group>
 
             <Group align="center">
               <Text className="pokemon-stats">
-                {(pokemon?.weight ?? 0) / 10} Kg
+                {(pokemon?.weight ?? 0)} Kg
               </Text>
               <Barbell size={24} weight="duotone" />
             </Group>

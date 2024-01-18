@@ -21,8 +21,10 @@ import style from "./style.module.scss";
 
 export default function CardAddPokemon({
   pokemonName,
+  visibleType,
 }: {
   pokemonName: string;
+  visibleType: string;
 }) {
   const { addPokemon } = useSimulator();
   const [color, setColor] = useState<string | undefined>("#fff");
@@ -48,6 +50,12 @@ export default function CardAddPokemon({
     }
   }, [pokemon]);
 
+  if (visibleType !== "" && pokemon) {
+    if (!pokemon.types.some(({ type }) => type.name === visibleType)) {
+      return <></>;
+    }
+  }
+
   // const statIcons: Record<string, ReactNode> = {
   //   hp: <Heartbeat size={24} weight="duotone" alt="hit points" />,
   //   attack: <HandFist size={24} weight="duotone" alt="attack" />,
@@ -66,11 +74,10 @@ export default function CardAddPokemon({
       }}
       p={16}
     >
-      <SimpleGrid cols={{ base: 2, xs: 3, sm: 2, md: 1, lg: 1 }}>
+      <SimpleGrid cols={{ base: 1, xs: 1, sm: 1, md: 1, lg: 1 }}>
         <Image
           loading="lazy"
           draggable={false}
-          height={200}
           className={style.cardPokemonImg}
           src={
             pokemon?.sprites?.other["official-artwork"].front_default
@@ -85,7 +92,7 @@ export default function CardAddPokemon({
           </Text>
           <Group align="center" justify="center">
             {pokemon?.types.map(
-              (type: { type: { name: string } }, i: number) => {
+              (type: { type: { name: string; }; }, i: number) => {
                 return (
                   <Image
                     loading="lazy"
@@ -102,14 +109,14 @@ export default function CardAddPokemon({
           <Group gap={16} justify="center" wrap="nowrap">
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {(pokemon?.height ?? 0) / 10} M
+                {(pokemon?.height ?? 0)} M
               </Text>
               <Ruler size={16} weight="duotone" />
             </Group>
 
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {(pokemon?.weight ?? 0) / 10} Kg
+                {(pokemon?.weight ?? 0)} Kg
               </Text>
               <Barbell size={16} weight="duotone" />
             </Group>

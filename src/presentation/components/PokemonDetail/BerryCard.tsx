@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
 
 export const BerryCard = ({
@@ -28,24 +29,27 @@ export const BerryCard = ({
 
   return detailed ? (
     <Paper>
-      <Text mb={16} className="pokemon-stats">
+      <Title order={5} mb={16} className="pokemon-stats">
         Berries Detail
-      </Text>
+      </Title>
       <SimpleGrid cols={{ base: 1, md: 2 }}>
-        <Group>
-          <Image
-            w={32}
-            loading="lazy"
-            draggable={false}
-            src={data?.sprites?.default ? data?.sprites?.default : ""}
-          />
-          <Stack my={24}>
-            <Text>{berry?.name}</Text>
-            <Group align="center">
-              <Text className="pokemon-stats">{berry?.firmness?.name}</Text>
-            </Group>
-          </Stack>
-        </Group>
+        <Paper p={10} withBorder radius="lg">
+          <Group gap={20}>
+            <Image
+              width={64}
+              height={64}
+              loading="lazy"
+              draggable={false}
+              src={data?.sprites?.default ? data?.sprites?.default : ""}
+            />
+            <Stack my={24}>
+              <Text>{berry?.name}</Text>
+              <Group align="center">
+                <Text className="pokemon-stats">{berry?.firmness?.name}</Text>
+              </Group>
+            </Stack>
+          </Group>
+        </Paper>
         <Button onClick={() => onClick?.(berry as BerryState)}>
           Feed Pokemon
         </Button>
@@ -55,10 +59,13 @@ export const BerryCard = ({
     <ActionIcon
       variant={selected ? "filled" : "light"}
       onClick={() => onClick?.(data as BerryState)}
+      size="xl"
     >
       <Image
         loading="lazy"
-        draggable={false}
+        width={48}
+        height={48}
+        draggable={false} 
         src={data?.sprites?.default ? data?.sprites?.default : "pokenull.png"}
       />
     </ActionIcon>

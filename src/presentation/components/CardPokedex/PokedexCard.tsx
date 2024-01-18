@@ -1,4 +1,4 @@
-import { Card } from "@mantine/core";
+import { Card, Title, Tooltip } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { usePokemonGetByName } from "@/domain/repository/pokemons";
@@ -7,10 +7,8 @@ import "./style.scss";
 
 export default function CardPokedex({
   pokemonName,
-  isTransitioning,
 }: {
   pokemonName: string;
-  isTransitioning: boolean;
 }) {
   const [color, setColor] = useState<string | null>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
@@ -33,15 +31,9 @@ export default function CardPokedex({
   }, [pokemon]);
 
   return (
-    <Card
-      component={Link}
-      to={`/pokedex/${pokemon?.name}`}
-      style={{
-        textDecoration: "none",
-        viewTransitionName: isTransitioning ? "pokemon-card" : "",
-      }}
-    >
-      <div
+    <Tooltip label={`required weight: ${pokemon?.weight}kg`
+    } position="bottom">
+      <Card
         key={pokemon?.name}
         className="card-pokedex"
         style={{
@@ -59,9 +51,12 @@ export default function CardPokedex({
               : "/pokenull.png"
           }
           alt="Pokemon"
-          style={{ viewTransitionName: isTransitioning ? "pokemon-image" : "" }}
         />
-      </div>
-    </Card>
+
+        <Title order={5} style={{ textAlign: "center" }}>
+          {pokemon?.name}
+        </Title>
+      </Card>
+    </Tooltip >
   );
 }

@@ -16,6 +16,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
   const [color, setColor] = useState<string | null>("#fff");
   const navigate = useNavigate();
   const { pokemonList, setSelectedPokemon } = useSimulator();
+  const pokemonDatas = pokemonList?.[index];
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon?.type === pokemonType
@@ -89,14 +90,14 @@ export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; 
           <Group>
             <Group align="center">
               <Text className="pokemon-stats">
-                {(pokemon?.height ?? 0) / 10} M
+                {(pokemon?.height ?? 0)} M
               </Text>
               <Ruler size={24} weight="duotone" />
             </Group>
 
             <Group align="center">
               <Text className="pokemon-stats">
-                {(pokemon?.weight ?? 0) / 10} Kg
+                {(pokemonList.find(x => x.name === pokemonName)?.weight ?? 0)} Kg
               </Text>
               <Barbell size={24} weight="duotone" />
             </Group>

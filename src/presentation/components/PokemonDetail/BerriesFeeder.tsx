@@ -1,4 +1,4 @@
-import { Paper, ScrollArea, Text } from "@mantine/core";
+import { Group, Paper, ScrollArea, Text, Title } from "@mantine/core";
 import { useState } from "react";
 import { useBerryGetAll } from "@/domain/repository/berries";
 import { BerryCard } from "./BerryCard";
@@ -12,27 +12,41 @@ export const BerriesFeeder = () => {
   const [selectedBerry, setSelectedBerry] = useState<string>("");
   const { feedPokemon, selectedPokemon: pokemonState } = useSimulator();
   return (
-    <Paper>
-      <Text mb={8}>Berries Feeder</Text>
-      <ScrollArea w="100%">
-        {data?.results?.map((berry: { name: string }) => {
-          return (
-            <BerryCard
-              name={berry?.name}
-              selected={berry?.name === selectedBerry}
-              onClick={() => setSelectedBerry(berry?.name)}
-            />
-          );
-        })}
-      </ScrollArea>
-      <BerryCard
-        name={selectedBerry}
-        detailed
-        onClick={(berryState) => {
-          console.log(berryState);
-          feedPokemon(pokemonState?.pokeId ?? "", berryState);
-        }}
-      />
+    <Paper p={10}>
+      <Title order={4} mb={8}>Berries Feeder</Title>
+      <Paper withBorder radius="lg" p={8} mb={16}>
+        <ScrollArea w="100%" h={56} >
+          <Group w={"100%"} gap={8} wrap="nowrap" >
+            {data?.results?.map((berry: { name: string; }) => {
+              return (
+                <BerryCard
+                  name={berry?.name}
+                  selected={berry?.name === selectedBerry}
+                  detailed={false}
+                  onClick={() => {
+                    if (berry?.name === selectedBerry) {
+                      return setSelectedBerry("");
+                    }
+                    return setSelectedBerry(berry?.name);
+                  }}
+                />
+              );
+            })}
+          </Group>
+        </ScrollArea>
+      </Paper>
+      {
+        selectedBerry !== "" && (
+          <BerryCard
+            name={selectedBerry}
+            detailed
+            onClick={(berryState) => {
+              feedPokemon(pokemonState?.pokeId ?? "", berryState);
+            }}
+          />
+        )
+      }
+
     </Paper>
   );
 };
