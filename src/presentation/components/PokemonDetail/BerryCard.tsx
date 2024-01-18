@@ -3,6 +3,7 @@ import { useItemGetByName } from "@/domain/repository/items";
 import { BerryState } from "@/domain/useCases/simulator";
 import {
   ActionIcon,
+  Badge,
   Button,
   Group,
   Image,
@@ -12,6 +13,13 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+const firmnesColor: Record<string, string> = {
+  "very-soft": "blue",
+  soft: "green",
+  hard: "yellow",
+  "very-hard": "orange",
+  "super-hard": "red",
+};
 
 export const BerryCard = ({
   name,
@@ -44,9 +52,9 @@ export const BerryCard = ({
             />
             <Stack my={24}>
               <Text>{berry?.name}</Text>
-              <Group align="center">
-                <Text className="pokemon-stats">{berry?.firmness?.name}</Text>
-              </Group>
+              <Badge color={firmnesColor[berry?.firmness?.name ?? ""]}>
+                {berry?.firmness?.name?.replace("-", " ")}
+              </Badge>
             </Stack>
           </Group>
         </Paper>
@@ -65,7 +73,7 @@ export const BerryCard = ({
         loading="lazy"
         width={48}
         height={48}
-        draggable={false} 
+        draggable={false}
         src={data?.sprites?.default ? data?.sprites?.default : "pokenull.png"}
       />
     </ActionIcon>
