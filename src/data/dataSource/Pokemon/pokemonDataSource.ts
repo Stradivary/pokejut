@@ -4,7 +4,7 @@ import { BaseRemoteDataSource } from "../shared/baseDataSource";
 
 const entity = 'pokemon';
 
-const pokeApiDataSource = new BaseRemoteDataSource('popkemon');
+const pokeApiDataSource = new BaseRemoteDataSource('pokemon');
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({
@@ -23,8 +23,7 @@ const PokemonQueryInfinite = (filter) =>
                 offset: String(pageParam) || "0",
                 limit: String(filter.limit) || "10",
             }).toString();
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`);
-            return res.data;
+            return await axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`).then((res) => res.data);
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
@@ -54,8 +53,8 @@ export const usePokemonGetAll = (filter: { offset: number; limit: number; }) => 
 };
 
 export const usePokemonGetByName = (name: string) => {
-    return useQuery(pokemonOptions('getByName', { name }, async () => {
-        return await pokeApiDataSource.getOne(name).then((res) => res.data);
+    return useQuery(pokemonOptions('getByName', name, async () => {
+        return await pokeApiDataSource.getOne(name);
     }));
 };
 

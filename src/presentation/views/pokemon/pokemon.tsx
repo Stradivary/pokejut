@@ -5,7 +5,7 @@ import { useSimulator } from "@/domain/useCases/simulator";
 export function Component() {
     const { pokemonList } = useSimulator();
     return (
-        <Stack>
+        <Stack m="md">
             <Title order={1}>Pokemon Kamu</Title>
             <PokemonCollection pokemonList={pokemonList} />
         </Stack>

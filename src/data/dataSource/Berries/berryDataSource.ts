@@ -21,7 +21,7 @@ export const useBerryGetAll = (filter: { offset: number; limit: number; }) => {
 };
 
 export const useBerryGetByName = (name: string) => {
-    return useQuery(berryOptions('getByName', { name }, async () => {
-        return await pokeApiDataSource.getOne(name).then((res) => res.data);
+    return useQuery(berryOptions('getByName', name, async () => {
+        return await pokeApiDataSource.getOne(name);
     }));
 };

@@ -1,23 +1,23 @@
 import { useSimulator } from "@/domain/useCases/simulator";
-import { Button } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Button, Group } from "@mantine/core";
+import { Link, useNavigate } from "react-router-dom";
 import { PokemonDetail } from "../../components/PokemonDetail";
 import { EvolutionChain } from "./EvolutionChain";
+import { notifications } from "@mantine/notifications";
 
 /**
  * Pokedex detail page
  * @returns Pokedex detail page
  */
 export function Component() {
-    const { pokemonList } = useSimulator();
+    const { pokemonList, releaseSelectedPokemon } = useSimulator();
+    const navigate = useNavigate();
     if (pokemonList.length === 0) {
         return (
             <div style={{ width: "100%" }}>
-                <Link to=".." unstable_viewTransition>
-                    <Button  >
-                        Back
-                    </Button>
-                </Link>
+                <Button m="md" component={Link} to=".." >
+                    Back
+                </Button>
                 <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <h1>Belum ada pokemon</h1>
                 </div>
@@ -26,10 +26,21 @@ export function Component() {
     }
     return (
         <div style={{ width: "100%" }}>
-            <Button m="md" component={Link} to=".." >
-                Back
-            </Button>
+            <Group m="md" justify="space-between">
 
+                <Button component={Link} to=".." >
+                    Back
+                </Button>
+
+                <Button onClick={() => {
+                    releaseSelectedPokemon();
+                    navigate("..");
+                    notifications.show({ title: "Pokemon dilepas", message: "Pokemon dilepas dari koleksi", color: "red" });
+                }}>
+                    Lepas Pokemon
+                </Button>
+
+            </Group>
             <PokemonDetail />
 
             <EvolutionChain />

@@ -16,15 +16,16 @@ export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<Pokem
 
 export type PokemonStore = {
     selectedPokemon: PokemonState | undefined;
+    selectedPokemonEvolutionName: string | undefined;
     pokemonList: PokemonState[];
     setSelectedPokemon: (pokemon: PokemonState | undefined) => void;
     deleteSelectedPokemon: () => void;
+    releaseSelectedPokemon: () => void;
     catchPokemon: (pokemon: Pokemon) => void;
-    releasePokemon: (pokemonId: string) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
     checkifSelectedPokemonCanEvolve: () => void;
-    evolveSelectedPokemon: () => void;
+    evolveSelectedPokemon: (evolvedPokemon: PokemonState) => void;
 };
 
 export const berriesGain: Record<string, number> = {
@@ -37,6 +38,7 @@ export const berriesGain: Record<string, number> = {
 
 export const useSimulator = create<PokemonStore>((set) => ({
     selectedPokemon: undefined,
+    selectedPokemonEvolutionName: undefined,
     pokemonList: [],
     setSelectedPokemon: (pokemon) => {
         set(() => ({ selectedPokemon: pokemon }));
@@ -52,9 +54,9 @@ export const useSimulator = create<PokemonStore>((set) => ({
         };
         set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
     },
-    releasePokemon: (pokemonId) => {
+    releaseSelectedPokemon: () => {
         set((state) => ({
-            pokemonList: state.pokemonList.filter((pokemon) => pokemon.pokeId !== pokemonId),
+            pokemonList: state.pokemonList.filter((pokemon) => pokemon.pokeId !== state.selectedPokemon?.pokeId),
             selectedPokemon: undefined,
         }));
     },
@@ -111,28 +113,33 @@ export const useSimulator = create<PokemonStore>((set) => ({
             const selectedPokemon = state.selectedPokemon;
             if (selectedPokemon) {
                 const evolution = selectedPokemon?.chain?.evolves_to?.[0];
-                notifications.show({
-                    title: "Evolution!",
-                    message: `Your ${selectedPokemon.name} evolved into ${evolution?.species?.name}!`,
-                    color: "teal",
-                    autoClose: 2000,
-                });
+                return { selectedPokemonEvolutionName: evolution?.species?.name };
             }
             return state;
         });
 
     },
-    evolveSelectedPokemon: () => {
+    evolveSelectedPokemon: (evolvedPokemon: PokemonState) => {
         set((state) => {
-            const selectedPokemon = state.selectedPokemon;
-            if (selectedPokemon) {
-                const evolution = selectedPokemon?.chain?.evolves_to?.[0];
+
+            if (state.selectedPokemon) {
+                const updatedPokemonList = [...state.pokemonList];
+                const selectedPokemon = {
+                    ...state.selectedPokemon,
+                    ...evolvedPokemon
+                };
+
+                const selectedPokemonIndex = updatedPokemonList.findIndex((pokemon) => pokemon.pokeId === selectedPokemon.pokeId);
+                updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
+
+
                 notifications.show({
                     title: "Evolution!",
-                    message: `Your ${selectedPokemon.name} evolved into ${evolution?.species?.name}!`,
+                    message: `Your ${state.selectedPokemon.name} evolved into ${evolvedPokemon?.species?.name}!`,
                     color: "teal",
                     autoClose: 2000,
                 });
+                return { pokemonList: updatedPokemonList, selectedPokemon: selectedPokemon };
             }
             return state;
         });

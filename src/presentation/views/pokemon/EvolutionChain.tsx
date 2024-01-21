@@ -3,6 +3,7 @@ import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import CardPokedex from "@/presentation/components/CardPokedex/PokedexCard";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { useEffect, useState } from "react";
+import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
 
 export const EvolutionChain = () => {
     const { selectedPokemon, evolveSelectedPokemon } = useSimulator();
@@ -10,6 +11,11 @@ export const EvolutionChain = () => {
 
     const { canEvolve } = useEvolutionChain(selectedPokemon);
 
+    const { data: evolvePokemonData } = usePokemonGetByName(selectedPokemon?.chain?.evolves_to?.[0]?.species?.name ?? "");
+
+    const { data: evolveItem } = usePokemonGetEvolutionChain(
+        evolvePokemonData?.id.toString()
+    );
     return (
         <Paper p="md">
             <Title order={3} mt="lg">
@@ -29,7 +35,11 @@ export const EvolutionChain = () => {
                     </Title>
                     <Button
                         onClick={() => {
-                            evolveSelectedPokemon();
+                            const { id, ...evolveItems } = evolveItem;
+                            const pokemonData: PokemonState = { ...evolvePokemonData, ...evolveItems };
+
+                            evolveSelectedPokemon(pokemonData);
+
                         }}
                     >
                         Evolve
