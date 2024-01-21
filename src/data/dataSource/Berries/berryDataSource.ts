@@ -1,7 +1,6 @@
 
-import { BaseRemoteDataSource } from "@/data/dataSource/shared/baseDataSource";
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { BaseRemoteDataSource } from "../shared/baseDataSource";
 
 const entity = 'berries';
 
@@ -13,19 +12,16 @@ const berryOptions = (action: string, params: any, fn: () => Promise<any>) => {
         queryFn: async () => fn(),
         staleTime: Infinity,
     });
-}
+};
 
 export const useBerryGetAll = (filter: { offset: number; limit: number; }) => {
-
     return useQuery(berryOptions('getAll', filter, async () => {
         return await pokeApiDataSource.getAll({ params: filter });
     }));
 };
 
-export const useBerryGetByName = (name?: string) => {
-    return useQuery({
-        queryKey: ["berries", name],
-        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/berry/${name}`).then((res) => res.data),
-        staleTime: Infinity,
-    });
+export const useBerryGetByName = (name: string) => {
+    return useQuery(berryOptions('getByName', { name }, async () => {
+        return await pokeApiDataSource.getOne(name).then((res) => res.data);
+    }));
 };

@@ -17,7 +17,7 @@ export function Component() {
                     Back
                 </Button>
             </Link>
-            <CardPokemon pokemonName={id} />
+            <CardPokemon pokemonName={id ?? ""} />
 
         </div>
     );

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
-import { usePokemonInfiniteGetAll } from "@/domain/repository/pokemons";
-
+import { usePokemonInfiniteGetAll } from "@/data/dataSource/Pokemon/pokemonDataSource";
 const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
   const {

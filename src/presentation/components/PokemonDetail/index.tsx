@@ -1,6 +1,5 @@
 import {
   Badge,
-  Code,
   Group,
   Image,
   Paper,
@@ -14,8 +13,8 @@ import React, { useEffect, useState } from "react";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
 import { pokemonData } from "@/utils/constants";
-import { usePokemonGetEvolutionChain } from "@/domain/repository/pokemons";
 import { useSimulator, PokemonState } from "@/domain/useCases/simulator";
+import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
 
 function getColorByType(pokemonType: string) {
   const foundPokemon = pokemonData.find(
@@ -53,7 +52,7 @@ export const PokemonDetail: React.FC = () => {
   return (
     <SimpleGrid px="md" cols={{ base: 1, md: 2 }}>
       <Paper
-        
+
         className={styles["card-pokemon"]}
         style={{
           marginTop: 40,

@@ -2,21 +2,14 @@ import { ActionIcon, AppShell, Burger, Group, ScrollArea, Title } from "@mantine
 import { useDisclosure } from "@mantine/hooks";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { MainNavbar } from "../components/Navbar/MainNavbar";
-import { ArchiveBox, CircleHalf, Gear } from "@phosphor-icons/react";
-import { NavItemData } from "../components/Navbar/types";
-
-export const data: NavItemData[] = [
-  { icon: <ArchiveBox />, label: "Pokedex", to: "/pokedex" },
-  { icon: <CircleHalf />, label: "My Pokemon", to: "/pokemon" },
-  { icon: <Gear />, label: "Settings", to: "/settings" },
-];
+import { data } from "./data";
 
 export function Component() {
   const [opened, { toggle }] = useDisclosure();
   const { pathname } = useLocation();
   return (
     <AppShell
-      header={{ height: { base: 0, md: 60, lg: 60, xl: 60} }}
+      header={{ height: { base: 0, md: 60, lg: 60, xl: 60 } }}
       footer={{ height: { base: 60, md: 60, lg: 60, xl: 60 } }}
       navbar={{
         width: { base: 0, md: 240, lg: 240, xl: 240 },

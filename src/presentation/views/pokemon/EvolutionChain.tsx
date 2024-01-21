@@ -1,7 +1,7 @@
 import { Button, Paper, Title } from "@mantine/core";
 import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import CardPokedex from "@/presentation/components/CardPokedex/PokedexCard";
-import { usePokemonGetByName } from "@/domain/repository/pokemons";
+import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { useEffect, useState } from "react";
 
 export const EvolutionChain = () => {

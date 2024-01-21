@@ -6,17 +6,16 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { usePokemonGetByName } from "@/domain/repository/pokemons";
 import { pokemonData } from "@/utils/constants";
 import styles from "./style.module.scss";
 import { useSimulator } from "@/domain/useCases/simulator";
+import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 
-export const CardPokemonSelect: React.FC<{ pokemonName?: string; index: number; }> = ({ pokemonName, index }) => {
+export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }> = ({ pokemonName, index }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const [color, setColor] = useState<string | null>("#fff");
   const navigate = useNavigate();
   const { pokemonList, setSelectedPokemon } = useSimulator();
-  const pokemonDatas = pokemonList?.[index];
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon?.type === pokemonType

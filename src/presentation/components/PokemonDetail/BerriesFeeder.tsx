@@ -1,8 +1,9 @@
-import { Group, Paper, ScrollArea, Text, Title } from "@mantine/core";
-import { useState } from "react";
-import { useBerryGetAll } from "@/domain/repository/berries";
-import { BerryCard } from "./BerryCard";
+
+import { useBerryGetAll } from "@/data/dataSource/Berries/berryDataSource";
 import { useSimulator } from "@/domain/useCases/simulator";
+import { Group, Paper, ScrollArea, Title } from "@mantine/core";
+import { useState } from "react";
+import { BerryCard } from "./BerryCard";
 
 export const BerriesFeeder = () => {
   const { data } = useBerryGetAll({

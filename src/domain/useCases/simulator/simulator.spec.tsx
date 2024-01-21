@@ -17,7 +17,7 @@ describe("PokemonStore", () => {
       catchPokemon: vi.fn(),
       releasePokemon: vi.fn(),
       checkifSelectedPokemonCanEvolve: vi.fn(),
-      evolvePokemon: vi.fn(),
+      evolveSelectedPokemon: vi.fn(),
     };
   });
 

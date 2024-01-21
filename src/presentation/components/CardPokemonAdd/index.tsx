@@ -12,12 +12,11 @@ import { notifications } from "@mantine/notifications";
 import { Barbell, Ruler } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useSimulator } from "@/domain/useCases/simulator";
-import {
-  usePokemonGetByName,
-  usePokemonGetEvolutionChain,
-} from "@/domain/repository/pokemons";
+
 import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
+import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 
 export default function CardAddPokemon({
   pokemonName,

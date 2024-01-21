@@ -1,6 +1,6 @@
 // BerryAdapter.ts
-import { berrySchema, Berry } from '../../entities/Berries'; // replace 'YourFileName' with the actual filename where Berry is defined
-import { berryDTOSchema, BerryDTO } from '../../entities/Berries/DTO';
+import { berrySchema, Berry } from '../../../domain/entities/Berries'; // replace 'YourFileName' with the actual filename where Berry is defined
+import { berryDTOSchema, BerryDTO } from '../../../domain/entities/Berries/DTO';
 
 export class BerryAdapter {
     /**

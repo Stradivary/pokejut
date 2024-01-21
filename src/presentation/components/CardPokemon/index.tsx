@@ -10,11 +10,11 @@ import {
   Sword,
 } from "@phosphor-icons/react";
 import React, { ReactNode, useEffect, useState } from "react";
-import { usePokemonGetByName } from "@/domain/repository/pokemons";
 import { pokemonData } from "@/utils/constants";
 import "./style.module.scss";
+import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 
-export const CardPokemon: React.FC<{ pokemonName?: string; }> = ({ pokemonName }) => {
+export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName }) => {
   const [color, setColor] = useState<string | null>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 

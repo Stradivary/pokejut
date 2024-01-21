@@ -1,8 +1,8 @@
+
+import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
+import { pokemonData } from "@/utils/constants";
 import { Card, Title, Tooltip } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { usePokemonGetByName } from "@/domain/repository/pokemons";
-import { pokemonData } from "@/utils/constants";
 import "./style.scss";
 
 export default function CardPokedex({
