@@ -1,74 +1,84 @@
-import { Button, Paper, Title } from "@mantine/core";
-import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
-import CardPokedex from "@/presentation/components/CardPokedex/PokedexCard";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
-import { useEffect, useState } from "react";
-import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { EvolutionChain } from "@/domain/entities/Evolution";
+import { findEvolutionChain } from "@/domain/useCases/evolution/useEvolutionChain";
+import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
+import EvolutionCard from "@/presentation/components/CardPokedex/PokedexCard";
+import { Button, Paper, Progress, SimpleGrid, Stack, Title } from "@mantine/core";
+import { useEffect, useMemo, useState } from "react";
 
-export const EvolutionChain = () => {
+export const EvolutionChainPage = () => {
     const { selectedPokemon, evolveSelectedPokemon } = useSimulator();
-    const pokemonDatas = selectedPokemon;
 
-    const { canEvolve } = useEvolutionChain(selectedPokemon);
+    const { nextEvolutionChain } = useEvolutionChain(selectedPokemon);
 
-    const { data: evolvePokemonData } = usePokemonGetByName(selectedPokemon?.chain?.evolves_to?.[0]?.species?.name ?? "");
+    useEffect(() => {
+        console.log(nextEvolutionChain);
+    }, [nextEvolutionChain]);
 
-    const { data: evolveItem } = usePokemonGetEvolutionChain(
-        evolvePokemonData?.id.toString()
-    );
     return (
         <Paper p="md">
             <Title order={3} mt="lg">
                 Evolution Chain
             </Title>
-            {pokemonDatas?.chain?.evolves_to?.map((evolution) => {
-                return (
-                    <div>
-                        <CardPokedex pokemonName={evolution?.species?.name} />
-                    </div>
-                );
-            })}
-            {canEvolve && (
-                <div>
-                    <Title order={5} mt="lg">
-                        You can evolve this pokemon
-                    </Title>
-                    <Button
-                        onClick={() => {
-                            const { id, ...evolveItems } = evolveItem;
-                            const pokemonData: PokemonState = { ...evolvePokemonData, ...evolveItems };
-
-                            evolveSelectedPokemon(pokemonData);
-
-                        }}
-                    >
-                        Evolve
-                    </Button>
-                </div>
-            )}
-
-
+            <SimpleGrid cols={{ base: 5 }}>
+                {
+                    nextEvolutionChain?.evolves_to?.map((pokemon) => <EvolveCard key={pokemon?.species?.name} selectedPokemon={selectedPokemon} evolveItem={pokemon} />)
+                }
+            </SimpleGrid>
         </Paper>
     );
 };
-const useEvolutionChain = (pokemon?: PokemonState) => {
-    const [canEvolve, setCanEvolve] = useState<boolean>(false);
-    const pokemonWeight = pokemon?.weight ?? 0;
-    const pokemonEvolutionChain = pokemon?.chain;
 
-    const pokemonEvolutionChainNames = pokemonEvolutionChain?.evolves_to?.map((evolution) => {
-        return evolution?.species?.name;
-    });
+const useEvolutionChain = (selectedPokemon?: PokemonState) => {
+    const { data: pokemonSpecies } = usePokemonGetSpecies(selectedPokemon?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
+    const { data: evolveItem } = usePokemonGetEvolutionChain(pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", ""));
 
-    const { data: pokemonEvolutionChainData } = usePokemonGetByName(pokemonEvolutionChainNames?.[0] ?? "");
-
+    const [nextEvolutionChain, setNextEvolutionChain] = useState<EvolutionChain | EvolutionChain[]>([]);
 
     useEffect(() => {
-        const pokemonEvolutionChainWeight = pokemonEvolutionChainData?.weight ?? 0;
-        if (pokemonWeight >= pokemonEvolutionChainWeight) {
+        const nextEvolutionChain = findEvolutionChain(evolveItem.chain, selectedPokemon?.name ?? "");
+        setNextEvolutionChain(nextEvolutionChain);
+    }, [evolveItem]);
+
+    return { nextEvolutionChain };
+};
+
+
+function EvolveCard({ evolveItem, selectedPokemon }: { selectedPokemon?: PokemonState; evolveItem: EvolutionChain; }) {
+    const { data: evolvePokemonData } = usePokemonGetByName(evolveItem?.name ?? "");
+    const [canEvolve, setCanEvolve] = useState<boolean>(false);
+    useEffect(() => {
+        const pokemonWeight = selectedPokemon?.weight ?? 0;
+        const nextEvolutionPokemonWeight = evolvePokemonData?.weight ?? 8000;
+        if (pokemonWeight >= nextEvolutionPokemonWeight) {
             setCanEvolve(true);
         }
-    }, [pokemonWeight, pokemonEvolutionChainData]);
+    }, [selectedPokemon, evolvePokemonData]);
 
-    return { canEvolve };
-};
+
+    return (<Stack w={100}>
+        <EvolutionCard
+            key={evolveItem?.species?.name + "-evolve-card"}
+            pokemonName={evolveItem?.species?.name}
+            oldPokemon={selectedPokemon}
+        />
+        {canEvolve && (
+            <div>
+                <Title order={5} mt="lg">
+                    Pokemon bisa berevolusi!
+                </Title>
+                <Button
+                    onClick={() => {
+                        // const pokemonData: PokemonState = { ...evolvePokemonData };
+                        // evolveSelectedPokemon(pokemonData); 
+                    }}
+                >
+                    Evolve to {evolveItem?.name}
+                </Button>
+            </div>
+        )}
+
+    </Stack>
+    );
+}

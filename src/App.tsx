@@ -9,7 +9,7 @@ import { Notifications } from '@mantine/notifications';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { queryClient } from './utils/query';
 import { router } from './utils/router';
@@ -22,6 +22,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
           <Notifications withinPortal position='top-right' />
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ModalsProvider>
     </MantineProvider>

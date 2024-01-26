@@ -13,8 +13,8 @@ export function Component() {
     return (
         <div style={{ width: "100%" }}>
             <Link to=".." unstable_viewTransition>
-                <Button  >
-                    Back
+                <Button>
+                    Kembali
                 </Button>
             </Link>
             <CardPokemon pokemonName={id ?? ""} />

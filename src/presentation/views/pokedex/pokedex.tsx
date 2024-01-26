@@ -20,11 +20,18 @@ const PokedexPage = () => {
             <Group justify="space-between" mb={45}>
                 <ScrollArea h={48} w="calc(100vw - 20px)"  >
                     <Group wrap='nowrap'>
-                        {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
+                        {pokemonData?.filter(
+                            ({ type }: { type: string; }) => !['dark', 'dragon'].includes(type)
+                        ).map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
                             const isSelected = type === binding.selectedType;
                             return (
                                 <Tooltip key={index} label={type} position="bottom" withArrow>
-                                    <ActionIcon onClick={() => binding.setType(type)} color={color} c="white" size={isSelected ? "lg" : "md"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
+                                    <ActionIcon onClick={() => {
+                                        if (isSelected) {
+                                            return binding.setType('');
+                                        }
+                                        return binding.setType(type);
+                                    }} color={color} c="white" size={isSelected ? "lg" : "md"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
                                         <Image width={32} src={img} alt={type} />
                                     </ActionIcon>
                                 </Tooltip>
@@ -39,7 +46,9 @@ const PokedexPage = () => {
                 {binding?.data?.pages?.map((page: { results: { name: string; }[]; }, index: number) => (
                     <React.Fragment key={index + '- page'}>
                         {page?.results?.map(({ name }: { name: string; }) => (
-                            <CardAddPokemon pokemonName={name} visibleType={binding.selectedType} />
+                            <CardAddPokemon key={
+                                name + '-card-' + index
+                            } pokemonName={name} visibleType={binding.selectedType} />
                         ))}
                     </React.Fragment>
                 ))}

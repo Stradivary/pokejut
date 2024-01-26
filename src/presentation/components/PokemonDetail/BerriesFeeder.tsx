@@ -21,6 +21,7 @@ export const BerriesFeeder = () => {
             {data?.results?.map((berry: { name: string; }) => {
               return (
                 <BerryCard
+                  key={berry?.name + "-card"}
                   name={berry?.name}
                   selected={berry?.name === selectedBerry}
                   detailed={false}

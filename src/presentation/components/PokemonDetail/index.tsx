@@ -14,7 +14,8 @@ import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
 import { pokemonData } from "@/utils/constants";
 import { useSimulator, PokemonState } from "@/domain/useCases/simulator";
-import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { findNextEvolution } from "@/domain/useCases/evolution/useEvolutionChain";
 
 function getColorByType(pokemonType: string) {
   const foundPokemon = pokemonData.find(
@@ -37,8 +38,9 @@ const firmnesColor: Record<string, string> = {
 
 export const PokemonDetail: React.FC = () => {
   const { selectedPokemon: pokemonState } = useSimulator();
+  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemonState?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
   const { data: evolveItem } = usePokemonGetEvolutionChain(
-    pokemonState?.id?.toString() ?? ""
+    pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
   const [color, setColor] = useState<string | undefined>("#fff");
   const { weight, fedBerries, ...pokemon } =
@@ -111,7 +113,7 @@ export const PokemonDetail: React.FC = () => {
 
             <Text>
               Evolves to:{" "}
-              {evolveItem?.chain?.evolves_to?.[0]?.species?.name ?? "None"}
+              {findNextEvolution(evolveItem, pokemon?.name ?? "") ?? "None"}
             </Text>
           </Stack>
         </Group>

@@ -2,7 +2,7 @@ import { useSimulator } from "@/domain/useCases/simulator";
 import { Button, Group } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { PokemonDetail } from "../../components/PokemonDetail";
-import { EvolutionChain } from "./EvolutionChain";
+import { EvolutionChainPage } from "./EvolutionChain";
 import { notifications } from "@mantine/notifications";
 
 /**
@@ -16,7 +16,7 @@ export function Component() {
         return (
             <div style={{ width: "100%" }}>
                 <Button m="md" component={Link} to=".." >
-                    Back
+                    Kembali
                 </Button>
                 <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <h1>Belum ada pokemon</h1>
@@ -29,7 +29,7 @@ export function Component() {
             <Group m="md" justify="space-between">
 
                 <Button component={Link} to=".." >
-                    Back
+                    Kembali
                 </Button>
 
                 <Button onClick={() => {
@@ -43,7 +43,7 @@ export function Component() {
             </Group>
             <PokemonDetail />
 
-            <EvolutionChain />
+            <EvolutionChainPage />
         </div>
     );
 }

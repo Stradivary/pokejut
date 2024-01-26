@@ -29,22 +29,22 @@
 }
 
 .cardPokemonImg {
-  position: relative;
   // top: -30px;
-  width: auto;
-  margin-inline: 10px;
-  transform: scale(0.7);
+  width: 100%;
+  transform: scale(0.5);
   filter: saturate(1.9);
 
   @media screen and (max-width: 1224px) {
     width: 200px;
-    transform: scale(1);
+    transform: scale(0.7);
     top: -60px;
   }
 
   @media screen and (max-width: 480px) {
     transform: scale(0.4);
     top: 12px;
+
+    width: auto;
     left: -40px;
   }
 }

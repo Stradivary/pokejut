@@ -35,3 +35,11 @@ export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
         enabled: !!evolutionChain,
     });
 };
+
+export const usePokemonGetSpecies = (id?: string) => {
+    return useQuery({
+        queryKey: ["pokemon", "species", id],
+        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) => res.data),
+        enabled: !!id,
+    });
+}

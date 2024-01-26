@@ -15,7 +15,7 @@ import { useSimulator } from "@/domain/useCases/simulator";
 
 import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
-import { usePokemonGetEvolutionChain } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 
 export default function CardAddPokemon({
@@ -28,9 +28,13 @@ export default function CardAddPokemon({
   const { addPokemon } = useSimulator();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
+
+  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
+
   const { data: evolveItem } = usePokemonGetEvolutionChain(
-    pokemon?.id.toString()
+    pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
+  
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon.type === pokemonType
