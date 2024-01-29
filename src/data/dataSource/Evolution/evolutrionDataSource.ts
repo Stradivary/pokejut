@@ -42,4 +42,14 @@ export const usePokemonGetSpecies = (id?: string) => {
         queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) => res.data),
         enabled: !!id,
     });
-}
+};
+
+
+export const usePokemonGetEvolutionChainByPokemonName = (name?: string) => {
+    const { data: species } = usePokemonGetSpecies(name);
+    const { data: evolutionChain } = usePokemonGetEvolutionChain(species?.evolution_chain?.url.split('/').reverse()[1]);
+
+    return {
+        data: evolutionChain,
+    };
+};

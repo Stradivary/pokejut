@@ -1,4 +1,4 @@
-import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetEvolutionChainByPokemonName, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/Evolution";
 import { findEvolutionChain } from "@/domain/useCases/evolution/useEvolutionChain";
@@ -8,7 +8,7 @@ import { Button, Paper, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 export const EvolutionChainPage = () => {
-    const { selectedPokemon, evolveSelectedPokemon } = useSimulator();
+    const { selectedPokemon } = useSimulator();
 
     const { nextEvolutionChain } = useEvolutionChain(selectedPokemon);
 
@@ -31,9 +31,9 @@ export const EvolutionChainPage = () => {
 };
 
 const useEvolutionChain = (selectedPokemon?: PokemonState) => {
-    const { data: pokemonSpecies } = usePokemonGetSpecies(selectedPokemon?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
+    const { data: pokemonSpecies } = usePokemonGetSpecies(selectedPokemon?.name);
     const { data: evolveItem } = usePokemonGetEvolutionChain(pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", ""));
-
+    // const { data: evolveItem } = usePokemonGetEvolutionChainByPokemonName(selectedPokemon?.name ?? "");
     const [nextEvolutionChain, setNextEvolutionChain] = useState<EvolutionChain | EvolutionChain[]>([]);
 
     useEffect(() => {

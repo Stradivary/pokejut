@@ -38,7 +38,7 @@ const firmnesColor: Record<string, string> = {
 
 export const PokemonDetail: React.FC = () => {
   const { selectedPokemon: pokemonState } = useSimulator();
-  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemonState?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
+  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemonState?.name);
   const { data: evolveItem } = usePokemonGetEvolutionChain(
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );

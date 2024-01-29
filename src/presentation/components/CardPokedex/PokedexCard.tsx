@@ -1,11 +1,11 @@
 
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
+import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import { pokemonData } from "@/utils/constants";
 import { Button, Card, Progress, Stack, Title, Tooltip } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
-import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
-import { Navigate, useNavigate } from "react-router-dom";
 
 export default function EvolutionCard({
   pokemonName,

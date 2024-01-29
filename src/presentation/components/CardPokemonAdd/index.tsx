@@ -29,7 +29,7 @@ export default function CardAddPokemon({
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
-  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.species?.url?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")?.replace("/", ""));
+  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.name);
 
   const { data: evolveItem } = usePokemonGetEvolutionChain(
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
