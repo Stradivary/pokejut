@@ -4,8 +4,8 @@ import { EvolutionChain } from "@/domain/entities/Evolution";
 import { findEvolutionChain } from "@/domain/useCases/evolution/useEvolutionChain";
 import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import EvolutionCard from "@/presentation/components/CardPokedex/PokedexCard";
-import { Button, Paper, Progress, SimpleGrid, Stack, Title } from "@mantine/core";
-import { useEffect, useMemo, useState } from "react";
+import { Button, Paper, SimpleGrid, Stack, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 export const EvolutionChainPage = () => {
     const { selectedPokemon, evolveSelectedPokemon } = useSimulator();
@@ -48,6 +48,7 @@ const useEvolutionChain = (selectedPokemon?: PokemonState) => {
 function EvolveCard({ evolveItem, selectedPokemon }: { selectedPokemon?: PokemonState; evolveItem: EvolutionChain; }) {
     const { data: evolvePokemonData } = usePokemonGetByName(evolveItem?.name ?? "");
     const [canEvolve, setCanEvolve] = useState<boolean>(false);
+    const { evolveSelectedPokemon } = useSimulator();
     useEffect(() => {
         const pokemonWeight = selectedPokemon?.weight ?? 0;
         const nextEvolutionPokemonWeight = evolvePokemonData?.weight ?? 8000;
@@ -70,11 +71,11 @@ function EvolveCard({ evolveItem, selectedPokemon }: { selectedPokemon?: Pokemon
                 </Title>
                 <Button
                     onClick={() => {
-                        // const pokemonData: PokemonState = { ...evolvePokemonData };
-                        // evolveSelectedPokemon(pokemonData); 
+                        const pokemonData: PokemonState = { ...evolvePokemonData };
+                        evolveSelectedPokemon(pokemonData);
                     }}
                 >
-                    Evolve to {evolveItem?.name}
+                    Evolusi ke {evolveItem?.name}
                 </Button>
             </div>
         )}

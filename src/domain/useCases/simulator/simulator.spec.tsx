@@ -9,13 +9,14 @@ describe("PokemonStore", () => {
     // Initialize or reset the store before each test
     store = {
       selectedPokemon: undefined,
+      selectedPokemonEvolutionName: undefined,
       pokemonList: [],
       setSelectedPokemon: vi.fn(),
       deleteSelectedPokemon: vi.fn(),
+      releaseSelectedPokemon: vi.fn(),
       feedPokemon: vi.fn(),
       addPokemon: vi.fn(),
       catchPokemon: vi.fn(),
-      releasePokemon: vi.fn(),
       checkifSelectedPokemonCanEvolve: vi.fn(),
       evolveSelectedPokemon: vi.fn(),
     };

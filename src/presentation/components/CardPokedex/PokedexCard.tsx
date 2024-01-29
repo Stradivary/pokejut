@@ -4,7 +4,8 @@ import { pokemonData } from "@/utils/constants";
 import { Button, Card, Progress, Stack, Title, Tooltip } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import "./style.scss";
-import { PokemonState } from "@/domain/useCases/simulator";
+import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function EvolutionCard({
   pokemonName,
@@ -15,6 +16,9 @@ export default function EvolutionCard({
 }) {
   const [color, setColor] = useState<string | null>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
+  const navigate = useNavigate();
+
+  const { evolveSelectedPokemon } = useSimulator();
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon?.type === pokemonType
@@ -82,10 +86,11 @@ export default function EvolutionCard({
       </Tooltip >
       {canEvolve && (
         <Button onClick={() => {
-          // const pokemonData: PokemonState = { ...pokemon };
-          // evolveSelectedPokemon(pokemonData); 
+          const pokemonData: PokemonState = { ...pokemon };
+          evolveSelectedPokemon(pokemonData);
+          navigate("..");
         }}>
-          Evolve to<br />{pokemon?.species.name}
+          Evolusi ke<br />{pokemon?.species.name}
         </Button>
       )}
     </Stack>
