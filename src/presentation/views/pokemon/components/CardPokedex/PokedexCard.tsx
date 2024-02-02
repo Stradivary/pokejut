@@ -1,4 +1,3 @@
-
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import { pokemonData } from "@/utils/constants";
@@ -9,7 +8,7 @@ import "./style.scss";
 
 export default function EvolutionCard({
   pokemonName,
-  oldPokemon
+  oldPokemon,
 }: {
   pokemonName: string;
   oldPokemon?: PokemonState;
@@ -52,10 +51,11 @@ export default function EvolutionCard({
   }, [pokemon]);
 
   return (
-
     <Stack>
-      <Tooltip label={`required weight: ${pokemon?.weight}kg\ncurrent weight: ${oldPokemon?.weight}kg`}
-        position="bottom">
+      <Tooltip
+        label={`required weight: ${pokemon?.weight}kg\ncurrent weight: ${oldPokemon?.weight}kg`}
+        position="bottom"
+      >
         <Stack>
           <Card
             key={pokemon?.name}
@@ -83,16 +83,20 @@ export default function EvolutionCard({
           </Card>
           <Progress value={weightPercentage} />
         </Stack>
-      </Tooltip >
+      </Tooltip>
       {canEvolve && (
-        <Button onClick={() => {
-          const pokemonData: PokemonState = { ...pokemon };
-          evolveSelectedPokemon(pokemonData);
-          navigate("..");
-        }}>
-          Evolusi ke<br />{pokemon?.species.name}
+        <Button
+          onClick={() => {
+            const pokemonData: PokemonState = { ...pokemon };
+            evolveSelectedPokemon(pokemonData);
+            navigate("..");
+          }}
+        >
+          Evolusi ke
+          <br />
+          {pokemon?.species.name}
         </Button>
       )}
     </Stack>
   );
-};
+}

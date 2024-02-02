@@ -1,10 +1,13 @@
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BaseRemoteDataSource } from "../shared/baseDataSource";
+import PokemonRepository from "@/data/repository/pokemonRepositoryRestImpl";
+import { PokemonAdapter } from "./adapter";
 
 const entity = 'pokemon';
 
 const pokeApiDataSource = new BaseRemoteDataSource('pokemon');
+const pokemonRepository = new PokemonRepository();
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({
@@ -19,11 +22,7 @@ const PokemonQueryInfinite = (filter) =>
     infiniteQueryOptions({
         queryKey: [entity, "getAll", filter],
         queryFn: async ({ pageParam = 0 }) => {
-            const payload = new URLSearchParams({
-                offset: String(pageParam) || "0",
-                limit: String(filter.limit) || "10",
-            }).toString();
-            return await axios.get(`https://pokeapi.co/api/v2/pokemon?${payload}`).then((res) => res.data);
+            return pokemonRepository.getPokemonList({ offset: pageParam ?? 0, limit: filter?.limit ?? 10 });
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
@@ -37,7 +36,7 @@ export const usePokemonGetEveryting = () => {
         offset: 0,
         limit: 2000,
     }, async () => {
-        return await pokeApiDataSource.getAll({ params: { offset: 0, limit: 2000 } });
+        return PokemonAdapter.fromDTO(await pokeApiDataSource.getAll({ params: { offset: 0, limit: 2000 } }));
     }));
 };
 

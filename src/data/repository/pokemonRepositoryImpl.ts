@@ -70,17 +70,35 @@ class PokemonRepository {
     return this.client.query({ query, variables: { id } });
   }
 
-  async getPokemonEvolutionChain(id: number) {
+  async getPokemonEvolutionChain(pokemon_id: number) {
     const query = gql`
-      query getPokemonEvolutionChain($id: Int!) {
-        pokemon_v2_evolutionchain(where: {id: {_eq: $id}}) {
-          pokemon_v2_pokemonspecies {
+    query GetEvolutionChainByPokemonName($pokemon_id: String!) {
+      pokemonDetail: pokemon_v2_pokemonspecies(order_by: {}, where: {id: {_eq: $pokemon_id}}) {
+        id
+        evolutionChain: pokemon_v2_evolutionchain {
+          evolutionList: pokemon_v2_pokemonspecies(where: {evolves_from_species_id: {_eq: $pokemon_id}}) {
+            id
             name
+            evolves_from_species_id
+            weightInfo: pokemon_v2_pokemons(where: {is_default: {_eq: true}}) {
+              weight
+            }
           }
         }
+        pokemonStats: pokemon_v2_pokemons {
+          weight
+          statsList: pokemon_v2_pokemonstats {
+            statCategory: pokemon_v2_stat {
+              name
+            }
+            base_stat
+          }
+        }
+        name
       }
+    }
     `;
-    return this.client.query({ query, variables: { id } });
+    return this.client.query({ query, variables: { pokemon_id } });
   }
 
   async getPokemonEvolutionChainByPokemonName(name: string) {

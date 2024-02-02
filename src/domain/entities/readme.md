@@ -1,2 +1,12 @@
 # Services
-This folder contains all the services that are used in the application. The service pattern is used to maintain a separation of concerns between dependencies and the business logic. The services are used to handle the business logic and the dependencies are injected into the services. The services are then injected into the controllers.
+
+Folder ini berisi entitas-entitas yang digunakan dalam aplikasi ini. Entitas-entitas tersebut adalah:
+
+- Pokemon
+- Evolution Chain
+- Items
+- Berries
+
+## DTO dan Model
+
+Setiap entitas memiliki DTO dan Model yang berbeda. DTO digunakan untuk mengambil data dari sumber data, sedangkan Model digunakan untuk menampilkan data ke pengguna.

@@ -1,6 +1,6 @@
 # Views
-This folder contains all the views for the application. The views are used to display the route to the user. The views are injected with the data from the viewModel.
+Folder ini berisi view yang digunakan pada aplikasi. View adalah bagian dari aplikasi yang menampilkan data dan menerima input dari pengguna. View ini dibuat menggunakan **React**.
 
 ## View in react
 
-The views are written using the **React** framework. The views are written using the **JSX** syntax. The views are written using the **Typescript** language. The viewModel is a react hooks that contains controller, service, and repository dependencies. The viewModel is injected into the view using the **React Hooks API**.
+View pada aplikasi ini dibuat menggunakan **React**. React adalah library JavaScript yang digunakan untuk membuat antarmuka pengguna. React memungkinkan kita untuk membuat komponen-komponen yang dapat digunakan kembali. Komponen-komponen ini dapat diatur dalam sebuah pohon hirarki yang disebut **Virtual DOM**. Virtual DOM ini akan diubah menjadi **Real DOM** yang akan ditampilkan di layar.

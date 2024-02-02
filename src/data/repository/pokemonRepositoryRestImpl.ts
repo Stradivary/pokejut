@@ -3,6 +3,15 @@ import axios from 'axios';
 class PokemonRepository {
   private baseUrl: string = 'https://pokeapi.co/api/v2/';
 
+  async getPokemonList(params: { offset: number, limit: number }) {
+    try {
+      const response = await axios.get(`${this.baseUrl}pokemon`, { params });
+      return response.data;
+    } catch (error) {
+      // Handle or throw error
+    }
+  }
+
   async getPokemonById(id: number, params?: object) {
     try {
       const response = await axios.get(`${this.baseUrl}pokemon/${id}`, { params });

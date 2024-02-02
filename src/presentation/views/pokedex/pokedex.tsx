@@ -1,5 +1,5 @@
 // PokedexPage.js
-import CardAddPokemon from '@/presentation/components/CardPokemonAdd';
+import CardAddPokemon from './components/CardPokemonAdd';
 import { pokemonData } from '@/utils/constants';
 import { ActionIcon, Button, Center, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';

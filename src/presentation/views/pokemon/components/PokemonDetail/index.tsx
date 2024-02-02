@@ -71,8 +71,8 @@ export const PokemonDetail: React.FC = () => {
               viewTransitionName: "pokemon-image",
             }}
             src={
-              pokemon?.sprites?.other["official-artwork"]?.front_default
-                ? pokemon?.sprites?.other["official-artwork"]?.front_default
+              pokemon?.sprites?.other?.["official-artwork"]?.front_default
+                ? pokemon?.sprites?.other?.["official-artwork"]?.front_default
                 : pokemon?.sprites?.other?.home?.front_default
                   ? pokemon?.sprites?.other?.home?.front_default
                   : "pokenull.png"

@@ -1,3 +1,11 @@
 # Data Source
 
-We use the pokeApi v2 public api to get the data for our app. The api is free to use and has a lot of data about the pokemon universe.
+Sumber data yang digunakan dalam aplikasi ini adalah API dari PokeAPI. yang terdiri dari beberapa entitas, yaitu:
+
+- Pokemon
+- Evolution Chain
+- Species
+- Types
+- Berries
+- Items
+

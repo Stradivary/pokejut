@@ -1,7 +1,7 @@
 import { useSimulator } from "@/domain/useCases/simulator";
 import { Button, Group } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import { PokemonDetail } from "../../components/PokemonDetail";
+import { PokemonDetail } from "./components/PokemonDetail";
 import { EvolutionChainPage } from "./components/EvolutionChain";
 import { notifications } from "@mantine/notifications";
 
