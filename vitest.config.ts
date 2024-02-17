@@ -10,7 +10,9 @@ export default mergeConfig(viteConfig, defineConfig({
                 'src/**/*.{ts,tsx}',
             ],
             exclude: [
-                'src/main.tsx', // we don't need to test the entrypoint
+                'src/domain/entities/**/*', // we don't need to test entities
+                'src/domain/repository/**/*', // we don't need to test repositories
+                'src/main.tsx', // we don't need to test the entrypoint, as it's just a composition root
                 'src/routes.ts', // we can't test the routes directly
                 'src/**/*.d.ts', // we can't test .d.ts files, which are generated
             ]

@@ -1,23 +1,16 @@
 export const fuzzy = (search: string, list: string[]) => {
-    const results: { [key: string]: number } = {};
-
-    const searchLength = search.length;
-
-    list.forEach((item) => {
-        const itemLength = item.length;
-        let total = 0;
-
-        for (let i = 0, j = 0; i < searchLength && j < itemLength; j++) {
-            if (search[i] === item[j]) {
-                i++;
-                total++;
-            }
+    if (!search) {
+        return [];
+    }
+    const searchLower = search.toLowerCase();
+    const listLower = list.map((item) => item.toLowerCase());
+    const matches = listLower.filter((item) => item.includes(searchLower));
+    return matches.sort((a, b) => {
+        const aIndex = a.indexOf(searchLower);
+        const bIndex = b.indexOf(searchLower);
+        if (aIndex === bIndex) {
+            return a.length - b.length;
         }
-
-        if (total > 0) {
-            results[item] = total;
-        }
+        return aIndex - bIndex;
     });
-
-    return Object.keys(results).sort((a, b) => results[b] - results[a]);
-}
+};

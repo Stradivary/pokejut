@@ -33,11 +33,13 @@ export function Component() {
                 </Button>
 
                 <Button onClick={() => {
+                    
                     releaseSelectedPokemon();
                     navigate("..");
                     notifications.show({ title: "Pokemon dilepas", message: "Pokemon dilepas dari koleksi", color: "red" });
+                
                 }}>
-                    Lepas Pokemon
+                    Release Pokemon
                 </Button>
 
             </Group>

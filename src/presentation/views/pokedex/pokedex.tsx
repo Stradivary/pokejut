@@ -21,7 +21,7 @@ const PokedexPage = () => {
                 <ScrollArea h={48} w="calc(100vw - 20px)"  >
                     <Group wrap='nowrap'>
                         {pokemonData?.filter(
-                            ({ type }: { type: string; }) => !['dark', 'dragon'].includes(type)
+                            ({ type }: { type: string; }) => !['dark', 'ghost', 'dragon'].includes(type)
                         ).map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
                             const isSelected = type === binding.selectedType;
                             return (

@@ -15,7 +15,7 @@ import { useSimulator } from "@/domain/useCases/simulator";
 
 import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
-import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 
 export default function CardAddPokemon({

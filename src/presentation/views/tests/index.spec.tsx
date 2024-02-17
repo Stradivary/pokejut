@@ -5,6 +5,7 @@ import { Component as PokedexPokemonPage } from "../pokedex/pokedex.$id";
 import { Component as SettingsPage } from "../settings/settings";
 import { Component as PokemonPage } from "../pokemon/pokemon";
 import { render } from "../../../../tests/test-utils";
+import { PokemonDetail } from "../pokemon/components/PokemonDetail";
 
 describe("Component Coverage Tests", () => {
   it("should render the MainPage component correctly", () => {
@@ -64,6 +65,12 @@ describe("Component Coverage Tests", () => {
 
   it("should render the PokemonPage component correctly", () => {
     const { container } = render(<PokemonPage />);
+    expect(container).toBeDefined();
+  });
+
+  // PokemonDetail
+  it("should render the PokemonDetail component correctly", () => {
+    const { container } = render(<PokemonDetail />);
     expect(container).toBeDefined();
   });
 });

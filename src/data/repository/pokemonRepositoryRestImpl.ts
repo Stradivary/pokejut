@@ -3,12 +3,14 @@ import axios from 'axios';
 class PokemonRepository {
   private baseUrl: string = 'https://pokeapi.co/api/v2/';
 
-  async getPokemonList(params: { offset: number, limit: number }) {
+  async getPokemonList(params: { offset: number, limit: number; }) {
     try {
       const response = await axios.get(`${this.baseUrl}pokemon`, { params });
       return response.data;
     } catch (error) {
-      // Handle or throw error
+      if (error instanceof Error) {
+        throw error;
+      }
     }
   }
 
@@ -17,7 +19,9 @@ class PokemonRepository {
       const response = await axios.get(`${this.baseUrl}pokemon/${id}`, { params });
       return response.data;
     } catch (error) {
-      // Handle or throw error
+      if (error instanceof Error) {
+        throw error;
+      }
     }
   }
 
@@ -26,7 +30,9 @@ class PokemonRepository {
       const response = await axios.get(`${this.baseUrl}pokemon/${name}`, { params });
       return response.data;
     } catch (error) {
-      // Handle or throw error
+      if (error instanceof Error) {
+        throw error;
+      }
     }
   }
 
@@ -35,7 +41,9 @@ class PokemonRepository {
       const response = await axios.get(`${this.baseUrl}type/${type}`, { params });
       return response.data.pokemon.map((p: any) => p.pokemon);
     } catch (error) {
-      // Handle or throw error
+      if (error instanceof Error) {
+        throw error;
+      }
     }
   }
 
@@ -44,7 +52,9 @@ class PokemonRepository {
       const response = await axios.get(`${this.baseUrl}pokemon/${name}`, { params });
       return response.data;
     } catch (error) {
-      // Handle or throw error
+      if (error instanceof Error) {
+        throw error;
+      }
     }
   }
 

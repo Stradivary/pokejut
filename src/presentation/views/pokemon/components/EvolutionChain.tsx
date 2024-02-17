@@ -1,7 +1,7 @@
 import {
   usePokemonGetEvolutionChain,
   usePokemonGetSpecies,
-} from "@/data/dataSource/Evolution/evolutrionDataSource";
+} from "@/data/dataSource/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/Evolution";
 import { findEvolutionChain } from "@/domain/useCases/evolution/useEvolutionChain";
@@ -51,7 +51,7 @@ const useEvolutionChain = (selectedPokemon?: PokemonState) => {
 
   useEffect(() => {
     const nextEvolutionChain = findEvolutionChain(
-      evolveItem.chain,
+      evolveItem?.chain,
       selectedPokemon?.name ?? ""
     );
     setNextEvolutionChain(nextEvolutionChain);

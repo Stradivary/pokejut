@@ -7,6 +7,7 @@ import { notifications } from '@mantine/notifications';
 import { getBerryGain } from '../berry';
 
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { PokemonAdapter } from '@/data/dataSource/Pokemon/adapter';
 
 export type BerryState = Partial<Berry>;
 
@@ -26,7 +27,6 @@ export type PokemonStore = {
     catchPokemon: (pokemon: Pokemon) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
-    checkifSelectedPokemonCanEvolve: () => void;
     evolveSelectedPokemon: (evolvedPokemon: PokemonState) => void;
 };
 
@@ -106,23 +106,13 @@ export const useSimulator = create(
             },
             addPokemon: (pokemon) => {
                 const newPokemon: PokemonState = {
-                    ...pokemon,
+                    ...PokemonAdapter.fromDTO(pokemon as any),
                     pokeId: uuidv4(),
                     fedBerries: [],
                 };
                 set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
             },
-            checkifSelectedPokemonCanEvolve: () => {
-                set((state) => {
-                    const selectedPokemon = state.selectedPokemon;
-                    if (selectedPokemon) {
-                        const evolution = selectedPokemon?.chain?.evolves_to?.[0];
-                        return { selectedPokemonEvolutionName: evolution?.species?.name };
-                    }
-                    return state;
-                });
 
-            },
             evolveSelectedPokemon: (evolvedPokemon: PokemonState) => {
                 set((state) => {
 

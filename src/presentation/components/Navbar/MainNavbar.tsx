@@ -40,7 +40,7 @@ export const MainNavbar = ({
         </AppShell.Section>
         <AppShell.Section>
             {/* about */}
-            <NavLink
+            {/* <NavLink
                 label="About"
 
                 active={location.pathname === "/about"}
@@ -51,7 +51,7 @@ export const MainNavbar = ({
                 label="Logout"
                 variant="subtle"
                 component={NL}
-                to="/logout" />
+                to="/logout" /> */}
         </AppShell.Section>
     </>;
 };

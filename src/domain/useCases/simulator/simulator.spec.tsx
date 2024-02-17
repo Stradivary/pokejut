@@ -17,7 +17,7 @@ describe("PokemonStore", () => {
       feedPokemon: vi.fn(),
       addPokemon: vi.fn(),
       catchPokemon: vi.fn(),
-      checkifSelectedPokemonCanEvolve: vi.fn(),
+
       evolveSelectedPokemon: vi.fn(),
     };
   });
@@ -43,7 +43,7 @@ describe("PokemonStore", () => {
       /* your berry state */
     };
     store.feedPokemon("1", berry);
-    expect(store.feedPokemon).toHaveBeenCalledWith(berry);
+    expect(store.feedPokemon).toHaveBeenCalledWith("1", berry);
   });
 
 

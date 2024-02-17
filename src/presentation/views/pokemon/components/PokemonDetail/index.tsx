@@ -14,7 +14,7 @@ import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
 import { pokemonData } from "@/utils/constants";
 import { useSimulator, PokemonState } from "@/domain/useCases/simulator";
-import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutrionDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/dataSource/Evolution/evolutionDataSource";
 import { findNextEvolution } from "@/domain/useCases/evolution/useEvolutionChain";
 
 function getColorByType(pokemonType: string) {
