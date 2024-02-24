@@ -1,27 +1,91 @@
-# Pokegochi
+# Pokejut
 
-## Description
+## Deskripsi
 
-Pokegochi is a virtual pet game where you can choose and feed pokemon. it is a simple game where you can feed your pokemon and evolve them. You can also choose to release your pokemon if you don't want it anymore.
+Pokejut merupakan sebuah game virtual pet dimana kamu bisa memilih dan memberi makan pokemon. Ini adalah game sederhana dimana kamu bisa memberi makan pokemon dan mengembangkannya. Kamu juga bisa memilih untuk melepaskan pokemonmu jika kamu tidak menginginkannya lagi.
 
-## Installation
+Aplikasi ini dibuat menggunakan React, React-router-dom, dan MantineUI, dengan menggunakan API dari [PokeAPI](https://pokeapi.co/)., selain itu kode ini mencoba menerapkan konsep dari clean code dan clean architecture.
 
-1. Clone this repo
+## Preparasi Project
+
+### Clone this repo
 
 ```
 git clone [repo link]
 ```
 
-2. Install dependency
+### Install dependency
 
 ```
 npm install
 ```
 
-## Usage
+## Cara Menjalankan Aplikasi
 
-1. Run the app
+### Menjalankan aplikasi dalam mode development
 
 ```
 npm run dev
 ```
+
+### Menjalankan aplikasi dalam mode production
+
+```
+npm run build
+
+npm run start
+```
+
+## Pengujian dan Coverage
+
+### Menjalankan pengujian
+
+```
+npm run test
+```
+
+### Melihat coverage
+
+```
+npm run cover
+```
+
+hasil coverage akan tersimpan di folder coverage, dan bisa diakses dengan membuka file index.html di folder tersebut.
+
+## Stack yang digunakan
+
+| Library           | Versi   | Deskripsi                                              | Ruang Lingkup       |
+|-------------------|---------|--------------------------------------------------------|---------------------|
+| React             |         | Web Framework untuk Javascript                          | Inti                |
+| React-router-dom  |         | Perutean deklaratif untuk React                       | Perutean            |
+| MantineUI         |         | Komponen dan hook React untuk RAD                       | Kerangka UI         |
+| axios             |         | Klien HTTP berbasis Promise untuk browser dan Node.js  | Permintaan HTTP     |
+| react-query       |         | Pengambilan dan penyimpanan data untuk aplikasi React  | Manajemen Data      |
+| vite              |         | Compiler                                               | Compiler    |
+| vitest            |         | Test Runner untuk Vite                                  | Pengujian           |
+| react-testing-library |     | Utilitas pengujian untuk React                         | Pengujian           |
+
+
+Untuk informasi lebih lanjut, silahkan buka [stack](./STACK.md)
+
+## Struktur Folder
+
+```
+pokejut
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+├── src
+│   ├── data
+│   ├── domain
+│   ├── presentation
+│   ├── styles
+│   ├── utils
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── routes.tsx  
+│   └── vite-env.d.ts
+├── tests
+```
+

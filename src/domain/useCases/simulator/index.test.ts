@@ -23,7 +23,7 @@ const newPokemon = {
         defense: 1,
         speed: 1,
     }, types: []
-} as Pokemon;
+} as unknown as Pokemon;
 describe('useSimulator', () => {
     it('should set selected pokemon', async () => {
         const { result } = renderHook(() => useSimulator());
@@ -76,10 +76,37 @@ describe('useSimulator', () => {
 
         await waitFor(() => {
             result.current.catchPokemon(newPokemon);
-            result.current.feedPokemon(result.current.selectedPokemon?.pokeId ?? "1", { firmness: { name: 'soft', url: '' } });
+            result.current.setSelectedPokemon(result.current.pokemonList?.[0]);
+            const id = result.current.pokemonList?.[0].pokeId;
+            result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
         });
 
-        expect(result.current.selectedPokemon?.fedBerries).toStrictEqual([]);
+        expect(result.current.selectedPokemon?.fedBerries).toStrictEqual(["soft"]);
+    });
+
+    it ('should get a weight loss if fed with berry of same firmness', async () => {
+        const { result } = renderHook(() => useSimulator());
+        const pokemon = { name: 'Pikachu', pokeId: '1', weight: 10, fedBerries: [] };
+
+        await waitFor(() => {
+            result.current.catchPokemon(newPokemon);
+            result.current.setSelectedPokemon(result.current.pokemonList?.[0]);
+            const id = result.current.pokemonList?.[0].pokeId;
+            result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
+            result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
+        });
+
+        expect(result.current.selectedPokemon?.weight).toBeLessThan(pokemon.weight);
+    });
+
+    it ('should return current state if no pokemon is selected', async () => {
+        const { result } = renderHook(() => useSimulator());
+        const before = result.current;
+        await waitFor(() => {
+            result.current.feedPokemon('1', { firmness: { name: 'soft', url: '' } });
+        });
+        // expect no change
+        expect(result.current).toBe(before);
     });
     it('should add a pokemon', async () => {
         const { result } = renderHook(() => useSimulator());
@@ -106,6 +133,22 @@ describe('useSimulator', () => {
         });
 
         expect(result.current.selectedPokemon?.name).toBe('Raichu');
+    });
+
+    it('should fail to evolve selected pokemon', async () => {
+        const { result } = renderHook(() => useSimulator());
+         
+        await waitFor(() => { 
+            result.current.releaseSelectedPokemon();
+            result.current.evolveSelectedPokemon({
+                name: 'Raichu',
+                pokeId: '1',
+                weight: 20,
+                fedBerries: [],
+            });
+        });
+
+        expect(result.current.selectedPokemon?.name).toBeUndefined();
     });
 
     it('should not evolve selected pokemon', async () => {

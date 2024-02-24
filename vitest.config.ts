@@ -10,11 +10,13 @@ export default mergeConfig(viteConfig, defineConfig({
                 'src/**/*.{ts,tsx}',
             ],
             exclude: [
-                'src/domain/entities/**/*', // we don't need to test entities
-                'src/domain/repository/**/*', // we don't need to test repositories
-                'src/main.tsx', // we don't need to test the entrypoint, as it's just a composition root
-                'src/routes.ts', // we can't test the routes directly
-                'src/**/*.d.ts', // we can't test .d.ts files, which are generated
+                'src/data/repository/**/*', // repository di uji di integration test
+                'src/domain/entities/**/*', // entities selalu dicover oleh test lain
+                'src/domain/repository/**/*', // hanya ada interface
+                'src/main.tsx', // tidak perlu di cover, karena hanya bootstrap
+                'src/routes.ts', // tidak perlu di cover, karena hanya bootstrap
+                'src/**/types.ts', // tidak perlu di cover, karena hanya tipe
+                'src/**/*.d.ts', // tidak perlu menguji file .d.ts, karena hanya tipe yang di generate
             ]
         }
     },

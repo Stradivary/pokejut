@@ -73,4 +73,5 @@ describe("Component Coverage Tests", () => {
     const { container } = render(<PokemonDetail />);
     expect(container).toBeDefined();
   });
+ 
 });

@@ -31,7 +31,7 @@ export const MainNavbar = ({
                 <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                 <Image src="/logo.png" alt="logo" w={40} h={40} />
                 <Title order={4} m="md">
-                    Pokegochi
+                    Pokejut
                 </Title>
             </Group>
         </AppShell.Section>

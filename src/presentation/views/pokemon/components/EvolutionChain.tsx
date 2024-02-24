@@ -15,10 +15,6 @@ export const EvolutionChainPage = () => {
 
   const { nextEvolutionChain } = useEvolutionChain(selectedPokemon);
 
-  useEffect(() => {
-    console.log(nextEvolutionChain);
-  }, [nextEvolutionChain]);
-
   return (
     <Paper p="md">
       <Title order={3} mt="lg">
@@ -60,7 +56,7 @@ const useEvolutionChain = (selectedPokemon?: PokemonState) => {
   return { nextEvolutionChain };
 };
 
-function EvolveCard({
+export function EvolveCard({
   evolveItem,
   selectedPokemon,
 }: {

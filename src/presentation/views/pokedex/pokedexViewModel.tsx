@@ -42,15 +42,15 @@ const usePokedexViewModel = () => {
 const getFiltteredData = (data: any, search: string) => {
   if (!data) return { pages: [] };
   // foreach page in data.pages, filter the results based on the search query
-  const filteredData = data.pages.map((page: any) => {
+  const filteredData = data?.pages?.map((page: any) => {
     return {
-      results: page.results.filter((result: any) =>
-        result.name.toLowerCase().includes(search.toLowerCase())
+      results: page?.results?.filter((result: any) =>
+        result?.name?.toLowerCase().includes(search.toLowerCase())
       ),
     };
   });
   // return the filtered data
-  return { pages: filteredData };
+  return { pages: filteredData ?? [] };
 };
 
 export default usePokedexViewModel;
