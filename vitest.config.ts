@@ -9,7 +9,9 @@ export default mergeConfig(viteConfig, defineConfig({
             include: [
                 'src/**/*.{ts,tsx}',
             ],
-            exclude: [
+            exclude: [ 
+                'src/presentation/views/pokemon/components/PokemonDetail/BerriesFeeder.tsx', // views di uji di integration test
+                'src/presentation/views/pokemon/components/PokemonDetail/BerryCard.tsx', // views di uji di integration test
                 'src/data/repository/**/*', // repository di uji di integration test
                 'src/domain/entities/**/*', // entities selalu dicover oleh test lain
                 'src/domain/repository/**/*', // hanya ada interface

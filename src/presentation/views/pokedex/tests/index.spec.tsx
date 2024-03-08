@@ -8,7 +8,6 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { useSimulator } from "@/domain/useCases/simulator";
 
 
 const mock = new MockAdapter(axios);
@@ -18,7 +17,7 @@ describe("Component Coverage Tests", () => {
         const { container } = render(<PokemonById />);
         expect(container).toBeDefined();
     });
- 
+
     it("should render the PokemonDetail component correctly", () => {
         const { container } = render(<PokemonList />);
         expect(container).toBeDefined();
