@@ -1,4 +1,4 @@
-import { ActionIcon, AppShell, Burger, Group, ScrollArea, Title } from "@mantine/core";
+import { ActionIcon, AppShell, Burger, Group, Title, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { MainNavbar } from "../components/Navbar/MainNavbar";
@@ -7,19 +7,20 @@ import { data } from "./data";
 export function Component() {
   const [opened, { toggle }] = useDisclosure();
   const { pathname } = useLocation();
+  const { colorScheme } = useMantineColorScheme();
   return (
     <AppShell
-      header={{ height: { base: 0, md: 60, lg: 60, xl: 60 } }}
-      footer={{ height: { base: 60, md: 60, lg: 60, xl: 60 } }}
+      header={{ height: { base: 1, md: 60, lg: 1, xl: 1 } }}
+      footer={{ height: { base: 86, md: 86, lg: 1, xl: 1 } }}
       navbar={{
         width: { base: 0, md: 240, lg: 240, xl: 240 },
         breakpoint: "md",
         collapsed: { mobile: !opened },
       }}
-      padding="md"
+      padding={0}
       layout="alt"
     >
-      <AppShell.Header   >
+      <AppShell.Header  >
         <Group h="100%" px="md" visibleFrom="md" >
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Title order={3} m="md" hiddenFrom="sm">
@@ -31,15 +32,13 @@ export function Component() {
         <MainNavbar opened={opened} toggle={toggle} data={data} />
       </AppShell.Navbar>
       <AppShell.Main >
-        <ScrollArea h={"100%"} >
-          <Outlet />
-        </ScrollArea>
+        <Outlet />
       </AppShell.Main>
-      <AppShell.Footer >
+      <AppShell.Footer  >
         <Group justify="center" h="100%" px="md" hiddenFrom="md">
           {
             data.map((item) => (
-              <ActionIcon component={Link} to={item.to} radius="lg" p={0} key={item.label} variant={pathname == item.to ? "filled" : "subtle"} size="xl">
+              <ActionIcon component={Link} to={item.to} radius="lg" p={0} key={item.label} variant={pathname == item.to ? "filled" : "subtle"} color={colorScheme === "dark" ? "blue.7" : "blue.3"} size={73}>
                 {item.icon}
               </ActionIcon>
             ))

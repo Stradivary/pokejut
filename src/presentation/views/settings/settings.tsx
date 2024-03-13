@@ -4,7 +4,7 @@ export function Component() {
     const { setColorScheme, clearColorScheme } = useMantineColorScheme();
 
     return (
-        <Stack>
+        <Stack p={16}>
             <Title order={3}>Pengaturan</Title>
             <Divider />
             <Stack>

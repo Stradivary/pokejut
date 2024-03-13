@@ -1,7 +1,7 @@
 
 import { useBerryGetByName } from "@/data/dataSource/Berries/berryDataSource";
 import { useItemGetByName } from "@/data/dataSource/Items/itemsDataSource";
-import { BerryState } from "@/domain/useCases/simulator";
+import { BerryState, berriesGain } from "@/domain/useCases/simulator";
 import {
   ActionIcon,
   Badge,
@@ -21,6 +21,7 @@ const firmnesColor: Record<string, string> = {
   "very-hard": "orange",
   "super-hard": "red",
 };
+ 
 
 export const BerryCard = ({
   name,
@@ -56,6 +57,9 @@ export const BerryCard = ({
               <Badge color={firmnesColor[berry?.firmness?.name ?? ""]}>
                 {berry?.firmness?.name?.replace("-", " ")}
               </Badge>
+              <Text>
+                Berat : {berriesGain[berry?.firmness?.name ?? ""]} kg
+              </Text>
             </Stack>
           </Group>
         </Paper>

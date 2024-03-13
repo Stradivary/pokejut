@@ -1,10 +1,10 @@
 
 export const berriesGain: Record<string, number> = {
-    'very-soft': 20,
-    'soft': 30,
-    'hard': 50,
-    'very-hard': 80,
-    'super-hard': 100,
+    'very-soft': 2,
+    'soft': 3,
+    'hard': 5,
+    'very-hard': 8,
+    'super-hard': 10,
 };
 
 export const getBerryGain = (firmness?: string) => {

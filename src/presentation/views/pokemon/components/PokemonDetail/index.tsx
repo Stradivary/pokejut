@@ -111,10 +111,6 @@ export const PokemonDetail: React.FC = () => {
               </Group>
             </Group>
 
-            <Text>
-              Evolves to:{" "}
-              {findNextEvolution(evolveItem, pokemon?.name ?? "") ?? "None"}
-            </Text>
           </Stack>
         </Group>
       </Paper>

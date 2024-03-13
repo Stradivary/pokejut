@@ -31,11 +31,11 @@ export type PokemonStore = {
 };
 
 export const berriesGain: Record<string, number> = {
-    'very-soft': 20,
-    'soft': 30,
-    'hard': 50,
-    'very-hard': 80,
-    'super-hard': 100,
+    'very-soft': 2,
+    'soft': 3,
+    'hard': 5,
+    'very-hard': 8,
+    'super-hard': 10,
 };
 
 export const useSimulator = create(
@@ -80,21 +80,22 @@ export const useSimulator = create(
                             selectedPokemon.weight -= weightLoss;
                             notifications.show({
                                 title: "Uh oh!",
-                                message: `You fed your Pokemon a berry of the same firmness, it lost ${weightLoss} kg!`,
+                                message: `Kamu memberi berri dengan firmness yang sama, berat ${selectedPokemon.name} berkurang ${weightLoss} kg!`,
                                 color: "red",
                                 autoClose: 2000,
                             });
                         } else {
                             notifications.show({
                                 title: "Yay!",
-                                message: `You fed your Pokemon a berry, it gained ${weightGain} kg!`,
+                                message: `Kamu memberi berri dengan firmness ${berryFirmness}, berat ${selectedPokemon.name} bertambah ${weightGain} kg!`,
                                 color: "teal",
                                 autoClose: 2000,
                             });
+                            selectedPokemon.weight += weightGain;
                         }
 
                         selectedPokemon.fedBerries = [...selectedPokemon.fedBerries, berry.firmness?.name ?? ""];
-                        selectedPokemon.weight += weightGain;
+
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
 

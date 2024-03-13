@@ -22,7 +22,7 @@ function App() {
         <PersistQueryClientProvider client={queryClient}
           persistOptions={{ persister: localStoragePersister }}>
           <RouterProvider router={router} />
-          <Notifications withinPortal position='top-right' />
+          <Notifications withinPortal position='top-center' />
           <ReactQueryDevtools initialIsOpen={false} />
         </PersistQueryClientProvider>
       </ModalsProvider>
