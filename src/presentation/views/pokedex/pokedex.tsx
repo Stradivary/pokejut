@@ -1,9 +1,9 @@
 // PokedexPage.js
-import CardAddPokemon from './components/CardPokemonAdd';
 import { pokemonData } from '@/utils/constants';
-import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
+import CardAddPokemon from './components/CardPokemonAdd';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {

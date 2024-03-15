@@ -1,6 +1,5 @@
-import { ArchiveBox, CircleHalf, Gear } from "@phosphor-icons/react";
-import { NavItemData } from "../components/Navbar/types";
 import { Image } from "@mantine/core";
+import { NavItemData } from "../components/Navbar/types";
 
 
 export const data: NavItemData[] = [

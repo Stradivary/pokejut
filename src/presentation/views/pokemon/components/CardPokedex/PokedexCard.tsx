@@ -1,9 +1,8 @@
 import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
 import { pokemonData } from "@/utils/constants";
-import { Button, Card, HoverCard, Popover, Progress, Stack, Text, Title, Tooltip } from "@mantine/core";
+import { Button, Card, HoverCard, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./style.scss";
 
 export default function EvolutionCard({
@@ -15,7 +14,6 @@ export default function EvolutionCard({
 }) {
   const [color, setColor] = useState<string | null>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const navigate = useNavigate();
 
   const { evolveSelectedPokemon } = useSimulator();
   function getColorByType(pokemonType: string) {
