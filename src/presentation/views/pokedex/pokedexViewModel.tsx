@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { usePokemonInfiniteGetAllInternal } from "@/data/dataSource/Pokemon/pokemonDataSource";
 import { useIntersection } from "@mantine/hooks";
-import { usePokemonInfiniteGetAll } from "@/data/dataSource/Pokemon/pokemonDataSource";
+import { useEffect, useState } from "react";
 const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
+
+
+  const [selectedType, setType] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const {
     status,
     data,
@@ -11,11 +15,7 @@ const usePokedexViewModel = () => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = usePokemonInfiniteGetAll({ limit: 10 });
-
-
-  const [selectedType, setType] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
+  } = usePokemonInfiniteGetAllInternal({ pageSize: 10, q: search, filter: { type: selectedType } });
 
   useEffect(() => {
     if (entry?.isIntersecting) {
@@ -23,10 +23,10 @@ const usePokedexViewModel = () => {
     }
   }, [entry, fetchNextPage]);
 
-  const filteredData = getFilteredData(data, search);
+  // const filteredData = getFilteredData(data, search);
   return {
     status,
-    data: filteredData,
+    data: data,
     error,
     isFetching,
     isFetchingNextPage,

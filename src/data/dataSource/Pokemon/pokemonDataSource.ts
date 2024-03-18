@@ -1,8 +1,9 @@
-import { UseQueryOptions, infiniteQueryOptions, queryOptions, useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BaseRemoteDataSource } from "../shared/baseDataSource";
 import PokemonRepository from "@/data/repository/pokemonRepositoryRestImpl";
 import { PokemonAdapter } from "./adapter";
+import { pokemonInternalRepo } from "@/data/repository/pokemonRepositoryInternalImpl";
 
 const entity = 'pokemon';
 
@@ -29,6 +30,19 @@ const PokemonQueryInfinite = (filter) =>
             const { offset } = getOffsetAndLimitFromUrl(lastPage.next);
             return lastPage.next ? offset : 0;
         },
+    });
+
+const PokemonQueryInfiniteInternal = (filter) =>
+    infiniteQueryOptions({
+        queryKey: [entity, "getAll", filter],
+        queryFn: async ({ pageParam = 0 }) => {
+            return pokemonInternalRepo.getPokemonsByPage({ page: pageParam ?? 0, pageSize: filter?.pageSize ?? 10, q: filter?.q, filter: filter?.filter });
+        },
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+            return lastPage?.meta?.hasNextPage ? lastPage?.meta?.nextPage : undefined;
+        },
+        
     });
 
 export const usePokemonGetEveryting = () => {
@@ -68,5 +82,15 @@ const getOffsetAndLimitFromUrl = (url?: string) => {
 
 export const usePokemonInfiniteGetAll = (filter: { limit: number; }) => {
     return useSuspenseInfiniteQuery(PokemonQueryInfinite(filter));
+};
+
+export const usePokemonInfiniteGetAllInternal = (filter: {
+    pageSize: number;
+    q?: string; // General search query
+    filter?: {
+        type?: string; // Filter by type
+    };
+}) => {
+    return useInfiniteQuery(PokemonQueryInfiniteInternal(filter));
 };
 

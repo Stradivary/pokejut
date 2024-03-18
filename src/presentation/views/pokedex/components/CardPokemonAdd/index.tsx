@@ -75,6 +75,7 @@ export default function CardAddPokemon({
         backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
         backgroundRepeat: "no-repeat",
       }}
+      mih={430}
       p={16}
     >
       <SimpleGrid cols={{ base: 1, xs: 1, sm: 1, md: 1, lg: 1 }}>

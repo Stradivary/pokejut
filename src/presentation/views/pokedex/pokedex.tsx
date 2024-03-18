@@ -42,9 +42,7 @@ const PokedexPage = () => {
 
                         <ScrollArea h={42} w="calc(100vw - 20px)"  >
                             <Group wrap='nowrap'>
-                                {pokemonData?.filter(
-                                    ({ type }: { type: string; }) => !['dark', 'ghost', 'dragon'].includes(type)
-                                ).map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
+                                {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
                                     const isSelected = type === binding.selectedType;
                                     return (
                                         <Tooltip key={index} label={type} position="bottom" withArrow>
@@ -69,7 +67,7 @@ const PokedexPage = () => {
                     w={{ base: "100%", md: "calc(100% - 300px)" }}
                     mt={32} verticalSpacing={56} spacing={12}
                     cols={{ xs: 2, sm: 3, md: 2, lg: 3, xl: 3 }}>
-                    {binding?.data?.pages?.map((page: { results: { name: string; }[]; }, index: number) => (
+                    {binding?.data?.pages?.map((page: { results; }, index: number) => (
                         <React.Fragment key={index + '- page'}>
                             {page?.results?.map(({ name }: { name: string; }) => (
                                 <CardAddPokemon key={
@@ -78,6 +76,7 @@ const PokedexPage = () => {
                             ))}
                         </React.Fragment>
                     ))}
+
                 </SimpleGrid>
                 <Center mt={20}>
                     <Button
@@ -88,7 +87,16 @@ const PokedexPage = () => {
                         loading={binding?.isFetchingNextPage}
                         disabled={!binding?.hasNextPage}
                     >
-                        {binding?.isFetchingNextPage ? 'Menampilkan lebih banyak...' : binding?.hasNextPage ? 'Tampilkan lebih banyak' : 'Semua Pokemon ditampilkan'}
+                        {binding?.isFetchingNextPage
+                            ? 'Menampilkan lebih banyak...'
+                            : binding?.hasNextPage
+                                ? 'Tampilkan lebih banyak'
+                                : (binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
+                                    ? 'Semua Pokemon ditampilkan'
+                                    : 'Tidak ada pokemon'  
+                        }
+
+
                     </Button>
                 </Center>
                 <Center>
