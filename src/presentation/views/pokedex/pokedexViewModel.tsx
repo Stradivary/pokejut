@@ -40,16 +40,6 @@ const usePokedexViewModel = () => {
   };
 };
 
-const getFilteredData = (data: any, search: string) => {
-  if (!data) return { pages: [] };
-  const filteredData = data?.pages?.map((page: any) => {
-    return {
-      results: page?.results?.filter((result: any) =>
-        result?.name?.toLowerCase().includes(search.toLowerCase())
-      ),
-    };
-  });
-  return { pages: filteredData ?? [] };
-};
+
 
 export default usePokedexViewModel;

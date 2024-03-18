@@ -25,7 +25,6 @@ const getPages = <T>(data: T[], pageSize: number) => {
 
 class PokemonRepository {
     private pokemons: Pokemon[] = [];
-    private pageSize = 10;
     private pokemonsByPage: Pokemon[][] = [];
     constructor(pokemons: Pokemon[]) {
         this.pokemons = pokemons;
