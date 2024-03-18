@@ -13,6 +13,7 @@ const usePokedexViewModel = () => {
     hasNextPage,
   } = usePokemonInfiniteGetAll({ limit: 10 });
 
+
   const [selectedType, setType] = useState<string>("");
   const [search, setSearch] = useState<string>("");
 
@@ -22,7 +23,7 @@ const usePokedexViewModel = () => {
     }
   }, [entry, fetchNextPage]);
 
-  const filteredData = getFiltteredData(data, search);
+  const filteredData = getFilteredData(data, search);
   return {
     status,
     data: filteredData,
@@ -39,9 +40,8 @@ const usePokedexViewModel = () => {
   };
 };
 
-const getFiltteredData = (data: any, search: string) => {
+const getFilteredData = (data: any, search: string) => {
   if (!data) return { pages: [] };
-  // foreach page in data.pages, filter the results based on the search query
   const filteredData = data?.pages?.map((page: any) => {
     return {
       results: page?.results?.filter((result: any) =>
@@ -49,7 +49,6 @@ const getFiltteredData = (data: any, search: string) => {
       ),
     };
   });
-  // return the filtered data
   return { pages: filteredData ?? [] };
 };
 

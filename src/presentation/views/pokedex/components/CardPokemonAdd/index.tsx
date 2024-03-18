@@ -148,7 +148,7 @@ export default function CardAddPokemon({
                   title: "Pokemon berhasil ditambahkan",
                   message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
                   color: "blue",
-                  icon: <Image src="/svgs/pokeball.svg" alt="Pokeball" />,
+                  icon: <Image src="/pokeball.png" alt="Pokeball" />,
                 });
                 addPokemon({ ...pokemon, ...evolveItem });
               }

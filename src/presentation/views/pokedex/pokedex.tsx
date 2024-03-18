@@ -23,11 +23,23 @@ const PokedexPage = () => {
 
                 <Flex p="md" style={{
                     flexDirection: "column", position: "sticky", top: 0, left: 0, right: 0, zIndex: 10,
-                    background: colorScheme ==="dark" ? "#0a0a0ada": "#ffffffda",
+                    background: colorScheme === "dark" ? "#0a0a0ada" : "#ffffffda",
                     backdropFilter: "blur(8px)"
                 }} >
-                    <Title order={1}>Pokedex</Title>
+                    <Group>
+
+                        <Title order={1}>Pokedex</Title> {
+                            binding.selectedType && (
+                                <Text
+                                    tt="capitalize"
+                                >
+                                    {binding.selectedType}
+                                </Text>
+                            )
+                        }
+                    </Group>
                     <Group justify="space-between"  >
+
                         <ScrollArea h={42} w="calc(100vw - 20px)"  >
                             <Group wrap='nowrap'>
                                 {pokemonData?.filter(
@@ -49,6 +61,7 @@ const PokedexPage = () => {
                                 })}
                             </Group>
                         </ScrollArea>
+
                         <TextInput value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<MagnifyingGlass />} />
                     </Group>
                 </Flex>

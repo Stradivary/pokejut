@@ -82,6 +82,7 @@ export const useSimulator = create(
                                 title: "Uh oh!",
                                 message: `Kamu memberi berri dengan firmness yang sama, berat ${selectedPokemon.name} berkurang ${weightLoss} kg!`,
                                 color: "red",
+                                icon: <img src="/pokeball.png" alt="pokeball" />,
                                 autoClose: 2000,
                             });
                         } else {
@@ -89,6 +90,7 @@ export const useSimulator = create(
                                 title: "Yay!",
                                 message: `Kamu memberi berri dengan firmness ${berryFirmness}, berat ${selectedPokemon.name} bertambah ${weightGain} kg!`,
                                 color: "teal",
+                                icon: <img src="/pokeball.png" alt="pokeball" />,
                                 autoClose: 2000,
                             });
                             selectedPokemon.weight += weightGain;
@@ -132,6 +134,7 @@ export const useSimulator = create(
                             title: "Evolution!",
                             message: `Your ${get().selectedPokemon?.name} evolved into ${evolvedPokemon?.species?.name}!`,
                             color: "teal",
+                            icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,
                         });
                         return { pokemonList: updatedPokemonList, selectedPokemon: selectedPokemon };
@@ -140,6 +143,7 @@ export const useSimulator = create(
                             title: "Uh oh!",
                             message: `You don't have a Pokemon selected!`,
                             color: "red",
+                            icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,
                         });
                     }
