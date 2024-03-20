@@ -1,25 +1,23 @@
 import { render } from "~/tests/test-utils";
-import { Component as PokemonById } from "../pokedex.$id";
 import { Component as PokemonList } from "../pokedex";
-import CardAddPokemon from "../components/CardPokemonAdd";
+import CardAddPokemon from "../components/card-pokemon-add";
 import usePokedexViewModel from "../pokedexViewModel";
 import { expect, describe, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { mockIntersectionObserver } from "./mockIntersectionObserver";
 
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
 describe("Component Coverage Tests", () => {
-    it("should render the PokemonPage component correctly", () => {
-        const { container } = render(<PokemonById />);
-        expect(container).toBeDefined();
-    });
 
     it("should render the PokemonDetail component correctly", () => {
+        const [intersectionObserver] = mockIntersectionObserver([true]);
         const { container } = render(<PokemonList />);
+
         expect(container).toBeDefined();
     });
 

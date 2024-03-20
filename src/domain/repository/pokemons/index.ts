@@ -1,4 +1,4 @@
-import { Pokemon } from "@/domain/entities/Pokemon";
+import { Pokemon } from "@/domain/entities/pokemon";
 
 export interface PokemonDataRepository {
     getPokemonById(id: string): Promise<Pokemon>;

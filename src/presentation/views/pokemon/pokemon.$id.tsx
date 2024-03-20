@@ -1,18 +1,34 @@
-import { useSimulator } from "@/domain/useCases/simulator";
+import { useSimulator } from "@/domain/use-cases/simulator";
 import { Button, Group, Image } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
-import { PokemonDetail } from "./components/PokemonDetail";
-import { EvolutionChainPage } from "./components/EvolutionChain";
-import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { EvolutionChainPage } from "./components/EvolutionChain";
+import { PokemonDetail } from "./components/pokemon-detail";
+
+
 
 /**
  * Pokedex detail page
  * @returns Pokedex detail page
  */
 export function Component() {
+    const params = useParams();
     const { pokemonList, releaseSelectedPokemon } = useSimulator();
     const navigate = useNavigate();
+    console.log(params);
+    // id must be a number
+    if (params.id === undefined || isNaN(parseInt(params.id as string))) {
+        navigate("/pokemon");
+    }
+
+    const pokemonExists = pokemonList.find((pokemon) => pokemon.id === parseInt(params.id as string));
+
+
+    if (!pokemonExists) {
+        navigate("/pokemon");
+    }
+
     if (pokemonList.length === 0) {
         return (
             <div style={{ width: "100%" }}>

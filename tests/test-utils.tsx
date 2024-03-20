@@ -17,14 +17,13 @@ export function render(ui: React.ReactNode) {
                 { path: "/", element: <>{children}</> },
             ]);
             return (
-                <MantineProvider theme={theme}>
-                    <ModalsProvider>
-                        <QueryClientProvider client={queryClient}>
+                <QueryClientProvider client={queryClient}>
+                    <MantineProvider theme={theme}>
+                        <ModalsProvider>
                             <RouterProvider router={mem} />
-                            <Notifications withinPortal />
-                        </QueryClientProvider>
-                    </ModalsProvider>
-                </MantineProvider>
+                        </ModalsProvider>
+                    </MantineProvider>
+                </QueryClientProvider>
             );
         },
     });

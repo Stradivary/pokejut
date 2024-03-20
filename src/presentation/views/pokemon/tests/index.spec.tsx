@@ -1,11 +1,11 @@
 import { render } from "~/tests/test-utils";
 import { Component as PokemonById } from "../pokemon.$id";
 import { Component as PokemonList } from "../pokemon";
-import CardPokedex from "../components/CardPokedex/PokedexCard";
-import { CardPokemonSelect } from "../components/CardPokemonSelection";
+import CardPokedex from "../components/card-pokedex/PokedexCard";
+import { CardPokemonSelect } from "../components/card-pokemon-selection";
 import { EvolutionChainPage, EvolveCard } from "../components/EvolutionChain";
 import { expect, describe, it, vi } from "vitest";
-import { BerryCard } from "../components/PokemonDetail/BerryCard";
+import { BerryCard } from "../components/pokemon-detail/BerryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 
@@ -27,7 +27,7 @@ describe("Component Coverage Tests", () => {
 
         mock.onGet('https://pokeapi.co/api/v2/berry').reply(200, mockedBerryGetAll);
 
-        vi.mock("@/data/dataSource/Berries/berryDataSource", () => {
+        vi.mock("@/data/data-source/Berries/berryDataSource", () => {
             return {
                 useBerryGetAll: () => {
                     return {
@@ -74,7 +74,7 @@ describe("Component Coverage Tests", () => {
         expect(container).toBeDefined();
     });
     it("should render the empty BerryCard component correctly", () => {
-        vi.mock("@/domain/useCases/simulator", () => ({
+        vi.mock("@/domain/use-cases/simulator", () => ({
             useSimulator: () => ({
                 selectedPokemon: { name: "test" },
 
@@ -86,7 +86,7 @@ describe("Component Coverage Tests", () => {
         const { container } = render(<BerryCard name={""} />);
         expect(container).toBeDefined();
 
-        vi.mock("@/domain/useCases/simulator", () => ({
+        vi.mock("@/domain/use-cases/simulator", () => ({
             useSimulator: () => ({
                 selectedPokemon: { name: "test" },
                 pokemonList: [

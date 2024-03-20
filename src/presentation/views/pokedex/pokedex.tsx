@@ -3,7 +3,7 @@ import { pokemonData } from '@/utils/constants';
 import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
-import CardAddPokemon from './components/CardPokemonAdd';
+import CardAddPokemon from './components/card-pokemon-add';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
 
 const PokedexPage = () => {

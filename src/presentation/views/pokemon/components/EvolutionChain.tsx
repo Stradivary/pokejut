@@ -1,14 +1,14 @@
 import {
   usePokemonGetEvolutionChain,
   usePokemonGetSpecies,
-} from "@/data/dataSource/Evolution/evolutionDataSource";
-import { usePokemonGetByName } from "@/data/dataSource/Pokemon/pokemonDataSource";
-import { EvolutionChain } from "@/domain/entities/Evolution";
-import { findEvolutionChain } from "@/domain/useCases/evolution/useEvolutionChain";
-import { PokemonState, useSimulator } from "@/domain/useCases/simulator";
+} from "@/data/data-source/Evolution/evolutionDataSource";
+import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { EvolutionChain } from "@/domain/entities/evolution";
+import { findEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
+import { PokemonState, useSimulator } from "@/domain/use-cases/simulator";
 import { Button, Paper, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import EvolutionCard from "./CardPokedex/PokedexCard";
+import EvolutionCard from "./card-pokedex/PokedexCard";
 
 export const EvolutionChainPage = () => {
   const { selectedPokemon } = useSimulator();

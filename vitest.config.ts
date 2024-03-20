@@ -10,13 +10,12 @@ export default mergeConfig(viteConfig, defineConfig({
                 'src/**/*.{ts,tsx}',
             ],
             exclude: [ 
-                'src/presentation/views/pokemon/components/PokemonDetail/BerriesFeeder.tsx', // views di uji di integration test
-                'src/presentation/views/pokemon/components/PokemonDetail/BerryCard.tsx', // views di uji di integration test
+                'src/presentation/views/**/*', // views di uji di integration test 
                 'src/data/repository/**/*', // repository di uji di integration test
                 'src/domain/entities/**/*', // entities selalu dicover oleh test lain
                 'src/domain/repository/**/*', // hanya ada interface
                 'src/main.tsx', // tidak perlu di cover, karena hanya bootstrap
-                'src/routes.ts', // tidak perlu di cover, karena hanya bootstrap
+                'src/routes.tsx', // tidak perlu di cover, karena hanya bootstrap
                 'src/**/types.ts', // tidak perlu di cover, karena hanya tipe
                 'src/**/*.d.ts', // tidak perlu menguji file .d.ts, karena hanya tipe yang di generate
             ]
