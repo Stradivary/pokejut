@@ -55,7 +55,7 @@ class PokemonRepository {
         // Apply type filter
         if (filter && filter.type && filter.type !== undefined) {
             filteredPokemons = filteredPokemons.filter(pokemon =>
-                pokemon.types.includes(filter.type as string)
+                pokemon?.types?.includes(filter.type as string)
             );
         }
 

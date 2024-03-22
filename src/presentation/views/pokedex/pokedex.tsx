@@ -1,10 +1,11 @@
 // PokedexPage.js
 import { pokemonData } from '@/utils/constants';
-import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
 import CardAddPokemon from './components/card-pokemon-add';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
+import { TypeBadge } from './TypeBadge';
 
 const PokedexPage = () => {
 
@@ -28,18 +29,9 @@ const PokedexPage = () => {
                 }} >
                     <Group>
 
-                        <Title order={1}>Pokedex</Title> {
-                            binding.selectedType && (
-                                <Text
-                                    tt="capitalize"
-                                >
-                                    {binding.selectedType}
-                                </Text>
-                            )
-                        }
+                        <Title order={1}>Pokedex</Title>
                     </Group>
-                    <Group justify="space-between"  >
-
+                    <Stack>
                         <ScrollArea h={42} w="calc(100vw - 20px)"  >
                             <Group wrap='nowrap'>
                                 {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
@@ -51,7 +43,7 @@ const PokedexPage = () => {
                                                     return binding.setType('');
                                                 }
                                                 return binding.setType(type);
-                                            }} color={color} c="white" size={isSelected ? "lg" : "md"} radius="xl" variant={isSelected ? "filled" : "subtle"}>
+                                            }} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
                                                 <Image width={32} src={img} alt={type} />
                                             </ActionIcon>
                                         </Tooltip>
@@ -59,9 +51,14 @@ const PokedexPage = () => {
                                 })}
                             </Group>
                         </ScrollArea>
+                        {
+                            binding.selectedType && pokemonData?.find(({ type }: { type: string; }) => type === binding.selectedType) && (
+                                <TypeBadge data={pokemonData?.find(({ type }: { type: string; }) => type === binding.selectedType)} />
 
+                            )
+                        }
                         <TextInput value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<MagnifyingGlass />} />
-                    </Group>
+                    </Stack>
                 </Flex>
                 <SimpleGrid p="md"
                     w={{ base: "100%", md: "calc(100% - 300px)" }}
@@ -93,7 +90,7 @@ const PokedexPage = () => {
                                 ? 'Tampilkan lebih banyak'
                                 : (binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
                                     ? 'Semua Pokemon ditampilkan'
-                                    : 'Tidak ada pokemon'  
+                                    : 'Tidak ada pokemon'
                         }
 
 
@@ -109,4 +106,4 @@ const PokedexPage = () => {
 
 PokedexPage.displayName = 'PokedexPage';
 
-export const Component = PokedexPage; 
+export const Component = PokedexPage;

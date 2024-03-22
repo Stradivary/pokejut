@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 describe("Component Coverage Tests", () => {
 
     it("should render the PokemonDetail component correctly", () => {
-        const [intersectionObserver] = mockIntersectionObserver([true]);
+        const [_] = mockIntersectionObserver([true]);
         const { container } = render(<PokemonList />);
 
         expect(container).toBeDefined();

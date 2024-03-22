@@ -1,13 +1,10 @@
 import { pokemonInternalRepo } from "@/data/repository/pokemonRepositoryInternalImpl";
-import PokemonRepository from "@/data/repository/pokemonRepositoryRestImpl";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { BaseRemoteDataSource } from "../shared/baseDataSource";
 
 const entity = 'pokemon';
 
-const pokeApiDataSource = new BaseRemoteDataSource('pokemon');
-const pokemonRepository = new PokemonRepository();
+const pokeApiDataSource = new BaseRemoteDataSource('pokemon'); 
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({
@@ -46,7 +43,8 @@ const PokemonQueryInfiniteInternal = (filter) =>
 
 export const usePokemonGetByName = (name: string) => {
     return useQuery(pokemonOptions('getByName', name, async () => {
-        return await pokeApiDataSource.getOne(name);
+        const pokemon = await pokeApiDataSource.getOne(name);
+        return  pokemon;
     }));
 };
 

@@ -11,7 +11,7 @@ export const BerriesFeeder = () => {
     offset: 0,
   });
   const [selectedBerry, setSelectedBerry] = useState<string>("");
-  const { feedPokemon, selectedPokemon: pokemonState } = useSimulator();
+  const { feedPokemon, selectedPokemonId } = useSimulator();
   return (
     <Paper p={10} mih={400}>
       <Title order={4} mb={8}>Berries Feeder</Title>
@@ -43,7 +43,7 @@ export const BerriesFeeder = () => {
             name={selectedBerry}
             detailed
             onClick={(berryState) => {
-              feedPokemon(pokemonState?.pokeId ?? "", berryState);
+              feedPokemon(selectedPokemonId ?? "", berryState);
             }}
           />
         )

@@ -1,10 +1,12 @@
-import { PokemonState, useSimulator } from "@/domain/use-cases/simulator";
+import { useSimulator } from "@/domain/use-cases/simulator";
+import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { pokemonData } from "@/utils/constants";
 import {
   Badge,
   Group,
   Image,
   Paper,
+  ScrollArea,
   SimpleGrid,
   Stack,
   Text,
@@ -34,12 +36,14 @@ const firmnesColor: Record<string, string> = {
   "super-hard": "red",
 };
 
-export const PokemonDetail: React.FC = () => {
-  const { selectedPokemon: pokemonState } = useSimulator();
+export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) => {
   // const { data: pokemonSpecies } = usePokemonGetSpecies(pokemonState?.name);
   // const { data: evolveItem } = usePokemonGetEvolutionChain(
   //   pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   // );
+
+  const { pokemonList } = useSimulator(); 
+  const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
   const [color, setColor] = useState<string | undefined>("#fff");
   const { weight, fedBerries, ...pokemon } =
     pokemonState ?? ({} as PokemonState);
@@ -57,7 +61,7 @@ export const PokemonDetail: React.FC = () => {
         style={{
           marginTop: 40,
           backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
-          viewTransitionName: "pokemon-card",
+          viewTransitionName: `pokemon-card-${pokemonId}`
         }}
       >
         <Group align="center" mx="auto">
@@ -66,7 +70,7 @@ export const PokemonDetail: React.FC = () => {
             draggable={false}
             className={styles["card-pokemon-img"]}
             style={{
-              viewTransitionName: "pokemon-image",
+              viewTransitionName: `pokemon-image-${pokemonId}`,
             }}
             src={
               pokemon?.sprites?.other?.["official-artwork"]?.front_default
@@ -118,18 +122,22 @@ export const PokemonDetail: React.FC = () => {
         <Title order={5} style={{ textAlign: "center" }}>
           Your last fed berries
         </Title>
-        <Group>
-          {
-            fedBerries && fedBerries.length > 0 ? (
-              fedBerries.map((berry) => {
-                return (<Badge color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
-                );
-              })
-            ) : (
-              <Text>No berries fed</Text>
-            )
-          }
-        </Group>
+        <ScrollArea style={{ height: 80, width: "100%" }}>
+          <Group w="100%">
+            {
+              fedBerries && fedBerries.length > 0 ? (
+                fedBerries?.slice(
+                  fedBerries.length > 5 ? fedBerries.length - 5 : 0
+                ).reverse().map((berry) => {
+                  return (<Badge color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
+                  );
+                })
+              ) : (
+                <Text>No berries fed</Text>
+              )
+            }
+          </Group>
+        </ScrollArea>
       </Stack>
     </SimpleGrid>
   );

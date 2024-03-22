@@ -3,7 +3,8 @@ import { Component as PokemonById } from "../pokemon.$id";
 import { Component as PokemonList } from "../pokemon";
 import CardPokedex from "../components/card-pokedex/PokedexCard";
 import { CardPokemonSelect } from "../components/card-pokemon-selection";
-import { EvolutionChainPage, EvolveCard } from "../components/EvolutionChain";
+import { EvolutionChainPage } from "../components/pokemon-detail/EvolutionChain";
+import { EvolveCard } from "../components/pokemon-detail/EvolveCard";
 import { expect, describe, it, vi } from "vitest";
 import { BerryCard } from "../components/pokemon-detail/BerryCard";
 import MockAdapter from "axios-mock-adapter";
@@ -55,7 +56,7 @@ describe("Component Coverage Tests", () => {
 
     // evolution chain, CardPokedex, CardPokemonSelection
     it("should render the evolution chain component correctly", () => {
-        const { container } = render(<EvolutionChainPage />);
+        const { container } = render(<EvolutionChainPage pokemonId={undefined} />);
         expect(container).toBeDefined();
     });
 
@@ -65,7 +66,7 @@ describe("Component Coverage Tests", () => {
     });
 
     it("should render the CardPokemonSelection component correctly", () => {
-        const { container } = render(<CardPokemonSelect pokemonName={""} index={0} />);
+        const { container } = render(<CardPokemonSelect pokemonName={""} index={""} weight={""} />);
         expect(container).toBeDefined();
     });
 
@@ -76,7 +77,7 @@ describe("Component Coverage Tests", () => {
     it("should render the empty BerryCard component correctly", () => {
         vi.mock("@/domain/use-cases/simulator", () => ({
             useSimulator: () => ({
-                selectedPokemon: { name: "test" },
+                selectedPokemonId: "",
 
                 pokemonList: [
 
@@ -88,7 +89,7 @@ describe("Component Coverage Tests", () => {
 
         vi.mock("@/domain/use-cases/simulator", () => ({
             useSimulator: () => ({
-                selectedPokemon: { name: "test" },
+                selectedPokemon: "",
                 pokemonList: [
                     { name: 'Pikachu', pokeId: '1', weight: 1, fedBerries: [] }
                 ], releaseSelectedPokemon: () => { }

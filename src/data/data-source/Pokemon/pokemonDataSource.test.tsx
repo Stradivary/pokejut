@@ -2,9 +2,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { act } from 'react-dom/test-utils';
 import { describe, expect, it } from 'vitest';
-import { getOffsetAndLimitFromUrl, usePokemonGetAll, usePokemonGetByName, usePokemonInfiniteGetAllInternal } from './pokemonDataSource';
+import { getOffsetAndLimitFromUrl, usePokemonGetByName, usePokemonInfiniteGetAllInternal } from './pokemonDataSource';
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
@@ -28,7 +27,7 @@ describe('Pokemon Data Source', () => {
         mock.onGet('/types').reply(200, data);
 
         const wrapper = ({ children }) => <QueryClientProvider client={queryClient}> {children} </QueryClientProvider>;
-        const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({ offset: 0, limit: 10 }), { wrapper });
+        const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({ pageSize: 10 }), { wrapper });
 
         await waitFor(() => result.current.isSuccess);
 

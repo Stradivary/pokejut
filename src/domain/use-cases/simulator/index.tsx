@@ -2,29 +2,25 @@ import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { Berry } from '@/domain/entities/berries';
 import { Pokemon } from '@/domain/entities/pokemon';
-import { PokemonEvolution } from "@/domain/entities/evolution";
 import { notifications } from '@mantine/notifications';
 import { getBerryGain } from '../berry';
 
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { PokemonAdapter } from '@/data/data-source/Pokemon/adapter';
+import { storage } from './presistor';
+import { type PokemonState } from './PokemonState';
 
 export type BerryState = Partial<Berry>;
 
-export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<PokemonEvolution, 'id'>> & {
-    pokeId: string;
-    fedBerries: string[];
-    weight: number;
-};
-
 export type PokemonStore = {
-    selectedPokemon: PokemonState | undefined;
+    selectedPokemonId: string | undefined;
     selectedPokemonEvolutionName: string | undefined;
     pokemonList: PokemonState[];
+    selectedPokemon: () => PokemonState | undefined;
     setSelectedPokemon: (pokemon: PokemonState | undefined) => void;
     deleteSelectedPokemon: () => void;
     releaseSelectedPokemon: () => void;
-    catchPokemon: (pokemon: Pokemon) => void;
+    catchPokemon: (pokemon: any) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
     evolveSelectedPokemon: (evolvedPokemon: PokemonState) => void;
@@ -41,14 +37,17 @@ export const berriesGain: Record<string, number> = {
 export const useSimulator = create(
     persist<PokemonStore>(
         (set, get) => ({
-            selectedPokemon: undefined,
+            selectedPokemonId: undefined,
             selectedPokemonEvolutionName: undefined,
             pokemonList: [],
+            selectedPokemon: () => {
+                return get().pokemonList.find((pokemon) => pokemon.pokeId === get().selectedPokemonId);
+            },
             setSelectedPokemon: (pokemon) => {
-                set(() => ({ selectedPokemon: pokemon }));
+                set(() => ({ selectedPokemonId: pokemon?.pokeId }));
             },
             deleteSelectedPokemon: () => {
-                set(() => ({ selectedPokemon: undefined }));
+                set(() => ({ selectedPokemonId: undefined }));
             },
             catchPokemon: (pokemon) => {
                 const newPokemon: PokemonState = {
@@ -56,12 +55,12 @@ export const useSimulator = create(
                     pokeId: uuidv4(),
                     fedBerries: [],
                 };
-                set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
+                set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemonId: newPokemon.pokeId }));
             },
             releaseSelectedPokemon: () => {
                 set((state) => ({
-                    pokemonList: state.pokemonList.filter((pokemon) => pokemon.pokeId !== state.selectedPokemon?.pokeId),
-                    selectedPokemon: undefined,
+                    pokemonList: state.pokemonList.filter((pokemon) => pokemon.pokeId !== state.selectedPokemonId),
+                    selectedPokemonId: undefined,
                 }));
             },
             feedPokemon: (pokemonId, berry) => {
@@ -101,7 +100,7 @@ export const useSimulator = create(
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
 
-                        return { pokemonList: updatedPokemonList, selectedPokemon: selectedPokemon };
+                        return { pokemonList: updatedPokemonList, selectedPokemonId: selectedPokemon.pokeId };
                     }
 
                     return state;
@@ -113,35 +112,43 @@ export const useSimulator = create(
                     pokeId: uuidv4(),
                     fedBerries: [],
                 };
-                set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemon: newPokemon }));
+                set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemonId: newPokemon.pokeId }));
             },
 
             evolveSelectedPokemon: (evolvedPokemon: PokemonState) => {
                 set((state) => {
 
-                    if (get().selectedPokemon) {
+                    if (get().selectedPokemonId) {
+                        const selectedPokemon = get().pokemonList.find((pokemon) => pokemon.pokeId === get().selectedPokemonId);
                         const updatedPokemonList = [...get().pokemonList];
-                        const selectedPokemon = {
-                            ...get().selectedPokemon,
-                            ...evolvedPokemon
-                        };
+                        const {
+                            weight,
+                            pokeId,
+                            evolves_to,
+                        } = selectedPokemon ?? {};
+                        const newPokemon = {
+                            ...evolvedPokemon,
+                            pokeId,
+                            weight,
+                            evolves_to,
+                        } as PokemonState;
 
-                        const selectedPokemonIndex = updatedPokemonList.findIndex((pokemon) => pokemon.pokeId === selectedPokemon.pokeId);
-                        updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
+                        const selectedPokemonIndex = updatedPokemonList.findIndex((pokemon) => pokemon.pokeId === get().selectedPokemonId);
+                        updatedPokemonList[selectedPokemonIndex] = newPokemon;
 
 
                         notifications.show({
                             title: "Evolution!",
-                            message: `Your ${get().selectedPokemon?.name} evolved into ${evolvedPokemon?.species?.name}!`,
+                            message: `Pokemon ${selectedPokemon?.name} berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
                             color: "teal",
                             icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,
                         });
-                        return { pokemonList: updatedPokemonList, selectedPokemon: selectedPokemon };
+                        return { pokemonList: updatedPokemonList };
                     } else {
                         notifications.show({
                             title: "Uh oh!",
-                            message: `You don't have a Pokemon selected!`,
+                            message: `Kamu tidak memiliki pokemon yang bisa di-evolve!`,
                             color: "red",
                             icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,
@@ -153,7 +160,7 @@ export const useSimulator = create(
         }),
         {
             name: 'pokemon-storage',
-            storage: createJSONStorage(() => localStorage),
+            storage: createJSONStorage(() => storage),
         }
     )
 );

@@ -5,5 +5,5 @@ export const theme = createTheme({
   headings: {
     fontFamily: 'Poppins, sans-serif',
   },
-  defaultRadius: 'xl',
+  defaultRadius: 'md',
 });

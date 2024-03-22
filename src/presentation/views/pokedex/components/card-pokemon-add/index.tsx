@@ -17,6 +17,14 @@ import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
 import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/data-source/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { EvolutionChain } from "@/domain/entities/evolution";
+
+function mapEvolutionChain(data: any): EvolutionChain {
+  return {
+    species: data.species.name,
+    evolves_to: data.evolves_to.map((evolution: any) => mapEvolutionChain(evolution))
+  };
+}
 
 export default function CardAddPokemon({
   pokemonName,
@@ -25,7 +33,7 @@ export default function CardAddPokemon({
   pokemonName: string;
   visibleType: string;
 }) {
-  const { addPokemon } = useSimulator();
+  const { catchPokemon } = useSimulator();
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
@@ -34,7 +42,7 @@ export default function CardAddPokemon({
   const { data: evolveItem } = usePokemonGetEvolutionChain(
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
-  
+
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon.type === pokemonType
@@ -48,7 +56,7 @@ export default function CardAddPokemon({
 
   useEffect(() => {
     if (pokemon) {
-      const Color = getColorByType(pokemon ? pokemon.types[0].type.name : "");
+      const Color = getColorByType(pokemon ? pokemon.types?.[0]?.type?.name : "");
       setColor(Color);
     }
   }, [pokemon]);
@@ -95,7 +103,7 @@ export default function CardAddPokemon({
             {pokemon?.name}
           </Text>
           <Group align="center" justify="center">
-            {pokemon?.types.map(
+            {pokemon?.types?.map(
               (type: { type: { name: string; }; }, i: number) => {
                 return (
                   <Image
@@ -149,9 +157,32 @@ export default function CardAddPokemon({
                   title: "Pokemon berhasil ditambahkan",
                   message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
                   color: "blue",
-                  icon: <Image src="/pokeball.png" alt="Pokeball" />,
+                  icon: <img src="/pokeball.png" alt="pokeball" />,
                 });
-                addPokemon({ ...pokemon, ...evolveItem });
+                const poke = {
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  types: pokemon.types,
+                  height: pokemon.height,
+                  weight: pokemon.weight,
+                  // stats: pokemon.stats,
+                  sprites: {
+                    front_default: pokemon.sprites.front_default,
+                    back_default: "",
+                    other: {
+                      "official-artwork": {
+                        front_default: pokemon.sprites.other["official-artwork"].front_default
+                      },
+                      "home": {} as any
+                    }
+                  },
+                  species: pokemon.species,
+                };
+
+                const evolves_to = mapEvolutionChain(evolveItem.chain);
+
+
+                catchPokemon({ ...poke, evolves_to });
               }
             }}
             gradient={{ from: "dark", to: color ?? "blue", deg: 350 }}

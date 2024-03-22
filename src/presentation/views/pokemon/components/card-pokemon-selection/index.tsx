@@ -11,7 +11,7 @@ import styles from "./style.module.scss";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
 
-export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }> = ({ pokemonName, index }) => {
+export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const [color, setColor] = useState<string | null>("#fff");
   const navigate = useNavigate();
@@ -46,10 +46,11 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }
       style={{
         marginTop: 40,
         borderLeftColor: `${color}`,
-        viewTransitionName: "pokemon-card"
+        viewTransitionName: `pokemon-card-${index}`
       }}
       onClick={() => {
-        setSelectedPokemon(pokemonList?.[index] ?? undefined);
+        const selectedPoke = pokemonList.find(x => x.pokeId === index);
+        setSelectedPokemon(selectedPoke);
         navigate(`./selected`);
       }}
     >
@@ -59,7 +60,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }
           draggable={false}
           className={styles["card-pokemon-img"]}
           style={{
-            viewTransitionName: "pokemon-image"
+            viewTransitionName: `pokemon-image-${index}`
           }}
           src={
             pokemon?.sprites.other["official-artwork"].front_default
@@ -73,7 +74,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }
         <Stack my={24} align="center" mx="auto">
           <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
           <Group align="center">
-            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
+            {pokemon?.types?.map((type: { type: { name: string; }; }, i: number) => {
               return (
                 <Image
                   loading="lazy"
@@ -96,7 +97,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: number; }
 
             <Group align="center">
               <Text className="pokemon-stats">
-                {(pokemonList.find(x => x.name === pokemonName)?.weight ?? 0)} Kg
+                {(weight ?? 0)} Kg
               </Text>
               <Barbell size={24} weight="duotone" />
             </Group>

@@ -1,5 +1,6 @@
 import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
-import { PokemonState, useSimulator } from "@/domain/use-cases/simulator";
+import { useSimulator } from "@/domain/use-cases/simulator";
+import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { pokemonData } from "@/utils/constants";
 import { Button, Card, HoverCard, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
@@ -51,7 +52,6 @@ export default function EvolutionCard({
   return (
     <Stack key={pokemon?.name} miw={180}>
       <HoverCard
-        position="right"
         offset={10}
         radius="sm"
       >

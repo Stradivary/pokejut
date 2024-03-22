@@ -28,6 +28,7 @@
     "axios": "^1.6.2",
     "axios-mock-adapter": "^1.22.0",
     "framer-motion": "^10.16.16",
+    "idb-keyval": "^6.2.1",
     "msw": "^2.2.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",

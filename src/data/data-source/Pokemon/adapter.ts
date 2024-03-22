@@ -11,8 +11,8 @@ export class PokemonAdapter {
             name: dto.name,
             species: { name: dto.species.name, url: dto.species.url },
             sprites: dto.sprites,
-            types: dto.types.map(({ slot, type }) => ({ slot, type: { name: type.name, url: type.url } })),
-            weight: dto.weight
-        } satisfies Pokemon;
+            types: dto.types.map(({ slot, type }) => ({ slot, type: { name: type.name } })),
+            weight: dto.weight, 
+        } satisfies Pokemon ;
     }
 }

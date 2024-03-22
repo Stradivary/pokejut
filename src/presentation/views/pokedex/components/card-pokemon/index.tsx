@@ -65,7 +65,7 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
       style={{
         marginTop: 40,
         backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
-        viewTransitionName: "pokemon-card"
+        viewTransitionName: "pokemon-card-" + pokemonName
       }}
     >
       <Group>
@@ -74,7 +74,7 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
           draggable={false}
           className="card-pokemon-img"
           style={{
-            viewTransitionName: "pokemon-image"
+            viewTransitionName: "pokemon-image-" + pokemonName
           }}
           src={
             pokemon?.sprites.other["official-artwork"].front_default
@@ -88,7 +88,7 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
         <Stack my={24}>
           <span className="card-pokemon-name">{pokemon?.name}</span>
           <Group align="center">
-            {pokemon?.types.map((type: { type: { name: string; }; }, i: number) => {
+            {pokemon?.types?.map((type: { type: { name: string; }; }, i: number) => {
               return (
                 <Image
                   loading="lazy"

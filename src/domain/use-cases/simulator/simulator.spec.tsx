@@ -1,5 +1,6 @@
 import { beforeEach, describe, vi, it, expect } from "vitest";
-import { PokemonStore, PokemonState, BerryState } from ".";
+import { PokemonStore, BerryState } from ".";
+import { PokemonState } from './PokemonState';
 import { Pokemon } from "@/domain/entities/pokemon";
 
 describe("PokemonStore", () => {
@@ -8,7 +9,8 @@ describe("PokemonStore", () => {
   beforeEach(() => {
     // Initialize or reset the store before each test
     store = {
-      selectedPokemon: undefined,
+      selectedPokemon: vi.fn(),
+      selectedPokemonId: undefined,
       selectedPokemonEvolutionName: undefined,
       pokemonList: [],
       setSelectedPokemon: vi.fn(),
