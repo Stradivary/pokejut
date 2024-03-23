@@ -15,8 +15,8 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 
 import { pokemonData } from "@/utils/constants";
 import style from "./style.module.scss";
-import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/data/data-source/Evolution/evolutionDataSource";
-import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/domain/data-source/Evolution/evolutionDataSource";
+import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/evolution";
 
 function mapEvolutionChain(data: any): EvolutionChain {
@@ -92,9 +92,9 @@ export default function CardAddPokemon({
           draggable={false}
           className={style.cardPokemonImg}
           src={
-            pokemon?.sprites?.other["official-artwork"].front_default
-              ? pokemon?.sprites?.other["official-artwork"].front_default
-              : "/pokenull.png"
+            pokemon?.sprites?.other["dream_world"].front_default
+              ? pokemon?.sprites?.other["dream_world"].front_default
+              : "/pokenull.webp"
           }
           alt={"Selected Pokemon " + pokemon?.name}
         />

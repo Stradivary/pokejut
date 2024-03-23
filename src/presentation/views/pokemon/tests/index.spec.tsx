@@ -28,7 +28,7 @@ describe("Component Coverage Tests", () => {
 
         mock.onGet('https://pokeapi.co/api/v2/berry').reply(200, mockedBerryGetAll);
 
-        vi.mock("@/data/data-source/Berries/berryDataSource", () => {
+        vi.mock("@/domain/data-source/Berries/berryDataSource", () => {
             return {
                 useBerryGetAll: () => {
                     return {

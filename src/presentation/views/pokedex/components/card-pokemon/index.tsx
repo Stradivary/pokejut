@@ -12,7 +12,7 @@ import {
 import React, { ReactNode, useEffect, useState } from "react";
 import { pokemonData } from "@/utils/constants";
 import "./style.module.scss";
-import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 
 export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName }) => {
   const [color, setColor] = useState<string | null>("#fff");

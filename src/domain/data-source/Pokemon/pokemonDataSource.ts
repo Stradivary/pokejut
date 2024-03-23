@@ -1,4 +1,4 @@
-import { pokemonInternalRepo } from "@/data/repository/pokemonRepositoryInternalImpl";
+import { pokemonInternalRepo } from "@/domain/repository/pokemonRepositoryInternalImpl";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { BaseRemoteDataSource } from "../shared/baseDataSource";
 

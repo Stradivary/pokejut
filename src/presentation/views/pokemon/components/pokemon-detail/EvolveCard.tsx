@@ -1,4 +1,4 @@
-import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/evolution";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';

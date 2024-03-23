@@ -1,5 +1,5 @@
 
-import { useBerryGetAll } from "@/data/data-source/Berries/berryDataSource";
+import { useBerryGetAll } from "@/domain/data-source/Berries/berryDataSource";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Group, Paper, ScrollArea, Title } from "@mantine/core";
 import { useState } from "react";

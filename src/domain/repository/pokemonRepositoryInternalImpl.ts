@@ -1,4 +1,3 @@
-import jsonPokemons from "./pokemon_list.json";
 
 interface Pokemon {
     id: number;
@@ -74,5 +73,9 @@ class PokemonRepository {
         return result;
     }
 }
+
+// import jsonPokemons from "./pokemon_list.json";
+
+const jsonPokemons = await import("./pokemon_list.json");
 
 export const pokemonInternalRepo = new PokemonRepository(jsonPokemons.pokemons);

@@ -15,4 +15,6 @@ export class PokemonAdapter {
             weight: dto.weight, 
         } satisfies Pokemon ;
     }
+
+    static
 }

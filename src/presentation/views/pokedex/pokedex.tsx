@@ -1,7 +1,6 @@
 // PokedexPage.js
 import { pokemonData } from '@/utils/constants';
 import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
-import { MagnifyingGlass } from '@phosphor-icons/react';
 import React from 'react';
 import CardAddPokemon from './components/card-pokemon-add';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
@@ -18,20 +17,20 @@ const PokedexPage = () => {
 
     return (
         <Box pos="relative" h={"calc(100vh - 32px)"}>
-            <ScrollArea h="100%"
+            <ScrollArea   style={{
+                height: "calc(100vh - 32px)",
+                width: "100%",
+            }}
                 scrollbars="y"
-                w={"100%"} >
+            >
 
-                <Flex p="md" style={{
+                <Flex p="md" w="calc(100% - 32px)" style={{
                     flexDirection: "column", position: "sticky", top: 0, left: 0, right: 0, zIndex: 10,
                     background: colorScheme === "dark" ? "#0a0a0ada" : "#ffffffda",
                     backdropFilter: "blur(8px)"
                 }} >
-                    <Group>
-
-                        <Title order={1}>Pokedex</Title>
-                    </Group>
-                    <Stack>
+                    <Title order={1}>Pokedex</Title>
+                    <Stack w="100%">
                         <ScrollArea h={42} w="calc(100vw - 20px)"  >
                             <Group wrap='nowrap'>
                                 {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
@@ -57,7 +56,7 @@ const PokedexPage = () => {
 
                             )
                         }
-                        <TextInput value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<MagnifyingGlass />} />
+                        <TextInput w="calc(100% - 32px)" value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<img style={{ stroke: "var(--mantine-color-text)" }} src="/search.svg" />} />
                     </Stack>
                 </Flex>
                 <SimpleGrid p="md"

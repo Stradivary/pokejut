@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { pokemonData } from "@/utils/constants";
 import styles from "./style.module.scss";
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { usePokemonGetByName } from "@/data/data-source/Pokemon/pokemonDataSource";
+import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);

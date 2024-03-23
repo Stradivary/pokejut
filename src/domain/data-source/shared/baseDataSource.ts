@@ -1,6 +1,6 @@
+import { IBaseRemoteDataSource } from "@/data/repository-interface/IBaseRemoteDataSource";
 import { get } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
-import { IBaseRemoteDataSource } from "../../../domain/repository/IBaseRemoteDataSource";
 
 export class BaseRemoteDataSource implements IBaseRemoteDataSource {
 

@@ -1,6 +1,6 @@
 
-import { useBerryGetByName } from "@/data/data-source/Berries/berryDataSource";
-import { useItemGetByName } from "@/data/data-source/Items/itemsDataSource";
+import { useBerryGetByName } from "@/domain/data-source/Berries/berryDataSource";
+import { useItemGetByName } from "@/domain/data-source/Items/itemsDataSource";
 import { BerryState, berriesGain } from "@/domain/use-cases/simulator";
 import {
   ActionIcon,

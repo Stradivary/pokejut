@@ -6,7 +6,7 @@ import { notifications } from '@mantine/notifications';
 import { getBerryGain } from '../berry';
 
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { PokemonAdapter } from '@/data/data-source/Pokemon/adapter';
+import { PokemonAdapter } from '@/domain/data-source/Pokemon/adapter';
 import { storage } from './presistor';
 import { type PokemonState } from './PokemonState';
 
