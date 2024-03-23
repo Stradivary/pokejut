@@ -12,7 +12,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { Barbell, Ruler } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
@@ -42,7 +41,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
   //   pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   // );
 
-  const { pokemonList } = useSimulator(); 
+  const { pokemonList } = useSimulator();
   const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
   const [color, setColor] = useState<string | undefined>("#fff");
   const { weight, fedBerries, ...pokemon } =
@@ -73,8 +72,8 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
               viewTransitionName: `pokemon-image-${pokemonId}`,
             }}
             src={
-              pokemon?.sprites?.other?.["official-artwork"]?.front_default
-                ? pokemon?.sprites?.other?.["official-artwork"]?.front_default
+              pokemon?.sprites?.other?.["dream_world"]?.front_default
+                ? pokemon?.sprites?.other?.["dream_world"]?.front_default
                 : pokemon?.sprites?.other?.home?.front_default
                   ? pokemon?.sprites?.other?.home?.front_default
                   : "pokenull.png"
@@ -104,12 +103,12 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                 <Text className="pokemon-stats">
                   {(pokemon?.height ?? 0)} M
                 </Text>
-                <Ruler size={24} weight="duotone" />
+                📏
               </Group>
 
               <Group align="center">
                 <Text className="pokemon-stats">{(weight ?? 0)} Kg</Text>
-                <Barbell size={24} weight="duotone" />
+                ⚖️
               </Group>
             </Group>
 
@@ -122,7 +121,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
         <Title order={5} style={{ textAlign: "center" }}>
           Your last fed berries
         </Title>
-        <ScrollArea style={{ height: 80, width: "100%" }}>
+        <ScrollArea style={{ height: 42, width: "100%" }}>
           <Group w="100%">
             {
               fedBerries && fedBerries.length > 0 ? (

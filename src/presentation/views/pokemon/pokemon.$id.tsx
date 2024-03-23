@@ -22,7 +22,7 @@ export function Component() {
         <Box style={{ width: "100%" }} mb={180}>
             <Group m="md" justify="space-between" >
 
-                <Button component={Link} to=".." >
+                <Button component={Link} to=".." unstable_viewTransition>
                     Kembali
                 </Button>
                 {selectedPokemonId &&

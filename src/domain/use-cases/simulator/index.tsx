@@ -74,6 +74,8 @@ export const useSimulator = create(
                         const latestFedBerry = selectedPokemon?.fedBerries?.[selectedPokemon?.fedBerries?.length - 1] ?? [];
                         const berryFirmness = berry.firmness?.name;
                         const weightGain = getBerryGain(berryFirmness);
+ 
+
                         if (latestFedBerry && latestFedBerry === berryFirmness) {
                             const weightLoss = weightGain * 2;
                             selectedPokemon.weight -= weightLoss;
@@ -93,6 +95,17 @@ export const useSimulator = create(
                                 autoClose: 2000,
                             });
                             selectedPokemon.weight += weightGain;
+                        }
+
+                        if (selectedPokemon.weight < 0) {
+                            selectedPokemon.weight = 1;
+                            notifications.show({
+                                title: "Duh!",
+                                message: `Berat ${selectedPokemon.name} sudah tidak bisa berkurang lagi!`,
+                                color: "red",
+                                icon: <img src="/pokeball.png" alt="pokeball" />,
+                                autoClose: 2000,
+                            });
                         }
 
                         selectedPokemon.fedBerries = [...(selectedPokemon?.fedBerries ?? []), berry.firmness?.name ?? ""];

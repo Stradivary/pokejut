@@ -22,6 +22,10 @@ export const routes = [
                         path: "/pokemon/selected",
                         lazy: () => import("./presentation/views/pokemon/pokemon.$id"),
                     },
+                    {
+                        path: "/pokemon/*",
+                        element: <Navigate to="/pokemon" />
+                    }
                 ]
             },
             {
@@ -31,11 +35,24 @@ export const routes = [
                         path: "/pokedex",
                         lazy: () => import("./presentation/views/pokedex/pokedex"),
                     },
+                    {
+                        path: "/pokedex/*",
+                        element: <Navigate to="/pokedex" />
+                    }
                 ]
             },
             {
                 path: "/settings",
-                lazy: () => import("./presentation/views/settings/settings"),
+                children: [
+                    {
+                        index: true,
+                        lazy: () => import("./presentation/views/settings/settings"),
+                    },
+                    {
+                        path: "/settings/*",
+                        element: <Navigate to="/settings" />
+                    }
+                ]
             },
             {
                 path: "*",

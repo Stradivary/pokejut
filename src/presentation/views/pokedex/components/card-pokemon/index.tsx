@@ -1,14 +1,5 @@
 import { Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
-import {
-  Barbell,
-  Gauge,
-  HandFist,
-  Heartbeat,
-  Ruler,
-  ShieldChevron,
-  ShieldPlus,
-  Sword,
-} from "@phosphor-icons/react";
+
 import React, { ReactNode, useEffect, useState } from "react";
 import { pokemonData } from "@/utils/constants";
 import "./style.module.scss";
@@ -51,12 +42,12 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
   }, [pokemon]);
 
   const statIcons: Record<string, ReactNode> = {
-    hp: <Heartbeat size={24} weight="duotone" alt="hit points" />,
-    attack: <HandFist size={24} weight="duotone" alt="attack" />,
-    defense: <ShieldChevron size={24} weight="duotone" alt="defense" />,
-    'special-attack': <Sword size={24} weight="duotone" alt="special attack" />,
-    'special-defense': <ShieldPlus size={24} weight="duotone" alt="special defense" />,
-    speed: <Gauge size={24} weight="duotone" alt="speed" />,
+    hp: "❤️",
+    attack: "⚔️",
+    defense: "🛡️",
+    'special-attack': "🔥",
+    'special-defense': "🔥🛡️",
+    speed: "🏃"
   };
 
   return (
@@ -77,8 +68,8 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
             viewTransitionName: "pokemon-image-" + pokemonName
           }}
           src={
-            pokemon?.sprites.other["official-artwork"].front_default
-              ? pokemon?.sprites.other["official-artwork"].front_default
+            pokemon?.sprites.other["dream_world"].front_default
+              ? pokemon?.sprites.other["dream_world"].front_default
               : pokemon?.sprites.other.home.front_default
                 ? pokemon?.sprites.other.home.front_default
                 : "pokenull.png"
@@ -106,14 +97,14 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
               <Text className="pokemon-stats">
                 {(pokemon?.height ?? 0)} M
               </Text>
-              <Ruler size={24} weight="duotone" />
+              📏
             </Group>
 
             <Group align="center">
               <Text className="pokemon-stats">
                 {(pokemon?.weight ?? 0)} Kg
               </Text>
-              <Barbell size={24} weight="duotone" />
+              ⚖️
             </Group>
           </Group>
 

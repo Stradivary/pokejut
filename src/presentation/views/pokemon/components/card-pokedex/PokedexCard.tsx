@@ -72,8 +72,8 @@ export default function EvolutionCard({
                 loading="lazy"
                 draggable={false}
                 src={
-                  pokemon?.sprites.other["official-artwork"].front_default
-                    ? pokemon?.sprites.other["official-artwork"].front_default
+                  pokemon?.sprites.other["dream_world"].front_default
+                    ? pokemon?.sprites.other["dream_world"].front_default
                     : "/pokenull.png"
                 }
                 alt="Pokemon"

@@ -9,7 +9,6 @@ import {
   Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { Barbell, Ruler } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useSimulator } from "@/domain/use-cases/simulator";
 
@@ -123,14 +122,14 @@ export default function CardAddPokemon({
               <Text className={style["pokemon-stats"]}>
                 {(pokemon?.height ?? 0)} M
               </Text>
-              <Ruler size={16} weight="duotone" />
+              📏
             </Group>
 
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
                 {(pokemon?.weight ?? 0)} Kg
               </Text>
-              <Barbell size={16} weight="duotone" />
+              🏋️
             </Group>
           </Group>
 
@@ -170,8 +169,8 @@ export default function CardAddPokemon({
                     front_default: pokemon.sprites.front_default,
                     back_default: "",
                     other: {
-                      "official-artwork": {
-                        front_default: pokemon.sprites.other["official-artwork"].front_default
+                      "dream_world": {
+                        front_default: pokemon.sprites.other["dream_world"].front_default
                       },
                       "home": {} as any
                     }

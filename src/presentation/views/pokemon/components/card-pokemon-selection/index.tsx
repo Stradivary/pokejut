@@ -1,8 +1,4 @@
 import { Group, Image, Paper, Stack, Text } from "@mantine/core";
-import {
-  Barbell,
-  Ruler
-} from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -63,8 +59,8 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
             viewTransitionName: `pokemon-image-${index}`
           }}
           src={
-            pokemon?.sprites.other["official-artwork"].front_default
-              ? pokemon?.sprites.other["official-artwork"].front_default
+            pokemon?.sprites.other["dream_world"].front_default
+              ? pokemon?.sprites.other["dream_world"].front_default
               : pokemon?.sprites.other.home.front_default
                 ? pokemon?.sprites.other.home.front_default
                 : "pokenull.png"
@@ -92,14 +88,14 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               <Text className="pokemon-stats">
                 {(pokemon?.height ?? 0)} M
               </Text>
-              <Ruler size={24} weight="duotone" />
+              📏
             </Group>
 
             <Group align="center">
               <Text className="pokemon-stats">
                 {(weight ?? 0)} Kg
               </Text>
-              <Barbell size={24} weight="duotone" />
+              ⚖️
             </Group>
           </Group>
 

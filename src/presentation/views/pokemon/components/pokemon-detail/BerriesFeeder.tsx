@@ -13,7 +13,7 @@ export const BerriesFeeder = () => {
   const [selectedBerry, setSelectedBerry] = useState<string>("");
   const { feedPokemon, selectedPokemonId } = useSimulator();
   return (
-    <Paper p={10} mih={400}>
+    <Paper p={10} mih={80}>
       <Title order={4} mb={8}>Berries Feeder</Title>
       <Paper withBorder radius="lg" p={8} mb={16}>
         <ScrollArea w="100%" h={56} >
