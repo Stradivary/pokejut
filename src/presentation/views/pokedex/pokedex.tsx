@@ -17,14 +17,17 @@ const PokedexPage = () => {
 
     return (
         <Box pos="relative" h={"calc(100vh - 32px)"}>
-            <ScrollArea   style={{
+            <ScrollArea style={{
                 height: "calc(100vh - 32px)",
                 width: "100%",
             }}
                 scrollbars="y"
             >
 
-                <Flex p="md" w="calc(100% - 32px)" style={{
+                <Flex p="md" w={{
+                    base: "100%",
+                    md: "calc(100% - var(--app-shell-navbar-width))"
+                }} style={{
                     flexDirection: "column", position: "sticky", top: 0, left: 0, right: 0, zIndex: 10,
                     background: colorScheme === "dark" ? "#0a0a0ada" : "#ffffffda",
                     backdropFilter: "blur(8px)"
@@ -56,7 +59,10 @@ const PokedexPage = () => {
 
                             )
                         }
-                        <TextInput w="calc(100% - 32px)" value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={<img style={{ stroke: "var(--mantine-color-text)" }} src="/search.svg" />} />
+                        <TextInput w="calc(100% - 32px)" value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={
+                            <Image src="/search.svg" alt="search" width={20} height={20} />
+
+                        } />
                     </Stack>
                 </Flex>
                 <SimpleGrid p="md"

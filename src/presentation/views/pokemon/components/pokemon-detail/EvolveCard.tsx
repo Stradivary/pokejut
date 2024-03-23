@@ -5,6 +5,7 @@ import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { Button, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import EvolutionCard from "../card-pokedex/PokedexCard";
+import { useNavigate } from "react-router-dom";
 
 
 export function EvolveCard({
@@ -13,6 +14,7 @@ export function EvolveCard({
   selectedPokemon?: PokemonState;
   evolveItem: EvolutionChain;
 }) {
+  const navigate = useNavigate();
   const { data: evolvePokemonData } = usePokemonGetByName(
     evolveItem?.name ?? ""
   );
@@ -41,7 +43,7 @@ export function EvolveCard({
             onClick={() => {
               const pokemonData: PokemonState = { ...evolvePokemonData };
               evolveSelectedPokemon(pokemonData);
-
+              navigate(".", { replace: true });
             }}
           >
             Evolusi ke {evolveItem?.name}

@@ -71,7 +71,7 @@ export const useSimulator = create(
                         const updatedPokemonList = [...state.pokemonList];
                         const selectedPokemon = { ...updatedPokemonList[selectedPokemonIndex] };
 
-                        const latestFedBerry = selectedPokemon.fedBerries[selectedPokemon.fedBerries.length - 1];
+                        const latestFedBerry = selectedPokemon?.fedBerries?.[selectedPokemon?.fedBerries?.length - 1] ?? [];
                         const berryFirmness = berry.firmness?.name;
                         const weightGain = getBerryGain(berryFirmness);
                         if (latestFedBerry && latestFedBerry === berryFirmness) {
@@ -95,7 +95,7 @@ export const useSimulator = create(
                             selectedPokemon.weight += weightGain;
                         }
 
-                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries, berry.firmness?.name ?? ""];
+                        selectedPokemon.fedBerries = [...(selectedPokemon?.fedBerries ?? []), berry.firmness?.name ?? ""];
 
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
