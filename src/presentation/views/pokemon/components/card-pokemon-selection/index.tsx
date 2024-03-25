@@ -1,16 +1,15 @@
 import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
+import { useSimulator } from "@/domain/use-cases/simulator";
 import { pokemonData } from "@/utils/constants";
 import styles from "./style.module.scss";
-import { useSimulator } from "@/domain/use-cases/simulator";
-import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const [color, setColor] = useState<string | null>("#fff");
-  const navigate = useNavigate();
   const { pokemonList, setSelectedPokemon } = useSimulator();
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
@@ -37,7 +36,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
   return (
     <Paper
       component={Link}
-      to={`./selected`} 
+      to={`./selected`}
       unstable_viewTransition
       className={styles["card-pokemon"]}
       shadow="sm"

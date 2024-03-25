@@ -14,6 +14,7 @@ describe("PokemonStore", () => {
       selectedPokemonEvolutionName: undefined,
       pokemonList: [],
       setSelectedPokemon: vi.fn(),
+      clearPokemonList: vi.fn(),
       clearSelectedPokemon: vi.fn(),
       releaseSelectedPokemon: vi.fn(),
       feedPokemon: vi.fn(),

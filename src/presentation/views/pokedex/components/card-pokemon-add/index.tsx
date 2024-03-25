@@ -1,3 +1,4 @@
+import { useSimulator } from "@/domain/use-cases/simulator";
 import {
   Button,
   Center,
@@ -9,14 +10,13 @@ import {
   Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { useEffect, useState } from "react";
-import { useSimulator } from "@/domain/use-cases/simulator";
+import { useState } from "react";
 
-import { pokemonData } from "@/utils/constants";
-import style from "./style.module.scss";
 import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/domain/data-source/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/evolution";
+import { pokemonData } from "@/utils/constants";
+import style from "./style.module.scss";
 
 function mapEvolutionChain(data: any): EvolutionChain {
   return {

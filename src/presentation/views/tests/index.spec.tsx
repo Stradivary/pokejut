@@ -16,7 +16,7 @@ describe("Component Coverage Tests", () => {
   });
 
   it("should render the PokedexPage component correctly", () => {
-    const [_] = mockIntersectionObserver([true]);
+    mockIntersectionObserver([true]);
     const { container } = render(<PokedexPage />);
     expect(container).toBeDefined();
   });

@@ -1,5 +1,5 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { Button, Divider, Group, SegmentedControl, Stack, Switch, Text, Title, useMantineColorScheme } from "@mantine/core";
+import { Button, Divider, Group, SegmentedControl, Stack, Text, Title, useMantineColorScheme } from "@mantine/core";
 
 export function Component() {
     const { setColorScheme, colorScheme } = useMantineColorScheme();

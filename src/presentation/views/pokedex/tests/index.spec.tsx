@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 describe("Component Coverage Tests", () => {
 
     it("should render the PokemonDetail component correctly", () => {
-        const [_] = mockIntersectionObserver([true]);
+        mockIntersectionObserver([true]);
         const { container } = render(<PokemonList />);
 
         expect(container).toBeDefined();
@@ -51,7 +51,7 @@ describe("Component Coverage Tests", () => {
         mock.onGet('https://pokeapi.co/api/v2/pokemon/pikachu').reply(200, mockResponse);
         mock.onGet('https://pokeapi.co/api/v2/pokemon-species/1').reply(200, { data: { evolution_chain: { url: "https://pokeapi.co/api/v2/evolution-chain/1" } } });
         mock.onGet('https://pokeapi.co/api/v2/evolution-chain/1').reply(200, { data: { chain: { species: { name: "pikachu" } } } });
-        const { container } = render(<CardAddPokemon pokemonName={"pikachu"} visibleType={""} />);
+        const { container } = render(<CardAddPokemon pokemonName={"pikachu"} />);
         expect(container).toBeDefined();
     });
 });

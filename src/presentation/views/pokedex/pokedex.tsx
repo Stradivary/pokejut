@@ -74,10 +74,9 @@ const PokedexPage = () => {
                             {page?.results?.map(({ name, ...rest }: {
                                 name: string;[key: string]: any;
                             }, index: number) => (
-                                <CardAddPokemon key={name + '-card-' + index} 
-                                pokemonName={name}
-                                pokemonType={rest.types}
-                                visibleType={binding.selectedType} />
+                                <CardAddPokemon key={name + '-card-' + index}
+                                    pokemonName={name}
+                                    pokemonType={rest.types} />
                             ))}
                         </React.Fragment>
                     ))}

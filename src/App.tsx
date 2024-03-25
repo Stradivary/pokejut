@@ -5,9 +5,8 @@ import '@mantine/notifications/styles.css';
 
 import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
-import { Notifications } from '@mantine/notifications';
 
-import { RouterProvider, ScrollRestoration } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { localStoragePersister, queryClient } from './utils/query';
