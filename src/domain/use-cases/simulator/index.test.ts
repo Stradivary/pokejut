@@ -41,7 +41,7 @@ describe('useSimulator', () => {
 
         await waitFor(() => {
             result.current.setSelectedPokemon({ name: 'Pikachu', pokeId: '1', weight: 1, fedBerries: [] } as PokemonState);
-            result.current.deleteSelectedPokemon();
+            result.current.clearSelectedPokemon();
         });
 
         expect(result.current.selectedPokemon).toBeUndefined();

@@ -19,20 +19,13 @@ export type PokemonStore = {
     pokemonList: PokemonState[];
     selectedPokemon: () => PokemonState | undefined;
     setSelectedPokemon: (pokemon: PokemonState | undefined) => void;
-    deleteSelectedPokemon: () => void;
+    clearSelectedPokemon: () => void;
+    clearPokemonList: () => void;
     releaseSelectedPokemon: () => void;
     catchPokemon: (pokemon: any) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
     evolveSelectedPokemon: (evolvedPokemon: PokemonState) => void;
-};
-
-export const berriesGain: Record<string, number> = {
-    'very-soft': 2,
-    'soft': 3,
-    'hard': 5,
-    'very-hard': 8,
-    'super-hard': 10,
 };
 
 export const useSimulator = create(
@@ -47,8 +40,11 @@ export const useSimulator = create(
             setSelectedPokemon: (pokemon) => {
                 set(() => ({ selectedPokemonId: pokemon?.pokeId }));
             },
-            deleteSelectedPokemon: () => {
+            clearSelectedPokemon: () => {
                 set(() => ({ selectedPokemonId: undefined }));
+            },
+            clearPokemonList: () => {
+                set(() => ({ pokemonList: [] }));
             },
             catchPokemon: (pokemon) => {
                 const newPokemon: PokemonState = {
@@ -75,7 +71,7 @@ export const useSimulator = create(
                         const latestFedBerry = selectedPokemon?.fedBerries?.[selectedPokemon?.fedBerries?.length - 1] ?? [];
                         const berryFirmness = berry.firmness?.name;
                         const weightGain = getBerryGain(berryFirmness);
- 
+
 
                         if (latestFedBerry && latestFedBerry === berryFirmness) {
                             const weightLoss = weightGain * 2;

@@ -27,13 +27,15 @@ function mapEvolutionChain(data: any): EvolutionChain {
 
 export default function CardAddPokemon({
   pokemonName,
-  visibleType,
+  pokemonType,
 }: {
   pokemonName: string;
-  visibleType: string;
+  pokemonType?: any[];
 }) {
   const { catchPokemon } = useSimulator();
-  const [color, setColor] = useState<string | undefined>("#fff");
+  const [color] = useState<string | undefined>(
+    getColorByType(pokemonType?.[0] ?? "")
+  );
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
   const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.name);
@@ -53,27 +55,6 @@ export default function CardAddPokemon({
     }
   }
 
-  useEffect(() => {
-    if (pokemon) {
-      const Color = getColorByType(pokemon ? pokemon.types?.[0]?.type?.name : "");
-      setColor(Color);
-    }
-  }, [pokemon]);
-
-  if (visibleType !== "" && pokemon) {
-    if (!pokemon.types.some(({ type }) => type.name === visibleType)) {
-      return <></>;
-    }
-  }
-
-  // const statIcons: Record<string, ReactNode> = {
-  //   hp: <Heartbeat size={24} weight="duotone" alt="hit points" />,
-  //   attack: <HandFist size={24} weight="duotone" alt="attack" />,
-  //   defense: <ShieldChevron size={24} weight="duotone" alt="defense" />,
-  //   'special-attack': <Sword size={24} weight="duotone" alt="special attack" />,
-  //   'special-defense': <ShieldPlus size={24} weight="duotone" alt="special defense" />,
-  //   speed: <Gauge size={24} weight="duotone" alt="speed" />,
-  // };
 
   return (
     <Paper
@@ -82,7 +63,7 @@ export default function CardAddPokemon({
         backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
         backgroundRepeat: "no-repeat",
       }}
-      mih={350}
+      mih={600}
       p={16}
     >
       <SimpleGrid cols={{ base: 1, xs: 1, sm: 1, md: 1, lg: 1 }} spacing={16}>
@@ -91,16 +72,15 @@ export default function CardAddPokemon({
           style={{
             width: "100%",
             minWidth: 300,
-            height: "100%",
+            height: 300,
             objectFit: "contain",
           }}
           draggable={false}
           className={style.cardPokemonImg}
           src={
-            pokemon?.sprites?.other["dream_world"].front_default
-              ? pokemon?.sprites?.other["dream_world"].front_default
-              : "/pokenull.webp"
+            pokemon?.sprites?.other?.["dream_world"]?.front_default
           }
+          fallbackSrc="/pokenull.webp"
           alt={"Selected Pokemon " + pokemon?.name}
         />
         <Stack gap={16}>

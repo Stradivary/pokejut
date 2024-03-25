@@ -71,10 +71,13 @@ const PokedexPage = () => {
                     cols={{ xs: 2, sm: 3, md: 2, lg: 3, xl: 3 }}>
                     {binding?.data?.pages?.map((page: { results; }, index: number) => (
                         <React.Fragment key={index + '- page'}>
-                            {page?.results?.map(({ name }: { name: string; }) => (
-                                <CardAddPokemon key={
-                                    name + '-card-' + index
-                                } pokemonName={name} visibleType={binding.selectedType} />
+                            {page?.results?.map(({ name, ...rest }: {
+                                name: string;[key: string]: any;
+                            }, index: number) => (
+                                <CardAddPokemon key={name + '-card-' + index} 
+                                pokemonName={name}
+                                pokemonType={rest.types}
+                                visibleType={binding.selectedType} />
                             ))}
                         </React.Fragment>
                     ))}

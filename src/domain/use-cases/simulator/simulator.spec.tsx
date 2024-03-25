@@ -14,7 +14,7 @@ describe("PokemonStore", () => {
       selectedPokemonEvolutionName: undefined,
       pokemonList: [],
       setSelectedPokemon: vi.fn(),
-      deleteSelectedPokemon: vi.fn(),
+      clearSelectedPokemon: vi.fn(),
       releaseSelectedPokemon: vi.fn(),
       feedPokemon: vi.fn(),
       addPokemon: vi.fn(),
@@ -36,8 +36,8 @@ describe("PokemonStore", () => {
   });
 
   it("should delete selected pokemon", () => {
-    store.deleteSelectedPokemon();
-    expect(store.deleteSelectedPokemon).toHaveBeenCalled();
+    store.clearSelectedPokemon();
+    expect(store.clearSelectedPokemon).toHaveBeenCalled();
   });
 
   it("should feed pokemon", () => {
