@@ -1,8 +1,8 @@
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
-import { pokemonData } from "@/utils/constants";
-import { Button, HoverCard, Paper, Progress, Stack, Text, Title } from "@mantine/core";
+import { getColorByType } from "@/utils/constants";
+import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import "./style.scss";
 
@@ -13,22 +13,11 @@ export default function EvolutionCard({
   pokemonName: string;
   oldPokemon?: PokemonState;
 }) {
-  const [color, setColor] = useState<string | null>("#fff");
+  const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
   const { evolveSelectedPokemon } = useSimulator();
-
-  function getColorByType(pokemonType: string) {
-    const foundPokemon = pokemonData.find(
-      (pokemon) => pokemon?.type === pokemonType
-    );
-    if (foundPokemon) {
-      return foundPokemon?.color;
-    } else {
-      return null;
-    }
-  }
-
+ 
   const weightPercentage = useMemo(() => {
     const pokemonWeight = oldPokemon?.weight ?? 0;
     const nextEvolutionPokemonWeight = pokemon?.weight ?? 8000;
@@ -71,15 +60,14 @@ export default function EvolutionCard({
                 backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
               }}
             >
-              <img
+              <Image
                 style={{ width: "80%" }}
                 loading="lazy"
                 draggable={false}
                 src={
                   pokemon?.sprites.other["dream_world"].front_default
-                    ? pokemon?.sprites.other["dream_world"].front_default
-                    : "/pokenull.png"
                 }
+                fallbackSrc="/pokenull.webp"
                 alt="Pokemon"
               />
 

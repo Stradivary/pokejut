@@ -18,3 +18,14 @@ export const pokemonData = [
     { type: "steel", color: "#CCCCCC", img: "/types/steel.svg" },
     { type: "water", color: "#3399FF", img: "/types/water.svg" },
 ];
+
+export function getColorByType(pokemonType: string) {
+    const foundPokemon = pokemonData.find(
+        (pokemon) => pokemon.type === pokemonType
+    );
+    if (foundPokemon) {
+        return foundPokemon.color;
+    } else {
+        return "#fff";
+    }
+}

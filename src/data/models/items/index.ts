@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const pokemonItemDTOSchema = z.object({
+export const pokemonItemSchema = z.object({
     attributes: z.array(z.object({ name: z.string(), url: z.string() })),
     category: z.object({ name: z.string(), url: z.string() }),
     cost: z.number(),
@@ -49,4 +49,4 @@ export const pokemonItemDTOSchema = z.object({
     sprites: z.object({ default: z.string() })
 });
 
-export type PokemonItemDTO = z.infer<typeof pokemonItemDTOSchema>;
+export type PokemonItem = z.infer<typeof pokemonItemSchema>;

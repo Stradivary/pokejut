@@ -1,7 +1,7 @@
-// PokemonEvolutionDTO.ts
+// PokemonEvolution.ts
 import { z } from "zod";
 
-export const pokemonEvolutionDTOSchema = z.object({
+export const pokemonEvolutionSchema = z.object({
     id: z.number(),
     babyTriggerItem: z.null(),
     chain: z.object({
@@ -40,4 +40,4 @@ export const pokemonEvolutionDTOSchema = z.object({
     })
 });
 
-export type PokemonEvolutionDTO = z.infer<typeof pokemonEvolutionDTOSchema>;
+export type PokemonEvolution = z.infer<typeof pokemonEvolutionSchema>;

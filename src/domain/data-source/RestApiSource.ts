@@ -1,8 +1,9 @@
-import { IBaseRemoteDataSource } from "../IBaseRemoteDataSource";
+import { IBaseRemoteDataSource } from "./IBaseRemoteDataSource";
 import { get } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
 
-export class BaseRemoteDataSource implements IBaseRemoteDataSource {
+
+export class RestApiSource implements IBaseRemoteDataSource {
 
     public baseUrl = 'https://pokeapi.co/api/v2/';
 

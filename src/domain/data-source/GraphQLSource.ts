@@ -1,10 +1,11 @@
-import { IBaseRemoteDataSource } from "../IBaseRemoteDataSource";
+import { IBaseRemoteDataSource } from "./IBaseRemoteDataSource";
 import { get } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
 
-export class BaseRemoteDataSource implements IBaseRemoteDataSource {
 
-    public baseUrl = 'https://pokeapi.co/api/v2/';
+export class GraphqlSource implements IBaseRemoteDataSource {
+    // pokeAPi beta url
+    public baseUrl = 'https://beta.pokeapi.co/graphql/v1beta';
 
     private entity: string;
 

@@ -1,4 +1,3 @@
-// PokemonDTO.ts
 import { z } from "zod";
 
 const abilitySchema = z.object({
@@ -116,7 +115,7 @@ const typeSchema = z.object({
     type: z.object({ name: z.string(), url: z.string() })
 });
 
-export const PokemonDTOSchema = z.object({
+export const PokemonSchema = z.object({
     abilities: z.array(abilitySchema),
     base_experience: z.number(),
     forms: z.array(versionSchema),
@@ -140,4 +139,4 @@ export const PokemonDTOSchema = z.object({
 });
 
 
-export type PokemonDTO = z.infer<typeof PokemonDTOSchema>;
+export type Pokemon = z.infer<typeof PokemonSchema>;

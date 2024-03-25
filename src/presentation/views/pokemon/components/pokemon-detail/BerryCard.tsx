@@ -22,7 +22,7 @@ const firmnesColor: Record<string, string> = {
   "very-hard": "orange",
   "super-hard": "red",
 };
- 
+
 
 export const BerryCard = ({
   name,
@@ -52,6 +52,7 @@ export const BerryCard = ({
               loading="lazy"
               draggable={false}
               src={data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : ""}
+
             />
             <Stack my={24}>
               <Text>{berry?.name}</Text>
@@ -80,7 +81,7 @@ export const BerryCard = ({
         width={48}
         height={48}
         draggable={false}
-        src={data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : "pokenull.png"}
+        src={data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : "pokenull.webp"}
       />
     </ActionIcon>
   );

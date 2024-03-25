@@ -6,7 +6,6 @@ import { notifications } from '@mantine/notifications';
 import { getBerryGain } from '../berry';
 
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { PokemonAdapter } from '@/domain/data-source/Pokemon/adapter';
 import { storage } from './presistor';
 import { type PokemonState } from './PokemonState';
 import { redirect } from 'react-router-dom';
@@ -118,7 +117,7 @@ export const useSimulator = create(
             },
             addPokemon: (pokemon) => {
                 const newPokemon: PokemonState = {
-                    ...PokemonAdapter.fromDTO(pokemon as any),
+                    ...pokemon,
                     pokeId: uuidv4(),
                     fedBerries: [],
                 };

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/domain/data-source/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { EvolutionChain } from "@/domain/entities/evolution";
-import { pokemonData } from "@/utils/constants";
+import { getColorByType } from "@/utils/constants";
 import style from "./style.module.scss";
 
 function mapEvolutionChain(data: any): EvolutionChain {
@@ -36,6 +36,7 @@ export default function CardAddPokemon({
   const [color] = useState<string | undefined>(
     getColorByType(pokemonType?.[0] ?? "")
   );
+
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
   const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.name);
@@ -44,16 +45,7 @@ export default function CardAddPokemon({
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
 
-  function getColorByType(pokemonType: string) {
-    const foundPokemon = pokemonData.find(
-      (pokemon) => pokemon.type === pokemonType
-    );
-    if (foundPokemon) {
-      return foundPokemon.color;
-    } else {
-      return undefined;
-    }
-  }
+  
 
 
   return (

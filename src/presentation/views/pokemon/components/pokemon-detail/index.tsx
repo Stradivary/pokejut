@@ -1,6 +1,6 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
-import { pokemonData } from "@/utils/constants";
+import { getColorByType } from "@/utils/constants";
 import {
   Badge,
   Group,
@@ -15,18 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
-
-function getColorByType(pokemonType: string) {
-  const foundPokemon = pokemonData.find(
-    (pokemon) => pokemon?.type === pokemonType
-  );
-  if (foundPokemon) {
-    return foundPokemon?.color;
-  } else {
-    return null;
-  }
-}
-
+ 
 const firmnesColor: Record<string, string> = {
   "very-soft": "blue",
   soft: "green",
@@ -36,10 +25,6 @@ const firmnesColor: Record<string, string> = {
 };
 
 export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) => {
-  // const { data: pokemonSpecies } = usePokemonGetSpecies(pokemonState?.name);
-  // const { data: evolveItem } = usePokemonGetEvolutionChain(
-  //   pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
-  // );
 
   const { pokemonList } = useSimulator();
   const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
@@ -75,14 +60,12 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
               width: "80%",
               minWidth: 200,
             }}
-
             src={
               pokemon?.sprites?.other?.["dream_world"]?.front_default
                 ? pokemon?.sprites?.other?.["dream_world"]?.front_default
                 : pokemon?.sprites?.other?.home?.front_default
-                  ? pokemon?.sprites?.other?.home?.front_default
-                  : "pokenull.png"
             }
+            fallbackSrc="/pokenull.webp"
             alt="Selected Pokemon"
           />
           <Stack my={24} align="center" mx="auto">

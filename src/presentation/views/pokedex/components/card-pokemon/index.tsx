@@ -1,25 +1,15 @@
 import { Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 
 import React, { ReactNode, useEffect, useState } from "react";
-import { pokemonData } from "@/utils/constants";
+import { getColorByType } from "@/utils/constants";
 import "./style.module.scss";
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 
 export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName }) => {
-  const [color, setColor] = useState<string | null>("#fff");
+  const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
 
-  function getColorByType(pokemonType: string) {
-    const foundPokemon = pokemonData.find(
-      (pokemon) => pokemon?.type === pokemonType
-    );
-    if (foundPokemon) {
-      return foundPokemon?.color;
-    } else {
-      return null;
-    }
-  }
 
 
   useEffect(() => {
@@ -71,9 +61,8 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
             pokemon?.sprites.other["dream_world"].front_default
               ? pokemon?.sprites.other["dream_world"].front_default
               : pokemon?.sprites.other.home.front_default
-                ? pokemon?.sprites.other.home.front_default
-                : "pokenull.png"
           }
+          fallbackSrc="/pokenull.webp"
           alt="Selected Pokemon"
         />
         <Stack my={24}>

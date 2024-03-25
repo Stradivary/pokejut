@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const berryDTOSchema = z.object({
+export const berrySchema = z.object({
     id: z.number(),
     name: z.string(),
     growthTime: z.number(),
@@ -20,4 +20,4 @@ export const berryDTOSchema = z.object({
     naturalGiftType: z.object({ name: z.string(), url: z.string() })
 });
 
-export type BerryDTO = z.infer<typeof berryDTOSchema>;
+export type Berry = z.infer<typeof berrySchema>;

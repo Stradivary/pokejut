@@ -4,26 +4,14 @@ import { Link } from "react-router-dom";
 
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { pokemonData } from "@/utils/constants";
+import { getColorByType } from "@/utils/constants";
 import styles from "./style.module.scss";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const [color, setColor] = useState<string | null>("#fff");
+  const [color, setColor] = useState<string | undefined>("#fff");
   const { pokemonList, setSelectedPokemon } = useSimulator();
-  function getColorByType(pokemonType: string) {
-    const foundPokemon = pokemonData.find(
-      (pokemon) => pokemon?.type === pokemonType
-    );
-    if (foundPokemon) {
-      return foundPokemon?.color;
-    } else {
-      return null;
-    }
-  }
-
-
-
+ 
   useEffect(() => {
     if (pokemonName) {
       const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
@@ -65,9 +53,8 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
             pokemon?.sprites.other["dream_world"].front_default
               ? pokemon?.sprites.other["dream_world"].front_default
               : pokemon?.sprites.other.home.front_default
-                ? pokemon?.sprites.other.home.front_default
-                : "pokenull.png"
           }
+          fallbackSrc="/pokenull.webp"
           alt="Selected Pokemon"
         />
         <Stack my={24} align="center" mx="auto">
