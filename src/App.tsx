@@ -7,7 +7,7 @@ import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider, ScrollRestoration } from 'react-router-dom';
 
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { localStoragePersister, queryClient } from './utils/query';
@@ -21,7 +21,6 @@ function App() {
         <PersistQueryClientProvider client={queryClient}
           persistOptions={{ persister: localStoragePersister }}>
           <RouterProvider router={router} />
-          <Notifications withinPortal position='top-center' /> 
         </PersistQueryClientProvider>
       </ModalsProvider>
     </MantineProvider>

@@ -1,6 +1,6 @@
 import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { pokemonData } from "@/utils/constants";
 import styles from "./style.module.scss";
@@ -36,18 +36,20 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
   return (
     <Paper
+      component={Link}
+      to={`./selected`} 
+      unstable_viewTransition
       className={styles["card-pokemon"]}
       shadow="sm"
       withBorder
       style={{
-        marginTop: 40,
+        padding: 20,
         borderLeftColor: `${color}`,
         viewTransitionName: `pokemon-card-${index}`
       }}
       onClick={() => {
         const selectedPoke = pokemonList.find(x => x.pokeId === index);
         setSelectedPokemon(selectedPoke);
-        navigate(`./selected`);
       }}
     >
       <Group>
@@ -56,6 +58,8 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
           draggable={false}
           className={styles["card-pokemon-img"]}
           style={{
+            width: "50em",
+            minWidth: 200,
             viewTransitionName: `pokemon-image-${index}`
           }}
           src={
@@ -65,7 +69,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
                 ? pokemon?.sprites.other.home.front_default
                 : "pokenull.png"
           }
-          alt="Pokémon selecionado"
+          alt="Selected Pokemon"
         />
         <Stack my={24} align="center" mx="auto">
           <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>

@@ -74,7 +74,7 @@ export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName })
                 ? pokemon?.sprites.other.home.front_default
                 : "pokenull.png"
           }
-          alt="Pokémon selecionado"
+          alt="Selected Pokemon"
         />
         <Stack my={24}>
           <span className="card-pokemon-name">{pokemon?.name}</span>

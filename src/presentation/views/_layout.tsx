@@ -1,6 +1,6 @@
 import { ActionIcon, AppShell, Burger, Group, Title, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { MainNavbar } from "../components/navbar/MainNavbar";
 import { data } from "./data";
 
@@ -33,6 +33,8 @@ export function Component() {
       </AppShell.Navbar>
       <AppShell.Main >
         <Outlet />
+
+        <ScrollRestoration />
       </AppShell.Main>
       <AppShell.Footer  >
         <Group justify="center" h="100%" px="md" hiddenFrom="md">

@@ -46,6 +46,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
   const [color, setColor] = useState<string | undefined>("#fff");
   const { weight, fedBerries, ...pokemon } =
     pokemonState ?? ({} as PokemonState);
+
   useEffect(() => {
     const Color =
       getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
@@ -59,6 +60,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
         className={styles["card-pokemon"]}
         style={{
           marginTop: 40,
+          minHeight: 400,
           backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
           viewTransitionName: `pokemon-card-${pokemonId}`
         }}
@@ -70,7 +72,10 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
             className={styles["card-pokemon-img"]}
             style={{
               viewTransitionName: `pokemon-image-${pokemonId}`,
+              width: "80%",
+              minWidth: 200,
             }}
+
             src={
               pokemon?.sprites?.other?.["dream_world"]?.front_default
                 ? pokemon?.sprites?.other?.["dream_world"]?.front_default
@@ -78,7 +83,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                   ? pokemon?.sprites?.other?.home?.front_default
                   : "pokenull.png"
             }
-            alt="Pokémon selecionado"
+            alt="Selected Pokemon"
           />
           <Stack my={24} align="center" mx="auto">
             <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>

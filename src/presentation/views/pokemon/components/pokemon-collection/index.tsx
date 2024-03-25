@@ -8,7 +8,7 @@ export const PokemonCollection = ({
   pokemonList: PokemonState[];
 }) => {
   return (
-    <SimpleGrid cols={1} spacing={20}>
+    <SimpleGrid cols={1} spacing={24}>
       {pokemonList.length === 0 && (
         <Center h={200}>
           <Text>Belum ada pokemon</Text>

@@ -2,9 +2,10 @@ import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSou
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { pokemonData } from "@/utils/constants";
-import { Button, Card, HoverCard, Progress, Stack, Text, Title } from "@mantine/core";
+import { Button, Card, HoverCard, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import "./style.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function EvolutionCard({
   pokemonName,
@@ -17,6 +18,7 @@ export default function EvolutionCard({
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
   const { evolveSelectedPokemon } = useSimulator();
+
   function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
       (pokemon) => pokemon?.type === pokemonType
@@ -44,7 +46,8 @@ export default function EvolutionCard({
 
   useEffect(() => {
     if (pokemon) {
-      const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
+      console.log(pokemon);
+      const Color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "");
       setColor(Color);
     }
   }, [pokemon]);
@@ -57,18 +60,20 @@ export default function EvolutionCard({
       >
         <HoverCard.Target>
           <Stack>
-            <Card
+            <Paper
               key={pokemon?.name}
               className="card-pokedex"
               style={{
+                position: 'relative',
                 width: "100%",
                 height: 200,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                backgroundImage: `url('/svgs/half-pokeball.svg'), radial - gradient(80 % 80 % at 50 % bottom, ${color}, #060e20cc)`,
+                backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
               }}
             >
               <img
+                style={{ width: "80%" }}
                 loading="lazy"
                 draggable={false}
                 src={
@@ -79,10 +84,10 @@ export default function EvolutionCard({
                 alt="Pokemon"
               />
 
-              <Title order={5} style={{ textAlign: "center" }}>
+              <Title order={5} style={{ textAlign: "center", position: "absolute", bottom: 0, left: 0, right: 0 }}>
                 {pokemon?.name}
               </Title>
-            </Card>
+            </Paper>
             <Progress value={weightPercentage} />
           </Stack>
         </HoverCard.Target>
@@ -97,7 +102,7 @@ export default function EvolutionCard({
         <Button
           variant="gradient"
           onClick={() => {
-            const pokemonData: PokemonState = { ...pokemon };
+            const pokemonData: PokemonState = { ...oldPokemon, ...pokemon };
             evolveSelectedPokemon(pokemonData);
           }}
         >

@@ -2,12 +2,13 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { Alert, Paper, SimpleGrid, Title } from "@mantine/core";
 import { useEvolutionChain } from "./useEvolutionChain";
 import { EvolveCard } from "./EvolveCard";
+import { PokemonState } from "@/domain/use-cases/simulator/PokemonState";
 
 export const EvolutionChainPage = ({ pokemonId }) => {
 
-
   const { pokemonList } = useSimulator();
-  const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
+  const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId) ?? ({} as PokemonState);
+
   const { nextEvolutionChain } = useEvolutionChain(pokemonState);
   return (
     <Paper p="md" miw={200} >
@@ -16,7 +17,7 @@ export const EvolutionChainPage = ({ pokemonId }) => {
           Evolution Chain
         </Title>
       }
-      <SimpleGrid cols={{ base: 5 }}>
+      <SimpleGrid cols={{ base: 3, sm: 4, md: 4, lg: 5, xl: 6 }}>
         {nextEvolutionChain?.evolves_to?.map((pokemon) => (
           <EvolveCard
             key={"evolve-card-" + pokemon?.species?.name + "-" + pokemonId}

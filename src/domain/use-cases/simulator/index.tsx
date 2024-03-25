@@ -9,6 +9,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { PokemonAdapter } from '@/domain/data-source/Pokemon/adapter';
 import { storage } from './presistor';
 import { type PokemonState } from './PokemonState';
+import { redirect } from 'react-router-dom';
 
 export type BerryState = Partial<Berry>;
 
@@ -157,6 +158,9 @@ export const useSimulator = create(
                             icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,
                         });
+
+                        redirect(".");
+
                         return { pokemonList: updatedPokemonList };
                     } else {
                         notifications.show({
