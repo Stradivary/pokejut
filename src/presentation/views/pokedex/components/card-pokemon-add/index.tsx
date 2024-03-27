@@ -17,6 +17,7 @@ import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSou
 import { EvolutionChain } from "@/domain/entities/evolution";
 import { getColorByType } from "@/utils/constants";
 import style from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
 
 function mapEvolutionChain(data: any): EvolutionChain {
   return {
@@ -45,9 +46,9 @@ export default function CardAddPokemon({
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
 
+  const navigate = useNavigate();
+
   const selectPokemon = useCallback(() => {
-    console.log("pokemon", pokemon);
-    console.log("evolveItem", evolveItem);
     if (pokemon && evolveItem) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
@@ -61,7 +62,6 @@ export default function CardAddPokemon({
         types: pokemon.types,
         height: pokemon.height,
         weight: pokemon.weight,
-        // stats: pokemon.stats,
         sprites: {
           front_default: pokemon.sprites.front_default,
           back_default: "",
@@ -79,6 +79,9 @@ export default function CardAddPokemon({
 
 
       catchPokemon({ ...poke, evolves_to });
+      navigate("/pokemon", {
+        unstable_viewTransition: true,
+      });
     } else {
       notifications.show({
         title: "Gagal menambahkan pokemon",

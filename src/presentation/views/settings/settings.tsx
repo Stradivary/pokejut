@@ -12,9 +12,8 @@ export function Component() {
     const cacheSize = localStorage.getItem('REACT_QUERY_OFFLINE_CACHE')?.length;
     return (
         <Stack p={16}>
-            <Title order={3}>Pengaturan</Title>
-            <Divider />
-            <Group w="80%" justify="space-between">
+            <Title  >Pengaturan</Title> 
+            <Group w="80%" mt={16} justify="space-between">
                 <Title order={4} fw="bold">Tema</Title>
                 <SegmentedControl value={colorScheme} onChange={
                     (value) => setColorScheme(value as 'light' | 'dark')

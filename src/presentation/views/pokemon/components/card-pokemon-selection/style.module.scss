@@ -14,6 +14,7 @@
     text-decoration: none;
     color: var(--mantine-color-text);
   }
+
   &:hover {
     border-left-width: 10px;
   }
@@ -21,21 +22,20 @@
 
 .card-pokemon-img {
   position: relative;
-  width: 256px;
-  margin-inline: 20px;
-  margin-block: auto;
+  width: 100%;
+  max-width: 180px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: calc(1.5rem* var(--mantine-scale));
+  margin-bottom: calc(1.5rem* var(--mantine-scale));
 
   @media screen and (max-width: 1224px) {
-    width: 200px;
+
     transform: scale(1.1);
-    top: 8px;
-    margin-inline: 25px;
-    margin-block: auto;
   }
+
   @media screen and (max-width: 426px) {
     transform: scale(0.8);
-    top: 12px;
-    left: 50px;
   }
 }
 

@@ -107,7 +107,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
       <BerriesFeeder />
       <Stack>
         <Title order={5} style={{ textAlign: "center" }}>
-          Your last fed berries
+          Berry Terakhir yang Diberikan
         </Title>
         <ScrollArea style={{ height: 42, width: "100%" }}>
           <Group w="100%">
@@ -120,7 +120,9 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                   );
                 })
               ) : (
-                <Text>No berries fed</Text>
+                <Text>
+                  Belum ada berry yang diberikan
+                </Text>
               )
             }
           </Group>

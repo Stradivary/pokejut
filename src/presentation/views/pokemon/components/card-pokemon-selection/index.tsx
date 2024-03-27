@@ -11,7 +11,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const [color, setColor] = useState<string | undefined>("#fff");
   const { pokemonList, setSelectedPokemon } = useSimulator();
- 
+
   useEffect(() => {
     if (pokemonName) {
       const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
@@ -39,14 +39,13 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
         setSelectedPokemon(selectedPoke);
       }}
     >
-      <Group>
+      <Group align="stretch">
         <Image
           loading="lazy"
           draggable={false}
-          className={styles["card-pokemon-img"]}
+          className={styles["card-pokemon-img"]} 
           style={{
-            width: "50em",
-            minWidth: 200,
+            minWidth: 160,
             viewTransitionName: `pokemon-image-${index}`
           }}
           src={

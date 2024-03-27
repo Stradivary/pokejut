@@ -14,7 +14,8 @@ export const BerriesFeeder = () => {
   const { feedPokemon, selectedPokemonId } = useSimulator();
   return (
     <Paper p={10} mih={80}>
-      <Title order={4} mb={8}>Berries Feeder</Title>
+      <Title order={4} mb={8}>Beri Makan Berry 
+      </Title>
       <Paper withBorder radius="lg" p={8} mb={16}>
         <ScrollArea w="100%" h={56} >
           <Group w={"100%"} gap={8} wrap="nowrap" >
