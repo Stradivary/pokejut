@@ -12,11 +12,13 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { localStoragePersister, queryClient } from './utils/query';
 import { router } from './utils/router';
 import { theme } from './utils/theme';
+import { Notifications } from '@mantine/notifications';
 
 function App() {
   return (
     <MantineProvider theme={theme} withCssVariables defaultColorScheme="dark">
       <ModalsProvider>
+        <Notifications position='top-center'/>
         <PersistQueryClientProvider client={queryClient}
           persistOptions={{ persister: localStoragePersister }}>
           <RouterProvider router={router} />

@@ -10,7 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/domain/data-source/Evolution/evolutionDataSource";
 import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
@@ -45,8 +45,50 @@ export default function CardAddPokemon({
     pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
   );
 
-  
+  const selectPokemon = useCallback(() => {
+    console.log("pokemon", pokemon);
+    console.log("evolveItem", evolveItem);
+    if (pokemon && evolveItem) {
+      notifications.show({
+        title: "Pokemon berhasil ditambahkan",
+        message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
+        color: "blue",
+        icon: <img src="/pokeball.png" alt="pokeball" />,
+      });
+      const poke = {
+        id: pokemon.id,
+        name: pokemon.name,
+        types: pokemon.types,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        // stats: pokemon.stats,
+        sprites: {
+          front_default: pokemon.sprites.front_default,
+          back_default: "",
+          other: {
+            "dream_world": {
+              front_default: pokemon.sprites.other["dream_world"].front_default
+            },
+            "home": {} as any
+          }
+        },
+        species: pokemon.species,
+      };
 
+      const evolves_to = mapEvolutionChain(evolveItem?.chain);
+
+
+      catchPokemon({ ...poke, evolves_to });
+    } else {
+      notifications.show({
+        title: "Gagal menambahkan pokemon",
+        message: "Terdapat kesalahan saat menambahkan pokemon, silahkan coba lagi",
+        color: "red",
+        icon: <img src="/pokeball.png" alt="pokeball" />,
+      });
+    }
+
+  }, [pokemon, evolveItem]);
 
   return (
     <Paper
@@ -111,57 +153,13 @@ export default function CardAddPokemon({
             </Group>
           </Group>
 
-          {/* <SimpleGrid mt={24} cols={3}>
-            {pokemon?.stats.map((stats: unknown) => {
-              return (
-                <Group>
-                  {statIcons[stats.stat.name] ?? <></>}
-                  <span>{stats.base_stat}</span>
-                </Group>
-              );
-            })}
-
-          </SimpleGrid> */}
         </Stack>
         <Center>
           <Button
             type="button"
             className={style["btn-choose"]}
             variant="gradient"
-            onClick={() => {
-              if (pokemon) {
-                notifications.show({
-                  title: "Pokemon berhasil ditambahkan",
-                  message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
-                  color: "blue",
-                  icon: <img src="/pokeball.png" alt="pokeball" />,
-                });
-                const poke = {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  types: pokemon.types,
-                  height: pokemon.height,
-                  weight: pokemon.weight,
-                  // stats: pokemon.stats,
-                  sprites: {
-                    front_default: pokemon.sprites.front_default,
-                    back_default: "",
-                    other: {
-                      "dream_world": {
-                        front_default: pokemon.sprites.other["dream_world"].front_default
-                      },
-                      "home": {} as any
-                    }
-                  },
-                  species: pokemon.species,
-                };
-
-                const evolves_to = mapEvolutionChain(evolveItem.chain);
-
-
-                catchPokemon({ ...poke, evolves_to });
-              }
-            }}
+            onClick={selectPokemon}
             gradient={{ from: "dark", to: color ?? "blue", deg: 350 }}
           >
             I Choose You
