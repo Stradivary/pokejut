@@ -3,7 +3,7 @@ import { Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import React, { ReactNode, useEffect, useState } from "react";
 import { getColorByType } from "@/utils/constants";
 import "./style.module.scss";
-import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
+import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 
 export const CardPokemon: React.FC<{ pokemonName: string; }> = ({ pokemonName }) => {
   const [color, setColor] = useState<string | undefined>("#fff");

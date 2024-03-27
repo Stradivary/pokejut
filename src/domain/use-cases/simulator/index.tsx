@@ -1,14 +1,14 @@
-import { create } from 'zustand';
-import { v4 as uuidv4 } from 'uuid';
-import { Berry } from '@/domain/entities/berries';
-import { Pokemon } from '@/domain/entities/pokemon';
+import { Berry } from '@/domain/use-cases/entities/berries';
+import { Pokemon } from '@/domain/use-cases/entities/pokemon';
 import { notifications } from '@mantine/notifications';
-import { getBerryGain } from '../berry';
+import { v4 as uuidv4 } from 'uuid';
+import { create } from 'zustand';
+import { getBerryGain } from '../berries';
 
-import { persist, createJSONStorage } from 'zustand/middleware';
-import { storage } from './presistor';
-import { type PokemonState } from './PokemonState';
 import { redirect } from 'react-router-dom';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { type PokemonState } from './PokemonState';
+import { storage } from './presistor';
 
 export type BerryState = Partial<Berry>;
 

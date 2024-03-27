@@ -1,10 +1,11 @@
-import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
+
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { getColorByType } from "@/utils/constants";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import "./style.scss";
+import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 
 export default function EvolutionCard({
   pokemonName,
@@ -17,7 +18,7 @@ export default function EvolutionCard({
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
   const { evolveSelectedPokemon } = useSimulator();
- 
+
   const weightPercentage = useMemo(() => {
     const pokemonWeight = oldPokemon?.weight ?? 0;
     const nextEvolutionPokemonWeight = pokemon?.weight ?? 8000;

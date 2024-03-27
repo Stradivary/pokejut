@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it } from 'vitest';
-import { getOffsetAndLimitFromUrl, usePokemonGetByName, usePokemonInfiniteGetAllInternal } from './pokemonDataSource';
+import { usePokemonGetByName, usePokemonInfiniteGetAllInternal } from '../pokemon';
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
@@ -34,22 +34,4 @@ describe('Pokemon Data Source', () => {
         expect(result.current.data).toEqual(undefined);
     });
 
-    //PokemonQueryInfinite 
-
-
-    it('should return data when getOffsetAndLimitFromUrl is called', async () => {
-        const url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=10';
-        const offset = 0;
-        const limit = 10;
-        const result = getOffsetAndLimitFromUrl(url);
-        expect(result).toEqual({ offset, limit });
-    });
-
-    it('should return default when getOffsetAndLimitFromUrl is called', async () => {
-        const url = undefined;
-        const offset = 0;
-        const limit = 10;
-        const result = getOffsetAndLimitFromUrl(url);
-        expect(result).toEqual({ offset, limit });
-    });
 });

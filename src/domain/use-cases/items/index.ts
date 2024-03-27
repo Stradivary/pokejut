@@ -1,5 +1,5 @@
 import { UseQueryOptions, queryOptions, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
 const entity = 'items';
 
 const pokeApiDataSource = new BaseRemoteDataSource('item');
@@ -12,12 +12,6 @@ const itemOptions = (action: string, params: any, fn: () => Promise<any>, opts?:
         staleTime: Infinity,
         ...opts,
     });
-};
-
-export const useItemGetAll = (filter: { offset: number; limit: number; }) => {
-    return useQuery(itemOptions('getAll', filter, async () => {
-        return await pokeApiDataSource.getAll({ params: filter });
-    }));
 };
 
 export const useItemGetByName = (name?: string) => {

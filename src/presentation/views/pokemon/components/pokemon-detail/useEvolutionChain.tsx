@@ -1,4 +1,4 @@
-import { findEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
+import { findEvolutionChain } from "@/domain/use-cases/evolution";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { useMemo } from "react";
 

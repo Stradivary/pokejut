@@ -1,10 +1,10 @@
 import { pokemonInternalRepo } from "@/domain/repository/pokemonRepositoryInternalImpl";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
 
 const entity = 'pokemon';
 
-const pokeApiDataSource = new BaseRemoteDataSource('pokemon'); 
+const pokeApiDataSource = new BaseRemoteDataSource('pokemon');
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({
@@ -14,19 +14,6 @@ const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opt
         ...opts,
     });
 };
-
-// const PokemonQueryInfinite = (filter) =>
-//     infiniteQueryOptions({
-//         queryKey: [entity, "getAll", filter],
-//         queryFn: async ({ pageParam = 0 }) => {
-//             return pokemonRepository.getPokemonList({ offset: pageParam ?? 0, limit: filter?.limit ?? 10 });
-//         },
-//         initialPageParam: 0,
-//         getNextPageParam: (lastPage) => {
-//             const { offset } = getOffsetAndLimitFromUrl(lastPage.next);
-//             return lastPage.next ? offset : 0;
-//         },
-//     });
 
 const PokemonQueryInfiniteInternal = (filter) =>
     infiniteQueryOptions({
@@ -44,26 +31,16 @@ const PokemonQueryInfiniteInternal = (filter) =>
 export const usePokemonGetByName = (name: string) => {
     return useQuery(pokemonOptions('getByName', name, async () => {
         const pokemon = await pokeApiDataSource.getOne(name);
-        return  pokemon;
+        return pokemon;
     }));
 };
-
-export const getOffsetAndLimitFromUrl = (url?: string) => {
-    if (!url) return { offset: 0, limit: 10 };
-    const urlParams = new URLSearchParams(url.split("?")[1]);
-    return {
-        offset: Number(urlParams.get("offset")),
-        limit: Number(urlParams.get("limit")),
-    };
-};
-
 
 
 export const usePokemonInfiniteGetAllInternal = (filter: {
     pageSize: number;
-    q?: string; // General search query
+    q?: string;
     filter?: {
-        type?: string; // Filter by type
+        type?: string;
     };
 }) => {
     return useInfiniteQuery(PokemonQueryInfiniteInternal(filter));

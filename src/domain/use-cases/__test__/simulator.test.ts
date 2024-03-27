@@ -1,10 +1,10 @@
 
-import { Pokemon } from '@/domain/entities/pokemon';
+import { Pokemon } from '@/domain/use-cases/entities/pokemon';
 import { renderHook, waitFor } from '@testing-library/react';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { useSimulator } from './index';
-import { PokemonState } from './PokemonState';
+import { useSimulator } from '../simulator/index';
+import { PokemonState } from '../simulator/PokemonState';
 
 const server = setupServer();
 

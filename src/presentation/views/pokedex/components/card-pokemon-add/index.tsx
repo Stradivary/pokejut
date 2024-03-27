@@ -12,12 +12,12 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useCallback, useState } from "react";
 
-import { usePokemonGetEvolutionChain, usePokemonGetSpecies } from "@/domain/data-source/Evolution/evolutionDataSource";
-import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
-import { EvolutionChain } from "@/domain/entities/evolution";
+import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
+import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
+import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { getColorByType } from "@/utils/constants";
-import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
+import style from "./style.module.scss";
 
 function mapEvolutionChain(data: any): EvolutionChain {
   return {
@@ -40,11 +40,7 @@ export default function CardAddPokemon({
 
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
-  const { data: pokemonSpecies } = usePokemonGetSpecies(pokemon?.name);
-
-  const { data: evolveItem } = usePokemonGetEvolutionChain(
-    pokemonSpecies?.evolution_chain?.url?.replace("https://pokeapi.co/api/v2/evolution-chain/", "")?.replace("/", "")
-  );
+  const { data: evolveItem } = useEvolutionChainByPokemonName(pokemon?.name);
 
   const navigate = useNavigate();
 
@@ -91,7 +87,7 @@ export default function CardAddPokemon({
       });
     }
 
-  }, [pokemon, evolveItem]);
+  }, [pokemon, evolveItem, navigate, catchPokemon]);
 
   return (
     <Paper

@@ -2,10 +2,10 @@ import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { usePokemonGetByName } from "@/domain/data-source/Pokemon/pokemonDataSource";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { getColorByType } from "@/utils/constants";
 import styles from "./style.module.scss";
+import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
@@ -43,7 +43,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
         <Image
           loading="lazy"
           draggable={false}
-          className={styles["card-pokemon-img"]} 
+          className={styles["card-pokemon-img"]}
           style={{
             minWidth: 160,
             viewTransitionName: `pokemon-image-${index}`

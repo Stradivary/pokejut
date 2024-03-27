@@ -1,4 +1,4 @@
-import { usePokemonInfiniteGetAllInternal } from "@/domain/data-source/Pokemon/pokemonDataSource";
+import { usePokemonInfiniteGetAllInternal } from "@/domain/use-cases/pokemon";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 const usePokedexViewModel = () => {

@@ -1,5 +1,5 @@
 
-import { useBerryGetAll } from "@/domain/data-source/Berries/berryDataSource";
+import { useBerryGetAll } from "@/domain/use-cases/berries";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Group, Paper, ScrollArea, Title } from "@mantine/core";
 import { useState } from "react";
@@ -14,8 +14,7 @@ export const BerriesFeeder = () => {
   const { feedPokemon, selectedPokemonId } = useSimulator();
   return (
     <Paper p={10} mih={80}>
-      <Title order={4} mb={8}>Beri Makan Berry 
-      </Title>
+      <Title order={4} mb={8}>Beri Makan Berry  </Title>
       <Paper withBorder radius="lg" p={8} mb={16}>
         <ScrollArea w="100%" h={56} >
           <Group w={"100%"} gap={8} wrap="nowrap" >

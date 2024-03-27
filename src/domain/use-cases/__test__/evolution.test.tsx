@@ -1,9 +1,10 @@
-import { describe, expect, it } from 'vitest';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import { useEvolutionGetAll, useEvolutionGetByName, usePokemonGetEvolutionChain, usePokemonGetEvolutionChainByPokemonName, usePokemonGetSpecies } from './evolutionDataSource';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { describe, expect, it } from 'vitest';
+import { findEvolutionChain, useEvolutionChainByPokemonName, useEvolutionGetAll, useEvolutionGetByName, usePokemonGetEvolutionChain, usePokemonGetSpecies } from '../evolution';
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
@@ -66,10 +67,54 @@ describe('EvolutionDataSource', () => {
         mock.onGet('https://pokeapi.co/api/v2/evolution-chain/1').reply(200, mockEvolutionChainResponse);
 
         const wrapper = ({ children }) => (<QueryClientProvider client={queryClient}> {children} </QueryClientProvider>);
-        const { result } = renderHook(() => usePokemonGetEvolutionChainByPokemonName('pokemon1'), { wrapper });
+        const { result } = renderHook(() => useEvolutionChainByPokemonName('pokemon1'), { wrapper });
 
         await waitFor(() => {
             expect(result.current.data).toEqual(undefined);
         });
+    });
+});
+
+describe('findEvolutionChain', () => {
+    it('returns null when data is null', () => {
+        expect(findEvolutionChain(null, 'pikachu')).toBeNull();
+    });
+
+    it('returns null when data is undefined', () => {
+        expect(findEvolutionChain(undefined, 'pikachu')).toBeNull();
+    });
+
+    it('returns the data when species name matches the current species', () => {
+        const data = {
+            species: { name: 'pikachu' },
+            evolves_to: []
+        };
+        expect(findEvolutionChain(data, 'pikachu')).toEqual(data);
+    });
+
+    it('returns the correct evolution chain when the species is in the evolves_to array', () => {
+        const data = {
+            species: { name: 'pichu' },
+            evolves_to: [
+                {
+                    species: { name: 'pikachu' },
+                    evolves_to: []
+                }
+            ]
+        };
+        expect(findEvolutionChain(data, 'pikachu')).toEqual(data.evolves_to[0]);
+    });
+
+    it('returns null when the species is not found in the evolution chain', () => {
+        const data = {
+            species: { name: 'pichu' },
+            evolves_to: [
+                {
+                    species: { name: 'raichu' },
+                    evolves_to: []
+                }
+            ]
+        };
+        expect(findEvolutionChain(data, 'pikachu')).toBeNull();
     });
 });

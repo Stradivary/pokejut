@@ -1,5 +1,6 @@
+import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
 
-import { BaseRemoteDataSource } from "../shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -45,7 +46,7 @@ export const usePokemonGetSpecies = (id?: string) => {
 };
 
 
-export const usePokemonGetEvolutionChainByPokemonName = (name?: string) => {
+export const useEvolutionChainByPokemonName = (name?: string) => {
     const { data: species } = usePokemonGetSpecies(name);
     const { data: evolutionChain } = usePokemonGetEvolutionChain(species?.evolution_chain?.url.split('/').reverse()[1]);
 
@@ -53,3 +54,29 @@ export const usePokemonGetEvolutionChainByPokemonName = (name?: string) => {
         data: evolutionChain,
     };
 };
+
+export function findEvolutionChain(data: EvolutionChain | null, currentSpecies: string): EvolutionChain | null {
+    // Check if data is null or undefined
+    if (!data) {
+        return null;
+    }
+
+    // Check if species property exists and matches the current species
+    if (data?.species?.toLowerCase() === currentSpecies.toLowerCase()) {
+        return data;
+    }
+    // Iterate through evolves_to array if it exists
+    if (data.evolves_to) {
+        for (const evolution of data.evolves_to) {
+            // Recursive call with additional null check
+            const nextEvolution = findEvolutionChain(evolution, currentSpecies);
+            if (!nextEvolution) {
+                continue;
+            }
+            return nextEvolution;
+        }
+    }
+
+    // Return null if no matching species or next evolution is found
+    return null;
+}
