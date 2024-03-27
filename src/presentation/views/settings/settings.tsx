@@ -1,5 +1,6 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Button, Divider, Group, SegmentedControl, Stack, Text, Title, useMantineColorScheme } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 
 export function Component() {
     const { setColorScheme, colorScheme } = useMantineColorScheme();
@@ -29,10 +30,16 @@ export function Component() {
 
             <Title order={4} fw="bold">Cache</Title>
 
-            <Text>Ukuran : {cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0} MB</Text>
+            <Text key={`cacheSize`}>Ukuran : {cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0} MB</Text>
 
             <Button w={200} color="red" onClick={() => {
                 localStorage.clear();
+                notifications.show({
+                    title: "Berhasil",
+                    message: "Cache berhasil dihapus",
+                    color: "blue",
+                    icon: <img src="/pokeball.png" alt="pokeball" />,
+                });
                 window.location.reload();
             }}>Hapus Cache</Button>
 
@@ -43,7 +50,12 @@ export function Component() {
             <Button w={200} color="red" onClick={() => {
                 clearSelectedPokemon();
                 clearPokemonList();
-                window.location.reload();
+                notifications.show({
+                    title: "Berhasil",
+                    message: "Koleksi Pokemon berhasil dihapus",
+                    color: "blue",
+                    icon: <img src="/pokeball.png" alt="pokeball" />,
+                });
             }}>Hapus Koleksi Pokemon</Button>
 
         </Stack>

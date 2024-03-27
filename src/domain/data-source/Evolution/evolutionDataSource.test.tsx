@@ -1,4 +1,3 @@
-// FILEPATH: /home/syid/dev/pokemon-app/src/data/data-source/Evolution/evolutionDataSource.test.ts
 import { describe, expect, it } from 'vitest';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';

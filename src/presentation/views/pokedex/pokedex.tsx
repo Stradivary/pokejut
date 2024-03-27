@@ -66,7 +66,7 @@ const PokedexPage = () => {
                     </Stack>
                 </Flex>
                 <SimpleGrid p="md"
-                    w={{ base: "100%", md: "calc(100% - 300px)" }}
+                    w={{ base: "calc(100% - 32px)", md: "calc(100% - 300px)" }}
                     mt={32} verticalSpacing={56} spacing={12}
                     cols={{ xs: 2, sm: 3, md: 2, lg: 3, xl: 3 }}>
                     {binding?.data?.pages?.map((page: { results; }, index: number) => (
