@@ -27,11 +27,27 @@ describe('Pokemon Data Source', () => {
         mock.onGet('/types').reply(200, data);
 
         const wrapper = ({ children }) => <QueryClientProvider client={queryClient}> {children} </QueryClientProvider>;
-        const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({ pageSize: 10 }), { wrapper });
+        const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({
+            pageSize: 10, filter: {
+                type: 'test-types'
+            }
+        }), { wrapper });
 
         await waitFor(() => result.current.isSuccess);
 
         expect(result.current.data).toEqual(undefined);
     });
+    it('should return data with default params when usePokemonInfiniteGetAllInternal is called', async () => {
+        const data = { name: 'test-types', url: 'test-url' };
+        mock.onGet('/types').reply(200, data);
 
+        const wrapper = ({ children }) => <QueryClientProvider client={queryClient}> {children} </QueryClientProvider>;
+        const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({
+
+        }), { wrapper });
+
+        await waitFor(() => result.current.isSuccess);
+
+        expect(result.current.data).toEqual(undefined);
+    });
 });

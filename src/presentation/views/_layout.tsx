@@ -1,7 +1,7 @@
 import { ActionIcon, AppShell, Burger, Group, Title, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router-dom";
-import { MainNavbar } from "../components/navbar/MainNavbar";
+import { MainNavbar } from "../components/navbar/mainNavbar";
 import { data } from "./data";
 
 export function Component() {

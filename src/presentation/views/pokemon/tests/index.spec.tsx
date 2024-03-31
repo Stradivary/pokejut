@@ -1,12 +1,12 @@
 import { render } from "~/tests/test-utils";
 import { Component as PokemonById } from "../pokemon.$id";
 import { Component as PokemonList } from "../pokemon";
-import CardPokedex from "../components/card-pokedex/PokedexCard";
+import CardPokedex from "../components/card-pokedex/pokedexCard";
 import { CardPokemonSelect } from "../components/card-pokemon-selection";
-import { EvolutionChainPage } from "../components/pokemon-detail/EvolutionChain";
-import { EvolveCard } from "../components/pokemon-detail/EvolveCard";
+import { EvolutionChainPage } from "../components/pokemon-detail/evolutionChain";
+import { EvolveCard } from "../components/pokemon-detail/evolveCard";
 import { expect, describe, it, vi } from "vitest";
-import { BerryCard } from "../components/pokemon-detail/BerryCard";
+import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 

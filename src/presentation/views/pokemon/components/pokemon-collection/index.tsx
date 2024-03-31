@@ -1,6 +1,6 @@
 import { Center, SimpleGrid, Text } from "@mantine/core";
 import { CardPokemonSelect } from "../card-pokemon-selection";
-import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
+import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 
 export const PokemonCollection = ({
   pokemonList,

@@ -1,5 +1,5 @@
-import { Pokemon } from '@/data/entities/pokemon';
-import { PokemonEvolution } from "@/data/entities/evolution";
+import { type Pokemon } from '@/data/entities/pokemon';
+import { type PokemonEvolution } from "@/data/entities/evolution";
 
 export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<PokemonEvolution, 'id'>> & {
     pokeId: string;

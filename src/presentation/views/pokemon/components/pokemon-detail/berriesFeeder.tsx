@@ -3,7 +3,7 @@ import { useBerryGetAll } from "@/domain/use-cases/berries";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Group, Paper, ScrollArea, Title } from "@mantine/core";
 import { useState } from "react";
-import { BerryCard } from "./BerryCard";
+import { BerryCard } from "./berryCard";
 
 export const BerriesFeeder = () => {
   const { data } = useBerryGetAll({

@@ -48,7 +48,8 @@ export const usePokemonGetSpecies = (id?: string) => {
 
 export const useEvolutionChainByPokemonName = (name?: string) => {
     const { data: species } = usePokemonGetSpecies(name);
-    const { data: evolutionChain } = usePokemonGetEvolutionChain(species?.evolution_chain?.url.split('/').reverse()[1]);
+    const evolutionId = species && (species?.evolution_chain?.url.split('/').reverse()[1] ?? '');
+    const { data: evolutionChain } = usePokemonGetEvolutionChain(evolutionId);
 
     return {
         data: evolutionChain,
@@ -62,7 +63,7 @@ export function findEvolutionChain(data: EvolutionChain | null, currentSpecies: 
     }
 
     // Check if species property exists and matches the current species
-    if (`${data?.species}`.toLowerCase() === `${currentSpecies}`.toLowerCase()) {
+    if (`${data?.species?.name}`.toLowerCase() === `${currentSpecies}`.toLowerCase()) {
         return data;
     }
     // Iterate through evolves_to array if it exists

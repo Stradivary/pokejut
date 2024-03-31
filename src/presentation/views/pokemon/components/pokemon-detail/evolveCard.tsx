@@ -1,7 +1,7 @@
 import { EvolutionChain } from "@/data/entities/evolution";
-import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
+import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { Stack } from "@mantine/core";
-import EvolutionCard from "../card-pokedex/PokedexCard";
+import EvolutionCard from "../card-pokedex/pokedexCard";
 
 
 export function EvolveCard({

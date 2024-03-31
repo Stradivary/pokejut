@@ -4,7 +4,7 @@ import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { PokemonDetail } from "./components/pokemon-detail";
-import { EvolutionChainPage } from "./components/pokemon-detail/EvolutionChain";
+import { EvolutionChainPage } from "./components/pokemon-detail/evolutionChain";
 
 
 

@@ -7,8 +7,7 @@ import { getBerryGain } from '../berries';
 
 import { redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { type PokemonState } from './PokemonState';
-import { storage } from './presistor';
+import { type PokemonState } from './pokemonState';
 
 export type BerryState = Partial<Berry>;
 
@@ -104,8 +103,7 @@ export const useSimulator = create(
                             });
                         }
 
-                        selectedPokemon.fedBerries = [...(selectedPokemon?.fedBerries ?? []), berry.firmness?.name ?? ""];
-
+                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries, berry.firmness ? berry.firmness.name : ""];
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
 
@@ -134,7 +132,7 @@ export const useSimulator = create(
                             weight,
                             pokeId,
                             evolves_to,
-                        } = selectedPokemon ?? {};
+                        } = selectedPokemon as PokemonState;
                         const newPokemon = {
                             ...evolvedPokemon,
                             pokeId,
@@ -172,7 +170,7 @@ export const useSimulator = create(
         }),
         {
             name: 'pokemon-storage',
-            storage: createJSONStorage(() => storage),
+            storage: createJSONStorage(() => localStorage),
         }
     )
 );

@@ -1,8 +1,8 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Alert, Paper, SimpleGrid, Title } from "@mantine/core";
 import { useEvolutionChain } from "./useEvolutionChain";
-import { EvolveCard } from "./EvolveCard";
-import { PokemonState } from "@/domain/use-cases/simulator/PokemonState";
+import { EvolveCard } from "./evolveCard";
+import { PokemonState } from "@/domain/use-cases/simulator/pokemonState";
 
 export const EvolutionChainPage = ({ pokemonId }) => {
 

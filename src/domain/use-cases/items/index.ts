@@ -16,7 +16,7 @@ const itemOptions = (action: string, params: any, fn: () => Promise<any>, opts?:
 
 export const useItemGetByName = (name?: string) => {
     return useQuery(itemOptions('getByName', name, async () => {
-        return await pokeApiDataSource.getOne(name ?? "");
+        return await pokeApiDataSource.getOne(name as string);
     }, {
         enabled: !!name,
     }));

@@ -20,7 +20,7 @@ const PokemonQueryInfiniteInternal = (filter) =>
     infiniteQueryOptions({
         queryKey: [entity, "getAll", filter],
         queryFn: async ({ pageParam = 0 }) => {
-            return pokemonInternalRepo.getPokemonsByPage({ page: pageParam ?? 0, pageSize: filter?.pageSize ?? 10, q: filter?.q, filter: filter?.filter });
+            return pokemonInternalRepo.getPokemonsByPage({ page: pageParam, pageSize: filter?.pageSize ?? 10, q: filter?.q, filter: filter?.filter });
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
@@ -38,7 +38,7 @@ export const usePokemonGetByName = (name: string) => {
 
 
 export const usePokemonInfiniteGetAllInternal = (filter: {
-    pageSize: number;
+    pageSize?: number;
     q?: string;
     filter?: {
         type?: string;

@@ -1,5 +1,5 @@
 import { findEvolutionChain } from "@/domain/use-cases/evolution";
-import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
+import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { useMemo } from "react";
 
 export const useEvolutionChain = (selectedPokemon?: PokemonState) => {

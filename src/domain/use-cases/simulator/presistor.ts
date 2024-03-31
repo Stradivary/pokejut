@@ -3,7 +3,7 @@ import { StateStorage } from 'zustand/middleware';
 
 export const storage: StateStorage = {
     getItem: async (name: string): Promise<string | null> => {
-        return (await get(name)) || null;
+        return (await get(name)) ?? null;
     },
     setItem: async (name: string, value: string): Promise<void> => {
          set(name, value);

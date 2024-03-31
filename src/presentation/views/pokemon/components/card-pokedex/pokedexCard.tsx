@@ -1,6 +1,6 @@
 
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
+import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";

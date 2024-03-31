@@ -1,5 +1,5 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
+import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
 import {
   Badge,
@@ -13,7 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { BerriesFeeder } from "./BerriesFeeder";
+import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
 
 const firmnesColor: Record<string, string> = {

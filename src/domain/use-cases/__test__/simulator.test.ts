@@ -1,13 +1,10 @@
 
-import { Pokemon } from '@/data/entities/pokemon';
 import { renderHook, waitFor } from '@testing-library/react';
-import { mock } from "indexeddb-mock";
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { PokemonState } from '../simulator/PokemonState';
+import { PokemonState } from '../simulator/pokemonState';
 import { useSimulator } from '../simulator/index';
 
-window.indexedDB = mock;
 
 const server = setupServer();
 
@@ -29,14 +26,16 @@ const newPokemon = {
         attack: 1,
         defense: 1,
         speed: 1,
-    }, types: []
-} as unknown as Pokemon;
+    }, types: [],
+    fedBerries: []
+} as unknown as PokemonState;
 describe('useSimulator', () => {
     it('should set selected pokemon', async () => {
         const { result } = renderHook(() => useSimulator());
 
+
         await waitFor(() => {
-            result.current.setSelectedPokemon({ name: 'Pikachu', pokeId: '1', weight: 1, fedBerries: [] } as PokemonState);
+            result.current.catchPokemon(newPokemon);
         });
 
         expect(result.current.selectedPokemon()?.name).toEqual('Pikachu');
@@ -50,7 +49,7 @@ describe('useSimulator', () => {
             result.current.clearSelectedPokemon();
         });
 
-        expect(result.current.selectedPokemon).toBeUndefined();
+        expect(result.current.selectedPokemonId).toBeUndefined();
     });
 
     it('should catch a pokemon', async () => {
@@ -73,7 +72,6 @@ describe('useSimulator', () => {
         });
 
         expect(result.current.pokemonList).not.toContainEqual(pokemon);
-        expect(result.current.selectedPokemon).toBeUndefined();
     });
 
 
@@ -86,9 +84,10 @@ describe('useSimulator', () => {
             result.current.setSelectedPokemon(result.current.pokemonList?.[0]);
             const id = result.current.pokemonList?.[0].pokeId;
             result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
+            result.current.feedPokemon(id, { firmness: undefined });
         });
 
-        expect(result.current.selectedPokemon()?.fedBerries).toStrictEqual(["soft"]);
+        expect(result.current.selectedPokemon()?.fedBerries).toStrictEqual(["soft", ""]);
     });
 
     it('should get a weight loss if fed with berry of same firmness', async () => {
@@ -99,8 +98,10 @@ describe('useSimulator', () => {
             result.current.catchPokemon(newPokemon);
             result.current.setSelectedPokemon(result.current.pokemonList?.[0]);
             const id = result.current.pokemonList?.[0].pokeId;
-            result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
-            result.current.feedPokemon(id, { firmness: { name: 'soft', url: '' } });
+            result.current.feedPokemon(id, { firmness: { name: 'very-hard', url: '' } });
+            result.current.feedPokemon(id, { firmness: { name: 'very-hard', url: '' } });
+            result.current.feedPokemon(id, { firmness: { name: 'very-hard', url: '' } });
+            result.current.feedPokemon(id, { firmness: { name: 'very-hard', url: '' } });
         });
 
         expect(result.current.selectedPokemon()?.weight).toBeLessThan(pokemon.weight);
@@ -117,9 +118,9 @@ describe('useSimulator', () => {
     });
     it('should add a pokemon', async () => {
         const { result } = renderHook(() => useSimulator());
-
+        const { id: _, ...newPoke } = newPokemon;
         await waitFor(() => {
-            result.current.addPokemon(newPokemon);
+            result.current.addPokemon(newPoke as any);
         });
 
         expect(result.current.pokemonList?.[0]?.name).toBe(newPokemon.name);
@@ -135,6 +136,10 @@ describe('useSimulator', () => {
                 name: 'Raichu',
                 pokeId: '1',
                 weight: 2,
+                species: {
+                    name: 'raichu',
+                    url: ''
+                },
                 fedBerries: [],
             });
         });
@@ -168,5 +173,16 @@ describe('useSimulator', () => {
         });
 
         expect(result.current.selectedPokemon()?.name).toBe('Pikachu');
+    });
+
+    it('should clear pokemon list', async () => {
+        const { result } = renderHook(() => useSimulator());
+
+        await waitFor(() => {
+            result.current.catchPokemon(newPokemon);
+            result.current.clearPokemonList();
+        });
+
+        expect(result.current.pokemonList).toEqual([]);
     });
 });
