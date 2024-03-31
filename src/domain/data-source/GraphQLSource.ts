@@ -3,7 +3,7 @@ import { get } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
 
 
-export class GraphqlSource implements IBaseRemoteDataSource {
+export class GraphqlSource implements IBaseRemoteDataSource<any> {
     // pokeAPi beta url
     public baseUrl = 'https://beta.pokeapi.co/graphql/v1beta';
 

@@ -1,5 +1,5 @@
-import { Berry } from '@/domain/use-cases/entities/berries';
-import { Pokemon } from '@/domain/use-cases/entities/pokemon';
+import { Berry } from '@/data/entities/berries';
+import { Pokemon } from '@/data/entities/pokemon';
 import { notifications } from '@mantine/notifications';
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';

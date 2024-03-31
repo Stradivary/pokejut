@@ -1,4 +1,4 @@
-import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
+import { EvolutionChain } from "@/data/entities/evolution";
 import { PokemonState } from '@/domain/use-cases/simulator/PokemonState';
 import { Stack } from "@mantine/core";
 import EvolutionCard from "../card-pokedex/PokedexCard";

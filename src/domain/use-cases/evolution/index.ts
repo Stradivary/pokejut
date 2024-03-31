@@ -1,4 +1,4 @@
-import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
+import { EvolutionChain } from "@/data/entities/evolution";
 
 import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
 import { queryOptions, useQuery } from "@tanstack/react-query";

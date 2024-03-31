@@ -1,5 +1,5 @@
-import { Pokemon } from '@/domain/use-cases/entities/pokemon';
-import { PokemonEvolution } from "@/domain/use-cases/entities/evolution";
+import { Pokemon } from '@/data/entities/pokemon';
+import { PokemonEvolution } from "@/data/entities/evolution";
 
 export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<PokemonEvolution, 'id'>> & {
     pokeId: string;

@@ -1,11 +1,11 @@
 
-import { Pokemon } from '@/domain/use-cases/entities/pokemon';
+import { Pokemon } from '@/data/entities/pokemon';
 import { renderHook, waitFor } from '@testing-library/react';
-import { setupServer } from 'msw/node';
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
-import { useSimulator } from '../simulator/index';
-import { PokemonState } from '../simulator/PokemonState';
 import { mock } from "indexeddb-mock";
+import { setupServer } from 'msw/node';
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { PokemonState } from '../simulator/PokemonState';
+import { useSimulator } from '../simulator/index';
 
 window.indexedDB = mock;
 

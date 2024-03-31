@@ -12,7 +12,7 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
-import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
+import { EvolutionChain } from "@/data/entities/evolution";
 import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { getColorByType } from "@/utils/constants";
