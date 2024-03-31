@@ -1,5 +1,6 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { Button, Divider, Group, SegmentedControl, Stack, Text, Title, useMantineColorScheme } from "@mantine/core";
+import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 
 export function Component() {
@@ -12,7 +13,7 @@ export function Component() {
     const cacheSize = localStorage.getItem('REACT_QUERY_OFFLINE_CACHE')?.length;
     return (
         <Stack p={16}>
-            <Title  >Pengaturan</Title> 
+            <Title  >Pengaturan</Title>
             <Group w="80%" mt={16} justify="space-between">
                 <Title order={4} fw="bold">Tema</Title>
                 <SegmentedControl value={colorScheme} onChange={
@@ -47,14 +48,25 @@ export function Component() {
             <Title order={4} fw="bold">Koleksi Pokemon</Title>
 
             <Button w={200} color="red" onClick={() => {
-                clearSelectedPokemon();
-                clearPokemonList();
-                notifications.show({
-                    title: "Berhasil",
-                    message: "Koleksi Pokemon berhasil dihapus",
-                    color: "blue",
-                    icon: <img src="/pokeball.png" alt="pokeball" />,
+                modals.openConfirmModal({
+                    title: "Lepas Semua Pokemon",
+                    children: "Apakah kamu yakin ingin melepaskan semua koleksi pokemon?",
+                    onConfirm: () => {
+                        clearSelectedPokemon();
+                        clearPokemonList();
+                        notifications.show({
+                            title: "Berhasil",
+                            message: "Koleksi Pokemon berhasil dihapus",
+                            color: "blue",
+                            icon: <img src="/pokeball.png" alt="pokeball" />,
+                        });
+                    },
+                    labels: {
+                        confirm: "Lepas Semua",
+                        cancel: "Batal",
+                    }
                 });
+
             }}>Hapus Koleksi Pokemon</Button>
 
         </Stack>

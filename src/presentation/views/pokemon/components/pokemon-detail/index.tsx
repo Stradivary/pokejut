@@ -15,7 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { BerriesFeeder } from "./BerriesFeeder";
 import styles from "./style.module.scss";
- 
+
 const firmnesColor: Record<string, string> = {
   "very-soft": "blue",
   soft: "green",
@@ -50,15 +50,13 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
           viewTransitionName: `pokemon-card-${pokemonId}`
         }}
       >
-        <Group align="center" mx="auto">
+        <Group justify="space-evenly" mx="auto">
           <Image
             loading="lazy"
             draggable={false}
             className={styles["card-pokemon-img"]}
             style={{
               viewTransitionName: `pokemon-image-${pokemonId}`,
-              width: "80%",
-              minWidth: 200,
             }}
             src={
               pokemon?.sprites?.other?.["dream_world"]?.front_default
@@ -79,6 +77,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                       key={i}
                       draggable={false}
                       w={40}
+                      h={40}
                       src={`/types/${type.type.name}.svg`}
                       alt=""
                     />
@@ -114,7 +113,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
             {
               fedBerries && fedBerries.length > 0 ? (
                 fedBerries?.slice(
-                  fedBerries.length > 5 ? fedBerries.length - 5 : 0
+                  fedBerries?.length > 5 ? fedBerries.length - 5 : 0
                 ).reverse().map((berry) => {
                   return (<Badge color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
                   );

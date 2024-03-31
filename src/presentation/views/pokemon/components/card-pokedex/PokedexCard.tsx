@@ -67,6 +67,8 @@ export default function EvolutionCard({
                 draggable={false}
                 src={
                   pokemon?.sprites.other["dream_world"].front_default
+                    ? pokemon?.sprites.other["dream_world"].front_default
+                    : pokemon?.sprites.front_default
                 }
                 fallbackSrc="/pokenull.webp"
                 alt="Pokemon"

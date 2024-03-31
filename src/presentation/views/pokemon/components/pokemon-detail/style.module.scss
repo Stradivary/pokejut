@@ -19,11 +19,13 @@
   backdrop-filter: blur(10px);
   width: 100%;
   color: #fff;
+  align-items: stretch;
 }
 
 .card-pokemon-img {
   position: relative;
   width: 256px;
+  max-height: 180px;
   margin-inline: 20px;
   margin-block: auto;
   filter: saturate(1.9);
@@ -31,15 +33,13 @@
   @media screen and (max-width: 1224px) {
     width: 200px;
     transform: scale(1.2);
-    top: 8px;
-    margin-inline: 25px;
-    margin-block: auto;
+    top: 8px; 
   }
   
-  @media screen and (max-width: 426px) {
+  @media screen and (max-width: 480px) {
     transform: scale(0.8);
-    top: 12px;
-    left: 50px;
+    top: 12px; 
+    width: 100%;
   }
 }
 

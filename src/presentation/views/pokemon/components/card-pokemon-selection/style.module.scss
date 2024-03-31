@@ -23,9 +23,10 @@
 .card-pokemon-img {
   position: relative;
   width: 100%;
-  max-width: 180px;
+  max-height: 180px;
   margin-right: auto;
   margin-left: auto;
+  object-fit: contain;
   margin-top: calc(1.5rem* var(--mantine-scale));
   margin-bottom: calc(1.5rem* var(--mantine-scale));
 

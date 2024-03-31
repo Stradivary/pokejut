@@ -23,7 +23,7 @@ const usePokedexViewModel = () => {
     }
   }, [entry, fetchNextPage]);
 
-  // const filteredData = getFilteredData(data, search);
+
   return {
     status,
     data: data,

@@ -1,6 +1,6 @@
 import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
 
-import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -24,7 +24,7 @@ export const useEvolutionGetAll = (filter: { offset: number; limit: number; }) =
 
 export const useEvolutionGetByName = (name: string) => {
     return useQuery(evolutionOptions('getByName', { name }, async () => {
-        return await pokeApiDataSource.getOne(name).then((res) => res.data);
+        return await pokeApiDataSource.getOne(name);
     }));
 };
 
@@ -62,7 +62,7 @@ export function findEvolutionChain(data: EvolutionChain | null, currentSpecies: 
     }
 
     // Check if species property exists and matches the current species
-    if (data?.species?.toLowerCase() === currentSpecies.toLowerCase()) {
+    if (`${data?.species}`.toLowerCase() === `${currentSpecies}`.toLowerCase()) {
         return data;
     }
     // Iterate through evolves_to array if it exists

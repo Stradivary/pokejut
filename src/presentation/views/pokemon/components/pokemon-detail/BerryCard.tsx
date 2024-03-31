@@ -50,7 +50,8 @@ export const BerryCard = ({
               height={64}
               loading="lazy"
               draggable={false}
-              src={data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : ""}
+              src={
+                data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : ""}
 
             />
             <Stack my={24}>

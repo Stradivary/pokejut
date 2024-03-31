@@ -1,6 +1,6 @@
 
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
 
 const entity = 'berries';
 

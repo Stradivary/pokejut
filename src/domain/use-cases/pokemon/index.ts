@@ -1,10 +1,11 @@
 import { pokemonInternalRepo } from "@/domain/repository/pokemonRepositoryInternalImpl";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
+import { Pokemon } from "../entities/pokemon";
 
 const entity = 'pokemon';
 
-const pokeApiDataSource = new BaseRemoteDataSource('pokemon');
+const pokeApiDataSource = new BaseRemoteDataSource<Pokemon>('pokemon');
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({

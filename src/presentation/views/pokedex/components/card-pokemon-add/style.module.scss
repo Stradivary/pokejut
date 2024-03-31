@@ -28,8 +28,7 @@
   background: light-dark(var(--mantine-color-white), var(--mantine-color-black));
 }
 
-.cardPokemonImg {
-  // top: -30px;
+.cardPokemonImg { 
   width: 100%;
   transform: scale(0.5);
   filter: saturate(1.9);
@@ -41,7 +40,7 @@
   }
 
   @media screen and (max-width: 480px) {
-    transform: scale(0.4);
+    transform: scale(0.6);
     top: 12px;
 
     width: auto;

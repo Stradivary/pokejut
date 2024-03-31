@@ -17,7 +17,7 @@ export const EvolutionChainPage = ({ pokemonId }) => {
           Evolution Chain
         </Title>
       }
-      <SimpleGrid cols={{ base: 3, sm: 4, md: 4, lg: 5, xl: 6 }}>
+      <SimpleGrid cols={{ base: 2, sm: 2, md: 3, lg: 5, xl: 6 }}>
         {nextEvolutionChain?.evolves_to?.map((pokemon) => (
           <EvolveCard
             key={"evolve-card-" + pokemon?.species?.name + "-" + pokemonId}

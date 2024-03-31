@@ -10,8 +10,8 @@ export function Component() {
   const { colorScheme } = useMantineColorScheme();
   return (
     <AppShell
-      header={{ height: { base: 1, md: 60, lg: 1, xl: 1 } }}
-      footer={{ height: { base: 86, md: 86, lg: 1, xl: 1 } }}
+      header={{ height: { base: 1, md: 1, lg: 1, xl: 1 } }}
+      footer={{ height: { base: 86, md: 1, lg: 1, xl: 1 } }}
       navbar={{
         width: { base: 0, md: 240, lg: 240, xl: 240 },
         breakpoint: "md",

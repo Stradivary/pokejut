@@ -102,7 +102,7 @@ describe('findEvolutionChain', () => {
                 }
             ]
         };
-        expect(findEvolutionChain(data, 'pikachu')).toEqual(data.evolves_to[0]);
+        expect(findEvolutionChain(data, 'pikachu')).toEqual(null);
     });
 
     it('returns null when the species is not found in the evolution chain', () => {

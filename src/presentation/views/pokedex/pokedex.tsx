@@ -84,16 +84,16 @@ const PokedexPage = () => {
                 </SimpleGrid>
                 <Center mt={20}>
                     <Button
-
                         variant="transparent"
                         ref={binding?.intersectionRef} // Use the intersectionRef from the custom hook
                         onClick={() => binding?.fetchNextPage()}
                         loading={binding?.isFetchingNextPage}
                         disabled={!binding?.hasNextPage}
                     >
-                        {binding?.isFetchingNextPage
-                            ? 'Menampilkan lebih banyak...'
-                            : null
+                        {
+                            binding?.isFetchingNextPage
+                                ? 'Menampilkan lebih banyak...'
+                                : null
                         }
                         {
                             !binding?.isFetchingNextPage && binding?.hasNextPage
@@ -103,8 +103,7 @@ const PokedexPage = () => {
 
                         {
                             (!binding?.hasNextPage && binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
-                                ? 'Semua Pokemon ditampilkan'
-                                : 'Tidak ada pokemon'
+                                ? 'Semua Pokemon ditampilkan' : null
                         }
 
 

@@ -48,10 +48,11 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
             minWidth: 160,
             viewTransitionName: `pokemon-image-${index}`
           }}
+
           src={
             pokemon?.sprites.other["dream_world"].front_default
               ? pokemon?.sprites.other["dream_world"].front_default
-              : pokemon?.sprites.other.home.front_default
+              : pokemon?.sprites.front_default
           }
           fallbackSrc="/pokenull.webp"
           alt="Selected Pokemon"

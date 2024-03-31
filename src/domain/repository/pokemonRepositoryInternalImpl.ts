@@ -52,7 +52,7 @@ class PokemonRepository {
         }
 
         // Apply type filter
-        if (filter && filter.type && filter.type !== undefined) {
+        if (filter?.type && filter.type !== undefined) {
             filteredPokemons = filteredPokemons.filter(pokemon =>
                 pokemon?.types?.includes(filter.type as string)
             );
@@ -74,7 +74,6 @@ class PokemonRepository {
     }
 }
 
-// import jsonPokemons from "./pokemon_list.json";
 
 const jsonPokemons = await import("./pokemon_list.json");
 

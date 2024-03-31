@@ -1,5 +1,5 @@
 import { UseQueryOptions, queryOptions, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../../data-source/shared/baseDataSource";
+import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
 const entity = 'items';
 
 const pokeApiDataSource = new BaseRemoteDataSource('item');

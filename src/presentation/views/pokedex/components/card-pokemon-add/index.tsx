@@ -109,7 +109,9 @@ export default function CardAddPokemon({
           draggable={false}
           className={style.cardPokemonImg}
           src={
-            pokemon?.sprites?.other?.["dream_world"]?.front_default
+            pokemon?.sprites.other["dream_world"].front_default
+              ? pokemon?.sprites.other["dream_world"].front_default
+              : pokemon?.sprites.front_default
           }
           fallbackSrc="/pokenull.webp"
           alt={"Selected Pokemon " + pokemon?.name}
