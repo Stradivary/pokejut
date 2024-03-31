@@ -10,7 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo } from "react";
 
 import { EvolutionChain } from "@/domain/use-cases/entities/evolution";
 import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
@@ -29,14 +29,12 @@ function mapEvolutionChain(data: any): EvolutionChain {
 export default function CardAddPokemon({
   pokemonName,
   pokemonType,
-}: {
+}: Readonly<{
   pokemonName: string;
   pokemonType?: any[];
-}) {
+}>) {
   const { catchPokemon } = useSimulator();
-  const [color] = useState<string | undefined>(
-    getColorByType(pokemonType?.[0] ?? "")
-  );
+  const color = useMemo(() => getColorByType(pokemonType?.[0] ?? ""), []);
 
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 
@@ -75,7 +73,7 @@ export default function CardAddPokemon({
 
 
       catchPokemon({ ...poke, evolves_to });
-      navigate("/pokemon", {
+      navigate("/pokemon/selected", {
         unstable_viewTransition: true,
       });
     } else {

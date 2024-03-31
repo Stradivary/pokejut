@@ -5,10 +5,16 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { useSimulator } from '../simulator/index';
 import { PokemonState } from '../simulator/PokemonState';
+import { mock } from "indexeddb-mock";
+
 
 const server = setupServer();
 
-beforeAll(() => server.listen());
+beforeAll(() => {
+
+    window.indexedDB = mock();
+    return server.listen();
+});
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 

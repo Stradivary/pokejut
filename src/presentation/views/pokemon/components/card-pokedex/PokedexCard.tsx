@@ -10,10 +10,10 @@ import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 export default function EvolutionCard({
   pokemonName,
   oldPokemon,
-}: {
+}: Readonly<{
   pokemonName: string;
   oldPokemon?: PokemonState;
-}) {
+}>) {
   const [color, setColor] = useState<string | undefined>("#fff");
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 

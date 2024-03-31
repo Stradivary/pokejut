@@ -147,8 +147,8 @@ export const useSimulator = create(
 
 
                         notifications.show({
-                            title: "Evolution!",
-                            message: `Pokemon ${selectedPokemon?.name} berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
+                            title: "Evolusi Berhasil!",
+                            message: `Selamat, pokemon anda berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
                             color: "teal",
                             icon: <img src="/pokeball.png" alt="pokeball" />,
                             autoClose: 2000,

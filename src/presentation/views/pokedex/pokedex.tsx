@@ -36,10 +36,10 @@ const PokedexPage = () => {
                     <Stack w="100%">
                         <ScrollArea h={42} w="calc(100vw - 20px)"  >
                             <Group wrap='nowrap'>
-                                {pokemonData?.map(({ type, color, img }: { type: string, color: string, img: string; }, index: number) => {
+                                {pokemonData?.map(({ type, color, img }: any) => {
                                     const isSelected = type === binding.selectedType;
                                     return (
-                                        <Tooltip key={index} label={type} position="bottom" withArrow>
+                                        <Tooltip key={`action-${type}`} label={type} position="bottom" withArrow>
                                             <ActionIcon onClick={() => {
                                                 if (isSelected) {
                                                     return binding.setType('');
@@ -72,7 +72,7 @@ const PokedexPage = () => {
                     {binding?.data?.pages?.map((page: { results; }, index: number) => (
                         <React.Fragment key={index + '- page'}>
                             {page?.results?.map(({ name, ...rest }: {
-                                name: string;[key: string]: any;
+                                [key: string]: any;
                             }, index: number) => (
                                 <CardAddPokemon key={name + '-card-' + index}
                                     pokemonName={name}
@@ -93,11 +93,18 @@ const PokedexPage = () => {
                     >
                         {binding?.isFetchingNextPage
                             ? 'Menampilkan lebih banyak...'
-                            : binding?.hasNextPage
+                            : null
+                        }
+                        {
+                            !binding?.isFetchingNextPage && binding?.hasNextPage
                                 ? 'Tampilkan lebih banyak'
-                                : (binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
-                                    ? 'Semua Pokemon ditampilkan'
-                                    : 'Tidak ada pokemon'
+                                : null
+                        }
+
+                        {
+                            (!binding?.hasNextPage && binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
+                                ? 'Semua Pokemon ditampilkan'
+                                : 'Tidak ada pokemon'
                         }
 
 

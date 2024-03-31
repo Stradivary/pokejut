@@ -6,10 +6,10 @@ import EvolutionCard from "../card-pokedex/PokedexCard";
 
 export function EvolveCard({
   evolveItem, selectedPokemon,
-}: {
+}: Readonly<{
   selectedPokemon?: PokemonState;
   evolveItem: EvolutionChain;
-}) {
+}>) {
 
   return (
     <Stack w={100}>
