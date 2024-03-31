@@ -35,7 +35,6 @@ export default function EvolutionCard({
 
   useEffect(() => {
     if (pokemon) {
-      console.log(pokemon);
       const Color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "");
       setColor(Color);
     }
