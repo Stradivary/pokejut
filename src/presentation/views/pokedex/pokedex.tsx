@@ -42,9 +42,9 @@ const PokedexPage = () => {
                                         <Tooltip key={`action-${type}`} label={type} position="bottom" withArrow>
                                             <ActionIcon onClick={() => {
                                                 if (isSelected) {
-                                                    return binding.setType('');
+                                                    return binding.setSelectedType('');
                                                 }
-                                                return binding.setType(type);
+                                                return binding.setSelectedType(type);
                                             }} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
                                                 <Image width={32} src={img} alt={type} />
                                             </ActionIcon>

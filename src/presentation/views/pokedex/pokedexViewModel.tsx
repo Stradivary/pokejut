@@ -5,7 +5,7 @@ const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
 
 
-  const [selectedType, setType] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const {
     status,
@@ -36,7 +36,7 @@ const usePokedexViewModel = () => {
     hasNextPage,
     intersectionRef: ref,
     selectedType,
-    setType,
+    setSelectedType,
   };
 };
 

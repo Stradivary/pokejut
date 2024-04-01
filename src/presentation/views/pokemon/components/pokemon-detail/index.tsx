@@ -70,11 +70,11 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
             <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
             <Group align="center">
               {pokemon?.types?.map(
-                (type: { type: { name: string; }; }, i: number) => {
+                (type: { type: { name: string; }; }) => {
                   return (
                     <Image
                       loading="lazy"
-                      key={i}
+                      key={type?.type?.name}
                       draggable={false}
                       w={40}
                       h={40}
@@ -111,19 +111,18 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
         <ScrollArea style={{ height: 42, width: "100%" }}>
           <Group w="100%">
             {
-              fedBerries && fedBerries.length > 0 ? (
-                fedBerries?.slice(
-                  fedBerries?.length > 5 ? fedBerries.length - 5 : 0
-                ).reverse().map((berry) => {
-                  return (<Badge color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
+              fedBerries?.length > 0 && (
+                fedBerries?.slice(-5).reverse().map((berry) => {
+                  return (<Badge key={
+                    berry + "-badge"
+                  } color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
                   );
                 })
-              ) : (
-                <Text>
-                  Belum ada berry yang diberikan
-                </Text>
-              )
-            }
+              )}
+            {fedBerries?.length === 0 && (
+              <Text>
+                Belum ada berry yang diberikan
+              </Text>)}
           </Group>
         </ScrollArea>
       </Stack>

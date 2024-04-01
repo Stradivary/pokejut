@@ -81,7 +81,8 @@ describe("Component Coverage Tests", () => {
 
                 pokemonList: [
 
-                ], releaseSelectedPokemon: () => { }
+                ],
+                releaseSelectedPokemon: vi.fn()
             })
         }));
         const { container } = render(<BerryCard name={""} />);
@@ -92,7 +93,8 @@ describe("Component Coverage Tests", () => {
                 selectedPokemon: "",
                 pokemonList: [
                     { name: 'Pikachu', pokeId: '1', weight: 1, fedBerries: [] }
-                ], releaseSelectedPokemon: () => { }
+                ],
+                releaseSelectedPokemon: vi.fn()
             })
         }));
         const { container: container2 } = render(<BerryCard detailed name={""} />);
