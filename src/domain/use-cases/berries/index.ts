@@ -1,10 +1,11 @@
 
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
+import { Berry } from "@/data/entities/berries";
 
 const entity = 'berries';
 
-const pokeApiDataSource = new BaseRemoteDataSource('berry');
+const pokeApiDataSource = new BaseRemoteDataSource<Berry>('berry');
 
 const berryOptions = (action: string, params: any, fn: () => Promise<any>) => {
     return queryOptions({

@@ -1,5 +1,4 @@
 import { Berry } from '@/data/entities/berries';
-import { Pokemon } from '@/data/entities/pokemon';
 import { notifications } from '@mantine/notifications';
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
@@ -8,6 +7,7 @@ import { getBerryGain } from '../berries';
 import { redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
+import { Pokemon } from '@/data/entities/pokemon';
 
 export type BerryState = Partial<Berry>;
 

@@ -1,4 +1,4 @@
-import { type Pokemon } from '@/data/entities/pokemon';
+import { type Pokemon } from '@/data/pokemon';
 import { type PokemonEvolution } from "@/data/entities/evolution";
 
 export type PokemonState = Partial<Omit<Pokemon, 'weight'>> & Partial<Omit<PokemonEvolution, 'id'>> & {
