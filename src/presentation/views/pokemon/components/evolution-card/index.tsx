@@ -1,11 +1,11 @@
 
+import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import "./style.scss";
-import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 
 export default function EvolutionCard({
   pokemonName,
@@ -14,8 +14,10 @@ export default function EvolutionCard({
   pokemonName: string;
   oldPokemon?: PokemonState;
 }>) {
-  const [color, setColor] = useState<string | undefined>("#fff");
+
+
   const { data: pokemon } = usePokemonGetByName(pokemonName);
+  const color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "#fff");
 
   const { evolveSelectedPokemon } = useSimulator();
 
@@ -33,15 +35,10 @@ export default function EvolutionCard({
     return pokemonWeight >= nextEvolutionPokemonWeight;
   }, [oldPokemon, pokemon]);
 
-  useEffect(() => {
-    if (pokemon) {
-      const Color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "");
-      setColor(Color);
-    }
-  }, [pokemon]);
+
 
   return (
-    <Stack key={pokemon?.name} miw={180}>
+    <Stack key={pokemon?.name} miw={180} mih={100}>
       <HoverCard
         offset={10}
         radius="sm"

@@ -1,10 +1,9 @@
 import { render } from "~/tests/test-utils";
-import { Component as PokemonById } from "../pokemon.$id";
+import { Component as PokemonById } from "../pokemon.selected";
 import { Component as PokemonList } from "../pokemon";
-import CardPokedex from "../components/card-pokedex/pokedexCard";
+import CardPokedex from "../components/evolution-card";
 import { CardPokemonSelect } from "../components/card-pokemon-selection";
 import { EvolutionChainPage } from "../components/pokemon-detail/evolutionChain";
-import { EvolveCard } from "../components/pokemon-detail/evolveCard";
 import { expect, describe, it, vi } from "vitest";
 import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
@@ -70,10 +69,6 @@ describe("Component Coverage Tests", () => {
         expect(container).toBeDefined();
     });
 
-    it("should render EvolutionCard component correctly", () => {
-        const { container } = render(<EvolveCard evolveItem={undefined} />);
-        expect(container).toBeDefined();
-    });
     it("should render the empty BerryCard component correctly", () => {
         vi.mock("@/domain/use-cases/simulator", () => ({
             useSimulator: () => ({

@@ -12,7 +12,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
 
@@ -28,20 +28,13 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
 
   const { pokemonList } = useSimulator();
   const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
-  const [color, setColor] = useState<string | undefined>("#fff");
-  const { weight, fedBerries, ...pokemon } =
-    pokemonState ?? ({} as PokemonState);
+  const color = getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? "#fff";
+  const { weight, fedBerries, ...pokemon } = pokemonState ?? ({} as PokemonState);
 
-  useEffect(() => {
-    const Color =
-      getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? undefined;
-    setColor(Color);
-  }, [pokemonState]);
 
   return (
     <SimpleGrid px="md" cols={{ base: 1, md: 2 }}>
       <Paper
-
         className={styles["card-pokemon"]}
         style={{
           marginTop: 40,

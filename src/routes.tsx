@@ -20,7 +20,7 @@ export const routes = [
                     },
                     {
                         path: "/pokemon/selected",
-                        lazy: () => import("./presentation/views/pokemon/pokemon.$id"),
+                        lazy: () => import("./presentation/views/pokemon/pokemon.selected"),
                     },
                     {
                         path: "/pokemon/*",

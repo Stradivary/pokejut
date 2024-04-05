@@ -4,7 +4,7 @@ import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, Simple
 import React from 'react';
 import CardAddPokemon from './components/card-pokemon-add';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
-import { TypeBadge } from './TypeBadge';
+import { TypeBadge } from './components/TypeBadge';
 
 const PokedexPage = () => {
 

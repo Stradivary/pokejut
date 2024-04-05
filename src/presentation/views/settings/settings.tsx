@@ -1,73 +1,31 @@
-import { useSimulator } from "@/domain/use-cases/simulator";
-import { Button, Divider, Group, SegmentedControl, Stack, Text, Title, useMantineColorScheme } from "@mantine/core";
-import { modals } from "@mantine/modals";
-import { notifications } from "@mantine/notifications";
+import { Button, Divider, Group, SegmentedControl, Stack, Text, Title } from "@mantine/core";
+import { useSettingsViewModel } from "./useSettingsViewModel";
 
 export function Component() {
-    const { setColorScheme, colorScheme } = useMantineColorScheme();
-    const {
-        clearPokemonList,
-        clearSelectedPokemon
-    } = useSimulator();
-
-    const cacheSize = localStorage.getItem('REACT_QUERY_OFFLINE_CACHE')?.length;
+    const bindings = useSettingsViewModel();
     return (
         <Stack p={16}>
             <Title  >Pengaturan</Title>
             <Group w="80%" mt={16} justify="space-between">
                 <Title order={4} fw="bold">Tema</Title>
-                <SegmentedControl value={colorScheme} onChange={
-                    (value) => setColorScheme(value as 'light' | 'dark')
-                } data={[{
-                    value: 'light',
-                    label: 'Terang',
-                }, {
-                    value: 'dark',
-                    label: 'Gelap',
-                }]} fullWidth />
+                <SegmentedControl
+                    value={bindings.colorScheme}
+                    onChange={(value) => bindings.setColorScheme(value as 'light' | 'dark')}
+                    data={bindings.colorSchemeOptions} fullWidth />
             </Group>
             <Divider />
 
             <Title order={4} fw="bold">Cache</Title>
 
-            <Text key={`cacheSize`}>Ukuran : {cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0} MB</Text>
+            <Text key={`cacheSize`}>Ukuran : {bindings.cacheSizeInMB} MB</Text>
 
-            <Button w={200} color="red" onClick={() => {
-                localStorage.clear();
-                notifications.show({
-                    title: "Berhasil",
-                    message: "Cache berhasil dihapus",
-                    color: "blue",
-                    icon: <img src="/pokeball.png" alt="pokeball" />,
-                });
-                window.location.reload();
-            }}>Hapus Cache</Button>
+            <Button w={200} color="red" onClick={bindings.handleClearCache}>Hapus Cache</Button>
 
             <Divider />
 
             <Title order={4} fw="bold">Koleksi Pokemon</Title>
 
-            <Button w={200} color="red" onClick={() => {
-                modals.openConfirmModal({
-                    title: "Lepas Semua Pokemon",
-                    children: "Apakah kamu yakin ingin melepaskan semua koleksi pokemon?",
-                    onConfirm: () => {
-                        clearSelectedPokemon();
-                        clearPokemonList();
-                        notifications.show({
-                            title: "Berhasil",
-                            message: "Koleksi Pokemon berhasil dihapus",
-                            color: "blue",
-                            icon: <img src="/pokeball.png" alt="pokeball" />,
-                        });
-                    },
-                    labels: {
-                        confirm: "Lepas Semua",
-                        cancel: "Batal",
-                    }
-                });
-
-            }}>Hapus Koleksi Pokemon</Button>
+            <Button w={200} color="red" onClick={bindings.handleReleaseCollection}>Hapus Koleksi Pokemon</Button>
 
         </Stack>
     );
