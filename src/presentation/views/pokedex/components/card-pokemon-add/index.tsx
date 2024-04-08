@@ -34,7 +34,7 @@ export default function CardAddPokemon({
   pokemonType?: any[];
 }>) {
   const { catchPokemon } = useSimulator();
-  const color = useMemo(() => getColorByType(pokemonType?.[0] ?? ""), []);
+  const color = useMemo(() => getColorByType(pokemonType?.[0] ?? ""), [pokemonType]);
 
   const { data: pokemon } = usePokemonGetByName(pokemonName);
 

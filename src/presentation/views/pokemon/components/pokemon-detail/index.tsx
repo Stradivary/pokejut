@@ -59,7 +59,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
             fallbackSrc="/pokenull.webp"
             alt="Selected Pokemon"
           />
-          <Stack my={24} align="center" mx="auto">
+          <Stack my={16} align="center" mx="auto">
             <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
             <Group align="center">
               {pokemon?.types?.map(
@@ -101,7 +101,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
         <Title order={5} style={{ textAlign: "center" }}>
           Berry Terakhir yang Diberikan
         </Title>
-        <ScrollArea style={{ height: 42, width: "100%" }}>
+        <ScrollArea style={{ height: 64, width: "100%" }}>
           <Group w="100%">
             {
               fedBerries?.length > 0 && (

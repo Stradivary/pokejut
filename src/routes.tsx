@@ -24,7 +24,7 @@ export const routes = [
                     },
                     {
                         path: "/pokemon/*",
-                        element: <Navigate to="/pokemon" />
+                        element: <Navigate to="/pokemon/selected" />
                     }
                 ]
             },
@@ -58,7 +58,6 @@ export const routes = [
                 path: "*",
                 Component: () => <Navigate to="/pokedex" />
             }
-
         ],
     },
 ] satisfies RouteObject[];

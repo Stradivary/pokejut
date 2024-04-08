@@ -39,12 +39,12 @@ export const BerryCard = ({
 
   return detailed ? (
     <Paper>
-      <Title order={5} mb={16} className="pokemon-stats">
+      <Title order={5} mb={10} className="pokemon-stats">
         Berries Detail
       </Title>
       <SimpleGrid cols={{ base: 1, md: 2 }}>
         <Paper p={10} withBorder radius="lg">
-          <Group gap={20}>
+          <Group gap={16}>
             <Image
               width={64}
               height={64}
@@ -54,7 +54,7 @@ export const BerryCard = ({
                 data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : ""}
 
             />
-            <Stack my={24}>
+            <Stack my={10}>
               <Text>{berry?.name}</Text>
               <Badge color={firmnesColor[berry?.firmness?.name ?? ""]}>
                 {berry?.firmness?.name?.replace("-", " ")}
