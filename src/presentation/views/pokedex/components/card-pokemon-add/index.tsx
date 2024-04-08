@@ -36,9 +36,9 @@ export default function CardAddPokemon({
   const { catchPokemon } = useSimulator();
   const color = useMemo(() => getColorByType(pokemonType?.[0] ?? ""), [pokemonType]);
 
-  const { data: pokemon } = usePokemonGetByName(pokemonName);
+  const { data: pokemon, isSuccess: pokeDone } = usePokemonGetByName(pokemonName);
 
-  const { data: evolveItem } = useEvolutionChainByPokemonName(pokemon?.name);
+  const { data: evolveItem, isSuccess: evoDone } = useEvolutionChainByPokemonName(pokemon?.name);
 
   const navigate = useNavigate();
 
@@ -158,6 +158,7 @@ export default function CardAddPokemon({
             type="button"
             className={style["btn-choose"]}
             variant="gradient"
+            disabled={!(pokeDone && evoDone)}
             onClick={selectPokemon}
             gradient={{ from: "dark", to: color ?? "blue", deg: 350 }}
           >

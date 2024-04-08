@@ -49,11 +49,8 @@ export const usePokemonGetSpecies = (id?: string) => {
 export const useEvolutionChainByPokemonName = (name?: string) => {
     const { data: species } = usePokemonGetSpecies(name);
     const evolutionId = species && (species?.evolution_chain?.url.split('/').reverse()[1] ?? '');
-    const { data: evolutionChain } = usePokemonGetEvolutionChain(evolutionId);
-
-    return {
-        data: evolutionChain,
-    };
+ 
+    return usePokemonGetEvolutionChain(evolutionId);
 };
 
 export function findEvolutionChain(data: EvolutionChain | null, currentSpecies: string): EvolutionChain | null {
