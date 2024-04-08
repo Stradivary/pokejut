@@ -103,7 +103,7 @@ export const useSimulator = create(
                             });
                         }
 
-                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries, berry.firmness ? berry.firmness.name : ""];
+                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries.slice(-5), berry.firmness ? berry.firmness.name : ""];
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
 

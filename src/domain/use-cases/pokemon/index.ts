@@ -1,7 +1,7 @@
 import { pokemonInternalRepo } from "@/domain/repository/pokemonRepositoryInternalImpl";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
-import { Pokemon } from "../../../data/entities/pokemon";
+import { Pokemon } from "@/data/entities/pokemon";
 
 const entity = 'pokemon';
 

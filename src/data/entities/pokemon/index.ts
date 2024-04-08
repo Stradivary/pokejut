@@ -5,7 +5,6 @@ export const PokemonSchema = z.object({
     name: z.string(),
     height: z.number(),
     weight: z.number(),
-    // abilities: z.array(z.string()),
     species: z.object({ name: z.string(), url: z.string() }),
     types: z.array(z.any()).optional(),
     // stats: z.object({ hp: z.number(), attack: z.number(), defense: z.number(), speed: z.number() }),
@@ -19,4 +18,4 @@ export const PokemonSchema = z.object({
     })
 });
 
-export type Pokemon =  z.infer<typeof PokemonSchema>;
+export type Pokemon = z.infer<typeof PokemonSchema>;
