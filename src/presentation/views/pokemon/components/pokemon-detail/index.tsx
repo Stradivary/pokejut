@@ -105,9 +105,9 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
           <Group w="100%">
             {
               fedBerries?.length > 0 && (
-                fedBerries?.slice(-5).reverse().map((berry) => {
+                fedBerries?.slice(-5).reverse().map((berry, index) => {
                   return (<Badge key={
-                    berry + "-badge"
+                    `${berry}-badge-${index}`
                   } color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
                   );
                 })

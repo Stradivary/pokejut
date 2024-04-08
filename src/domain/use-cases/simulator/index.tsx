@@ -8,6 +8,7 @@ import { redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
 import { Pokemon } from '@/data/entities/pokemon';
+import { storage } from './presistor';
 
 export type BerryState = Partial<Berry>;
 
@@ -103,7 +104,7 @@ export const useSimulator = create(
                             });
                         }
 
-                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries.slice(-5), berry.firmness ? berry.firmness.name : ""];
+                        selectedPokemon.fedBerries = [...selectedPokemon.fedBerries.slice(-4), berry.firmness ? berry.firmness.name : ""];
 
                         updatedPokemonList[selectedPokemonIndex] = selectedPokemon;
 
@@ -170,7 +171,7 @@ export const useSimulator = create(
         }),
         {
             name: 'pokemon-storage',
-            storage: createJSONStorage(() => localStorage),
+            storage: createJSONStorage(() => storage),
         }
     )
 );
