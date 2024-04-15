@@ -23,7 +23,7 @@ export const EvolutionChainPage = ({ pokemonId }) => {
         ))}
 
         {
-          nextEvolutionChain?.evolves_to?.length === 0 && <Alert title="Evolution Chain">
+          nextEvolutionChain?.evolves_to?.length === 0 && <Alert>
             Pokemon tidak bisa berevolusi
           </Alert>
         }

@@ -3,8 +3,10 @@ import { pokemonData } from '@/utils/constants';
 import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
 import React from 'react';
 import CardAddPokemon from './components/card-pokemon-add';
+import { SearchIcon } from "./components/searchIcon";
+import { TypeBadge } from './components/typeBadge';
 import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
-import { TypeBadge } from './components/TypeBadge';
+
 
 const PokedexPage = () => {
 
@@ -60,8 +62,7 @@ const PokedexPage = () => {
                             )
                         }
                         <TextInput w="calc(100% - 32px)" value={binding.search} onChange={(x) => binding.setSearch(x.target.value)} leftSection={
-                            <Image src="/search.svg" alt="search" width={20} height={20} />
-
+                            <SearchIcon alt="search" width={24} height={24} />
                         } />
                     </Stack>
                 </Flex>

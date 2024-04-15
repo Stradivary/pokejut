@@ -28,6 +28,7 @@
     "axios-mock-adapter": "^1.22.0",
     "framer-motion": "^10.16.16",
     "idb-keyval": "^6.2.1",
+    "localforage": "^1.10.0",
     "msw": "^2.2.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",
@@ -61,6 +62,7 @@
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
+    "vite-plugin-svgr": "^4.2.0",
     "vitest": "^1.1.0"
   }
 }

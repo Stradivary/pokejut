@@ -25,7 +25,7 @@
   backdrop-filter: blur(10px);
   width: 100%;
   color: #fff;
-  background: light-dark(var(--mantine-color-white), var(--mantine-color-black));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-black));
 }
 
 .cardPokemonImg { 

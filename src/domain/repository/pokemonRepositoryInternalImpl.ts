@@ -29,10 +29,6 @@ class PokemonRepository {
         this.pokemons = pokemons;
     }
 
-    getAllPokemons(): Pokemon[] {
-        return this.pokemons;
-    }
-
     getPokemonsByPage(options: PaginationOptions): {
         results: Pokemon[];
         meta: {
