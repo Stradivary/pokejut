@@ -159,6 +159,8 @@ describe('useSimulator', () => {
                 pokeId: '1',
                 weight: 20,
                 fedBerries: [],
+            }, (to: any) => {
+                console.log(to);
             });
         });
 
@@ -171,7 +173,9 @@ describe('useSimulator', () => {
 
         await waitFor(() => {
             result.current.catchPokemon(newPokemon);
-            result.current.evolveSelectedPokemon(pokemon);
+            result.current.evolveSelectedPokemon(pokemon, (to: any) => {
+                console.log(to);
+            });
         });
 
         expect(result.current.selectedPokemon()?.name).toBe('Pikachu');
