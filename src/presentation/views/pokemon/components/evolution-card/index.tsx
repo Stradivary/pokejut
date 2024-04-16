@@ -7,6 +7,7 @@ import { Button, Center, HoverCard, Image, Paper, Progress, Stack, Text, Title }
 import { useMemo } from "react";
 import "./style.scss";
 import { modals } from "@mantine/modals";
+import { useNavigate } from "react-router-dom";
 
 export default function EvolutionCard({
   pokemonName,
@@ -36,7 +37,7 @@ export default function EvolutionCard({
     return pokemonWeight >= nextEvolutionPokemonWeight;
   }, [oldPokemon, pokemon]);
 
-
+  const navigate = useNavigate();
 
   return (
     <Stack key={pokemon?.name} miw={180} mih={100}>
@@ -90,7 +91,7 @@ export default function EvolutionCard({
           variant="gradient"
           onClick={() => {
             const pokemonData: PokemonState = { ...oldPokemon, ...pokemon };
-            evolveSelectedPokemon(pokemonData);
+            evolveSelectedPokemon(pokemonData, navigate);
            
           }}
         >

@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import { getBerryGain } from '../berries';
 
-import { redirect } from 'react-router-dom';
+import { NavigateFunction, redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
 import { Pokemon } from '@/data/entities/pokemon';
 import { storage } from './presistor';
-import { Group, Image, Stack, Text, Title } from '@mantine/core';
+import { Button, Group, Image, Stack, Text, Title } from '@mantine/core';
 import { modals } from '@mantine/modals';
 
 export type BerryState = Partial<Berry>;
@@ -26,7 +26,7 @@ export type PokemonStore = {
     catchPokemon: (pokemon: any) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
     addPokemon: (pokemon: Pokemon) => void;
-    evolveSelectedPokemon: (evolvedPokemon: PokemonState) => void;
+    evolveSelectedPokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => void;
 };
 
 export const useSimulator = create(
@@ -125,7 +125,7 @@ export const useSimulator = create(
                 set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemonId: newPokemon.pokeId }));
             },
 
-            evolveSelectedPokemon: (evolvedPokemon: PokemonState) => {
+            evolveSelectedPokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => {
                 set((state) => {
 
                     if (get().selectedPokemonId) {
@@ -145,9 +145,10 @@ export const useSimulator = create(
 
                         const selectedPokemonIndex = updatedPokemonList.findIndex((pokemon) => pokemon.pokeId === get().selectedPokemonId);
                         updatedPokemonList[selectedPokemonIndex] = newPokemon;
-                        modals.open({
+                        modals.openConfirmModal({
                             title: "Evolusi",
                             size: "md",
+                            withCloseButton: false,
                             children: <Stack>
                                 <Image
                                     mx="auto"
@@ -171,7 +172,19 @@ export const useSimulator = create(
                                         {evolvedPokemon?.name}
                                     </Title>
                                 </Group>
-                            </Stack>
+                            </Stack>,
+                            labels: {
+                                confirm: "Pergi Ke Daftar Pokemon",
+                                cancel: "Tutup"
+                            },
+
+                            onConfirm: () => {
+                                navigate("/pokemon");
+                            },
+
+                            onCancel: () => {
+                                modals.closeAll();
+                            }
 
                         });
 
