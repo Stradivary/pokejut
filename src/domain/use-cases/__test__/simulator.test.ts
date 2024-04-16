@@ -141,6 +141,8 @@ describe('useSimulator', () => {
                     url: ''
                 },
                 fedBerries: [],
+            }, (to: any) => {
+                console.log(to);
             });
         });
 

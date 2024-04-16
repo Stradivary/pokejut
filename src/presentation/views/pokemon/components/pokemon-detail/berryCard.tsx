@@ -1,5 +1,5 @@
 
-import { useBerryGetByName, berriesGain } from "@/domain/use-cases/berries";
+import { berriesGain, useBerryGetByName } from "@/domain/use-cases/berries";
 import { useItemGetByName } from "@/domain/use-cases/items";
 import { BerryState } from "@/domain/use-cases/simulator";
 import {
@@ -14,7 +14,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
 const firmnesColor: Record<string, string> = {
   "very-soft": "blue",
   soft: "green",

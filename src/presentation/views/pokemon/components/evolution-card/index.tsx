@@ -3,11 +3,10 @@ import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
-import { Button, Center, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
+import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useMemo } from "react";
-import "./style.scss";
-import { modals } from "@mantine/modals";
 import { useNavigate } from "react-router-dom";
+import "./style.scss";
 
 export default function EvolutionCard({
   pokemonName,
