@@ -3,9 +3,10 @@ import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
-import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
+import { Button, Center, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useMemo } from "react";
 import "./style.scss";
+import { modals } from "@mantine/modals";
 
 export default function EvolutionCard({
   pokemonName,
@@ -90,6 +91,7 @@ export default function EvolutionCard({
           onClick={() => {
             const pokemonData: PokemonState = { ...oldPokemon, ...pokemon };
             evolveSelectedPokemon(pokemonData);
+           
           }}
         >
           Evolusi ke

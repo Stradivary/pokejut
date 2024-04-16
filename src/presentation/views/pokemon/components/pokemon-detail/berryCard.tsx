@@ -14,6 +14,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
 const firmnesColor: Record<string, string> = {
   "very-soft": "blue",
   soft: "green",
@@ -36,7 +37,7 @@ export const BerryCard = ({
 }) => {
   const { data: berry } = useBerryGetByName(name);
   const { data } = useItemGetByName(berry?.item?.name);
-
+  
   return detailed ? (
     <Paper>
       <Title order={5} mb={10} className="pokemon-stats">

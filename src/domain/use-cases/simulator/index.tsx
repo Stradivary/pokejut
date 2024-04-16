@@ -9,6 +9,8 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
 import { Pokemon } from '@/data/entities/pokemon';
 import { storage } from './presistor';
+import { Group, Image, Stack, Text, Title } from '@mantine/core';
+import { modals } from '@mantine/modals';
 
 export type BerryState = Partial<Berry>;
 
@@ -143,15 +145,43 @@ export const useSimulator = create(
 
                         const selectedPokemonIndex = updatedPokemonList.findIndex((pokemon) => pokemon.pokeId === get().selectedPokemonId);
                         updatedPokemonList[selectedPokemonIndex] = newPokemon;
+                        modals.open({
+                            title: "Evolusi",
+                            size: "md",
+                            children: <Stack>
+                                <Image
+                                    mx="auto"
+                                    style={{ width: "80%" }}
+                                    loading="lazy"
+                                    draggable={false}
+                                    src={
+                                        evolvedPokemon?.sprites.other["dream_world"].front_default
+                                            ? evolvedPokemon?.sprites.other["dream_world"].front_default
+                                            : evolvedPokemon?.sprites.front_default
+                                    }
+                                    fallbackSrc="/pokenull.webp"
+                                    alt="Pokemon"
+                                />
+                                <Group gap={8}>
+                                    <Text>
+                                        Pokemon anda telah berevolusi menjadi
+                                    </Text>
 
+                                    <Title c="green.8" fw="bold" order={5} style={{ textAlign: "center" }}>
+                                        {evolvedPokemon?.name}
+                                    </Title>
+                                </Group>
+                            </Stack>
 
-                        notifications.show({
-                            title: "Evolusi Berhasil!",
-                            message: `Selamat, pokemon anda berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
-                            color: "teal",
-                            icon: <img src="/pokeball.png" alt="pokeball" />,
-                            autoClose: 2000,
                         });
+
+                        // notifications.show({
+                        //     title: "Evolusi Berhasil!",
+                        //     message: `Selamat, pokemon anda berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
+                        //     color: "teal",
+                        //     icon: <img src="/pokeball.png" alt="pokeball" />,
+                        //     autoClose: 2000,
+                        // });
 
                         redirect(".");
 

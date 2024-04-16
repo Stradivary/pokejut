@@ -1,10 +1,10 @@
 
 import { useBerryGetAll } from "@/domain/use-cases/berries";
-import { useSimulator } from "@/domain/use-cases/simulator";
+import { BerryState, useSimulator } from "@/domain/use-cases/simulator";
 import { ActionIcon, Drawer, Group, Paper, ScrollArea, Table, Tabs, Title } from "@mantine/core";
 import { useState } from "react";
 import { BerryCard } from "./berryCard";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useHotkeys } from "@mantine/hooks";
 
 export const BerriesFeeder = () => {
   const { data } = useBerryGetAll({
@@ -14,6 +14,11 @@ export const BerriesFeeder = () => {
   const [selectedBerry, setSelectedBerry] = useState<string>("");
   const { feedPokemon, selectedPokemonId } = useSimulator();
   const [opened, { open, close }] = useDisclosure(false);
+  const [selectedBerryState, setSelectedBerryState] = useState<BerryState>();
+  useHotkeys([
+    ['F', () => feedPokemon(selectedPokemonId ?? "", selectedBerryState as Partial<BerryState>)],
+  ]);
+
   return (
     <Paper p={10} mih={80}>
       <Drawer opened={opened} onClose={close} title="Informasi Berry" position="bottom">
@@ -111,10 +116,12 @@ export const BerriesFeeder = () => {
                   name={berry?.name}
                   selected={berry?.name === selectedBerry}
                   detailed={false}
-                  onClick={() => {
+                  onClick={(state) => {
                     if (berry?.name === selectedBerry) {
+                      setSelectedBerryState(undefined);
                       return setSelectedBerry("");
                     }
+                    setSelectedBerryState(state);
                     return setSelectedBerry(berry?.name);
                   }}
                 />
