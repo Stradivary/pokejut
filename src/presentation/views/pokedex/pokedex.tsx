@@ -48,7 +48,7 @@ const PokedexPage = () => {
                                                 }
                                                 return binding.setSelectedType(type);
                                             }} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
-                                                <Image width={32} src={img} alt={type} />
+                                                <Image w={28} h={28} src={img} alt={type} />
                                             </ActionIcon>
                                         </Tooltip>
                                     );
@@ -104,9 +104,9 @@ const PokedexPage = () => {
 
                         {
                             (!binding?.hasNextPage && binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
-                                ? 'Semua Pokemon ditampilkan' : null
-                        }
-
+                                ? 'Semua Pokemon ditampilkan' : 
+                                "Tidak ada Pokemon yang ditemukan"
+                        } 
 
                     </Button>
                 </Center>

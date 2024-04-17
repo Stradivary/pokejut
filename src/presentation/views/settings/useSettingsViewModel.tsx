@@ -2,12 +2,16 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { useMantineColorScheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
+import { useMemo } from "react";
 
 export function useSettingsViewModel() {
     const { setColorScheme, colorScheme } = useMantineColorScheme();
     const {
+        pokemonList,
         clearPokemonList, clearSelectedPokemon
     } = useSimulator();
+
+    const canReleaseCollection = useMemo(() => pokemonList.length > 0, [pokemonList]);
 
     const colorSchemeOptions = [{
         value: 'light',
@@ -56,6 +60,7 @@ export function useSettingsViewModel() {
         colorSchemeOptions,
         cacheSizeInMB,
         handleClearCache,
-        handleReleaseCollection
+        handleReleaseCollection,
+        canReleaseCollection
     };
 }

@@ -19,13 +19,13 @@ export function Component() {
 
             <Text key={`cacheSize`}>Ukuran : {bindings.cacheSizeInMB} MB</Text>
 
-            <Button w={200} color="red" onClick={bindings.handleClearCache}>Hapus Cache</Button>
+            <Button maw={240} color="red" onClick={bindings.handleClearCache}>Hapus Cache</Button>
 
             <Divider />
 
             <Title order={4} fw="bold">Koleksi Pokemon</Title>
 
-            <Button w={200} color="red" onClick={bindings.handleReleaseCollection}>Hapus Koleksi Pokemon</Button>
+            <Button maw={240} disabled={bindings.canReleaseCollection} color="red" onClick={bindings.handleReleaseCollection}>Hapus Koleksi Pokemon</Button>
 
         </Stack>
     );
