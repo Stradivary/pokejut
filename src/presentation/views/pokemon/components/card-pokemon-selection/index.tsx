@@ -60,7 +60,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
         <Stack my={24} align="center" mx="auto">
           <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
           <Group align="center">
-            {pokemon?.types?.map((type: { type: { name: string; }; }, i: number) => {
+            {pokemon?.types?.map((type: { type: { name: string; }; }) => {
               return (
                 <Image
                   loading="lazy"
