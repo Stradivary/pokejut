@@ -64,7 +64,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               return (
                 <Image
                   loading="lazy"
-                  key={i}
+                  key={`${type.type.name}-card`}
                   draggable={false}
                   w={40}
                   src={`/types/${type.type.name}.svg`}

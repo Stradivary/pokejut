@@ -188,13 +188,6 @@ export const useSimulator = create(
 
                         });
 
-                        // notifications.show({
-                        //     title: "Evolusi Berhasil!",
-                        //     message: `Selamat, pokemon anda berevolusi menjadi ${evolvedPokemon?.species?.name}!`,
-                        //     color: "teal",
-                        //     icon: <img src="/pokeball.png" alt="pokeball" />,
-                        //     autoClose: 2000,
-                        // });
 
                         redirect(".");
 
