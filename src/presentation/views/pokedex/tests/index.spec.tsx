@@ -1,13 +1,13 @@
-import { render } from "~/tests/test-utils";
-import { Component as PokemonList } from "../pokedex";
-import { TypeBadge } from "../components/typeBadge";
-import CardAddPokemon from "../components/card-pokemon-add";
-import usePokedexViewModel from "../pokedexViewModel";
-import { expect, describe, it, beforeAll, vi } from "vitest";
-import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import MockAdapter from "axios-mock-adapter";
+import { renderHook, waitFor } from "@testing-library/react";
 import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { describe, expect, it, vi } from "vitest";
+import { render } from "~/tests/test-utils";
+import CardAddPokemon from "../components/card-pokemon-add";
+import { TypeBadge } from "../components/typeBadge";
+import { Component as PokemonList } from "../pokedex";
+import usePokedexViewModel from "../pokedexViewModel";
 import { mockIntersectionObserver } from "./mockIntersectionObserver";
 
 
