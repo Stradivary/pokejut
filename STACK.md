@@ -5,18 +5,15 @@ Berikut merupakan stack yang digunakan dalam proyek ini.
 |---------------------|-------------------------------------------------|-----------|
 | Frontend Framework  | React                                           | ^18.2.0   |
 |                     | React-router-dom                                | ^6.20.1   |
-|                     | Framer Motion                                   | ^10.16.16 |
 | UI Framework        | MantineUI Core                                  | ^7.3.1    |
 |                     | MantineUI Hooks                                 | ^7.3.1    |
 |                     | MantineUI Modals                                | ^7.3.1    |
 |                     | MantineUI Notifications                         | ^7.3.1    |
 |                     | Phosphor Icons                                  | ^2.0.15   |
-|                     | Font Source Poppins                             | ^5.0.8    |
 | State Management    | Zustand                                         | ^4.4.7    |
 | Data Fetching       | Axios                                           | ^1.6.2    |
-|                     | Tanstack React Query                            | ^5.x.x    |
-| Testing             | Playwright Test                                 | ^1.40.1   |
-|                     | Testing Library for React                       | ^14.2.1   |
+|                     | Tanstack React Query                            | ^5.x.x    | 
+| Testing             | Testing Library for React                       | ^14.2.1   |
 |                     | Vitest                                          | ^1.1.0    |
 | Linting/Type Check  | ESLint                                          | ^8.53.0   |
 |                     | TypeScript                                      | ^5.2.2    |
@@ -28,7 +25,6 @@ Berikut merupakan stack yang digunakan dalam proyek ini.
 |                     | SASS                                            | ^1.69.5   |
 | Testing Utilities   | MSW (Mock Service Worker)                       | ^2.2.1    |
 | Other               | UUID                                            | ^9.0.1    |
-|                     | Zod                                             | ^3.22.4   |
-|                     | Query String (qs)                               | ^6.11.2   |
+|                     | Zod                                             | ^3.22.4   | 
 |                     | Dotenv                                          | ^16.3.1   |
 |                     | Happy DOM                                       | ^12.10.3  |

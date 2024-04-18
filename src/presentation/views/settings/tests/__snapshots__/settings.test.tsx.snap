@@ -1,0 +1,184 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Settings Component > should render the component correctly 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Poppins, sans-serif;--mantine-font-family-headings: Poppins, sans-serif;--mantine-radius-default: calc(0.5rem * var(--mantine-scale));}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+  </style>
+  <div
+    class="mantine-Stack-root"
+    style="--stack-gap: var(--mantine-spacing-md); --stack-align: stretch; --stack-justify: flex-start;"
+  >
+    <h1
+      class="mantine-Title-root"
+      data-order="1"
+      style="--title-fw: var(--mantine-h1-font-weight); --title-lh: var(--mantine-h1-line-height); --title-fz: var(--mantine-h1-font-size);"
+    >
+      Pengaturan
+    </h1>
+    <div
+      class="mantine-Group-root"
+      style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: space-between; --group-wrap: wrap; width: 80%;"
+    >
+      <h4
+        class="mantine-Title-root"
+        data-order="4"
+        style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
+      >
+        Tema
+      </h4>
+      <div
+        class="mantine-SegmentedControl-root"
+        data-full-width="true"
+        data-initialization="true"
+        role="radiogroup"
+        style="--sc-shadow: var(--mantine-shadow-xs);"
+      >
+        <span
+          class="mantine-SegmentedControl-indicator"
+          style="--sc-indicator-width: 0px; --sc-indicator-height: 0px; --sc-indicator-transform: translate(-4px, -4px);"
+        />
+        <div
+          class="mantine-SegmentedControl-control"
+          data-active="true"
+          style=""
+        >
+          <input
+            class="mantine-SegmentedControl-input"
+            data-focus-ring="auto"
+            id=""
+            name=""
+            style=""
+            type="radio"
+            value="light"
+          />
+          <label
+            class="mantine-SegmentedControl-label"
+            data-active="true"
+            for=""
+            style=""
+          >
+            light
+          </label>
+        </div>
+        <div
+          class="mantine-SegmentedControl-control"
+          style=""
+        >
+          <input
+            class="mantine-SegmentedControl-input"
+            data-focus-ring="auto"
+            id=""
+            name=""
+            style=""
+            type="radio"
+            value="dark"
+          />
+          <label
+            class="mantine-SegmentedControl-label"
+            for=""
+            style=""
+          >
+            dark
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="mantine-Divider-root"
+      data-orientation="horizontal"
+      role="separator"
+      style=""
+    />
+    <h4
+      class="mantine-Title-root"
+      data-order="4"
+      style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
+    >
+      Cache
+    </h4>
+    <p
+      class="mantine-focus-auto mantine-Text-root"
+      style=""
+    >
+      Ukuran : 
+      10
+       MB
+    </p>
+    <button
+      class="mantine-focus-auto mantine-active mantine-Button-root mantine-UnstyledButton-root"
+      style="--button-bg: var(--mantine-color-red-filled); --button-hover: var(--mantine-color-red-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; max-width: calc(15rem * var(--mantine-scale));"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="mantine-Button-loader"
+        style=""
+      >
+        <span
+          class="mantine-Loader-root"
+          style="--loader-size: calc(var(--button-height) / 1.8); --loader-color: var(--button-color);"
+        />
+      </span>
+      <span
+        class="mantine-Button-inner"
+        style=""
+      >
+        <span
+          class="mantine-Button-label"
+          style=""
+        >
+          Hapus Cache
+        </span>
+      </span>
+    </button>
+    <div
+      class="mantine-Divider-root"
+      data-orientation="horizontal"
+      role="separator"
+      style=""
+    />
+    <h4
+      class="mantine-Title-root"
+      data-order="4"
+      style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
+    >
+      Koleksi Pokemon
+    </h4>
+    <button
+      class="mantine-focus-auto mantine-active mantine-Button-root mantine-UnstyledButton-root"
+      style="--button-bg: var(--mantine-color-red-filled); --button-hover: var(--mantine-color-red-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; max-width: calc(15rem * var(--mantine-scale));"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="mantine-Button-loader"
+        style=""
+      >
+        <span
+          class="mantine-Loader-root"
+          style="--loader-size: calc(var(--button-height) / 1.8); --loader-color: var(--button-color);"
+        />
+      </span>
+      <span
+        class="mantine-Button-inner"
+        style=""
+      >
+        <span
+          class="mantine-Button-label"
+          style=""
+        >
+          Hapus Koleksi Pokemon
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

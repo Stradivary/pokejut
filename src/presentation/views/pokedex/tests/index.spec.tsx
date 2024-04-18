@@ -1,8 +1,9 @@
 import { render } from "~/tests/test-utils";
 import { Component as PokemonList } from "../pokedex";
+import { TypeBadge } from "../components/typeBadge";
 import CardAddPokemon from "../components/card-pokemon-add";
 import usePokedexViewModel from "../pokedexViewModel";
-import { expect, describe, it } from "vitest";
+import { expect, describe, it, beforeAll, vi } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MockAdapter from "axios-mock-adapter";
@@ -12,13 +13,26 @@ import { mockIntersectionObserver } from "./mockIntersectionObserver";
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
-describe("Component Coverage Tests", () => {
 
+vi.mock("Math", async (importOriginal) => {
+    const m = await importOriginal<typeof Math>();
+    return {
+        ...m,
+        random: vi.fn(() => 0.42) 
+    };
+});
+describe("Component Coverage Tests", () => {
     it("should render the PokemonDetail component correctly", () => {
         mockIntersectionObserver([true]);
         const { container } = render(<PokemonList />);
 
-        expect(container).toBeDefined();
+        expect(container).toMatchSnapshot();
+    });
+
+    it("should render typebadge", () => {
+        const { container } = render(<TypeBadge />);
+
+        expect(container).toMatchSnapshot();
     });
 
     it("should test the usePokedexViewModel", async () => {

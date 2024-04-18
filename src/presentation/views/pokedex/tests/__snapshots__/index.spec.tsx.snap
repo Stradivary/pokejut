@@ -1,0 +1,440 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Component Coverage Tests > should render the PokemonDetail component correctly 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Poppins, sans-serif;--mantine-font-family-headings: Poppins, sans-serif;--mantine-radius-default: calc(0.5rem * var(--mantine-scale));}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+  </style>
+  <div
+    class=""
+    style="height: calc(100vh - 32px); position: relative;"
+  >
+    <div
+      class="mantine-ScrollArea-root"
+      style="height: calc(100vh - 32px); width: 100%; --sa-corner-width: 0px; --sa-corner-height: 0px;"
+    >
+      <div
+        class="mantine-ScrollArea-viewport"
+        data-scrollbars="y"
+        style="overflow-x: hidden; overflow-y: scroll;"
+      >
+        <div
+          style="min-width: 100%; display: table;"
+        >
+          <style
+            data-mantine-styles="inline"
+          >
+            .__m__-r5{width:100%;}@media(min-width: 62em){.__m__-r5{width:calc(100% - var(--app-shell-navbar-width));}}
+          </style>
+          <div
+            class="mantine-Flex-root __m__-r4 __m__-r5"
+            style="flex-direction: column; position: sticky; top: 0px; left: 0px; right: 0px; z-index: 10; background: #ffffffda; backdrop-filter: blur(8px); padding: var(--mantine-spacing-md);"
+          >
+            <h1
+              class="mantine-Title-root"
+              data-order="1"
+              style="--title-fw: var(--mantine-h1-font-weight); --title-lh: var(--mantine-h1-line-height); --title-fz: var(--mantine-h1-font-size);"
+            >
+              Pokedex
+            </h1>
+            <div
+              class="mantine-Stack-root"
+              style="--stack-gap: var(--mantine-spacing-md); --stack-align: stretch; --stack-justify: flex-start; width: 100%;"
+            >
+              <div
+                class="mantine-ScrollArea-root"
+                style="--sa-corner-width: 0px; --sa-corner-height: 0px; width: calc(100vw - 20px);"
+              >
+                <div
+                  class="mantine-ScrollArea-viewport"
+                  data-scrollbars="xy"
+                  style="overflow-x: scroll; overflow-y: scroll;"
+                >
+                  <div
+                    style="min-width: 100%; display: table;"
+                  >
+                    <div
+                      class="mantine-Group-root"
+                      style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: nowrap;"
+                    >
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(153, 204, 51, 0.12); --ai-color: #99CC33; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="bug"
+                          class="mantine-Image-root"
+                          src="/types/bug.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(51, 51, 51, 0.12); --ai-color: #333333; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="dark"
+                          class="mantine-Image-root"
+                          src="/types/dark.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(112, 56, 248, 0.12); --ai-color: #7038F8; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="dragon"
+                          class="mantine-Image-root"
+                          src="/types/dragon.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 204, 51, 0.12); --ai-color: #FFCC33; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="electric"
+                          class="mantine-Image-root"
+                          src="/types/electric.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 153, 204, 0.12); --ai-color: #FF99CC; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="fairy"
+                          class="mantine-Image-root"
+                          src="/types/fairy.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 51, 51, 0.12); --ai-color: #FF3333; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="fighting"
+                          class="mantine-Image-root"
+                          src="/types/fighting.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 102, 51, 0.12); --ai-color: #FF6633; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="fire"
+                          class="mantine-Image-root"
+                          src="/types/fire.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(102, 153, 255, 0.12); --ai-color: #6699FF; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="flying"
+                          class="mantine-Image-root"
+                          src="/types/flying.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(102, 102, 204, 0.12); --ai-color: #6666CC; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="ghost"
+                          class="mantine-Image-root"
+                          src="/types/ghost.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(102, 204, 51, 0.12); --ai-color: #66CC33; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="grass"
+                          class="mantine-Image-root"
+                          src="/types/grass.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 204, 102, 0.12); --ai-color: #FFCC66; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="ground"
+                          class="mantine-Image-root"
+                          src="/types/ground.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(153, 255, 255, 0.12); --ai-color: #99FFFF; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="ice"
+                          class="mantine-Image-root"
+                          src="/types/ice.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 204, 153, 0.12); --ai-color: #FFCC99; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="normal"
+                          class="mantine-Image-root"
+                          src="/types/normal.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(170, 102, 204, 0.12); --ai-color: #AA66CC; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="poison"
+                          class="mantine-Image-root"
+                          src="/types/poison.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(255, 102, 153, 0.12); --ai-color: #FF6699; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="psychic"
+                          class="mantine-Image-root"
+                          src="/types/psychic.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(204, 153, 102, 0.12); --ai-color: #CC9966; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="rock"
+                          class="mantine-Image-root"
+                          src="/types/rock.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(204, 204, 204, 0.12); --ai-color: #CCCCCC; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="steel"
+                          class="mantine-Image-root"
+                          src="/types/steel.svg"
+                          style=""
+                        />
+                      </button>
+                      <button
+                        class="mantine-focus-auto mantine-active mantine-ActionIcon-root mantine-UnstyledButton-root"
+                        data-variant="subtle"
+                        style="--ai-radius: var(--mantine-radius-xl); --ai-bg: transparent; --ai-hover: rgba(51, 153, 255, 0.12); --ai-color: #3399FF; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+                        type="button"
+                      >
+                        <img
+                          alt="water"
+                          class="mantine-Image-root"
+                          src="/types/water.svg"
+                          style=""
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mantine-InputWrapper-root mantine-TextInput-root"
+                style="width: calc(100% - 32px);"
+              >
+                <div
+                  class="mantine-Input-wrapper mantine-TextInput-wrapper"
+                  data-variant="default"
+                  data-with-left-section="true"
+                  style=""
+                >
+                  <div
+                    class="mantine-Input-section mantine-TextInput-section"
+                    data-position="left"
+                    style=""
+                  >
+                    <svg
+                      alt="search"
+                      class="feather feather-search"
+                      fill="none"
+                      height="24"
+                      stroke="var(--mantine-color-text, #ffffff)"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <path
+                        d="m21 21-4.35-4.35"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    aria-invalid="false"
+                    class="mantine-Input-input mantine-TextInput-input"
+                    data-variant="default"
+                    id=""
+                    style=""
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <style
+            data-mantine-styles="inline"
+          >
+            .__m__-r39{--sg-spacing-x:calc(0.75rem * var(--mantine-scale));--sg-spacing-y:calc(3.5rem * var(--mantine-scale));}@media(min-width: 36em){.__m__-r39{--sg-cols:2;}}@media(min-width: 48em){.__m__-r39{--sg-cols:3;}}@media(min-width: 62em){.__m__-r39{--sg-cols:2;}}@media(min-width: 75em){.__m__-r39{--sg-cols:3;}}@media(min-width: 88em){.__m__-r39{--sg-cols:3;}}
+          </style>
+          <style
+            data-mantine-styles="inline"
+          >
+            .__m__-r3a{width:calc(100% - 32px);}@media(min-width: 62em){.__m__-r3a{width:calc(100% - 300px);}}
+          </style>
+          <div
+            class="mantine-SimpleGrid-root __m__-r39 __m__-r3a"
+            style="padding: var(--mantine-spacing-md);"
+          />
+          <div
+            class="mantine-Center-root"
+            style=""
+          >
+            <button
+              class="mantine-focus-auto mantine-Button-root mantine-UnstyledButton-root"
+              data-disabled="true"
+              data-variant="transparent"
+              disabled=""
+              style="--button-bg: transparent; --button-hover: transparent; --button-color: var(--mantine-color-blue-light-color); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="mantine-Button-loader"
+                style=""
+              >
+                <span
+                  class="mantine-Loader-root"
+                  style="--loader-size: calc(var(--button-height) / 1.8); --loader-color: var(--button-color);"
+                />
+              </span>
+              <span
+                class="mantine-Button-inner"
+                style=""
+              >
+                <span
+                  class="mantine-Button-label"
+                  style=""
+                >
+                  Tidak ada Pokemon yang ditemukan
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="mantine-Center-root"
+            style=""
+          >
+            <p
+              class="mantine-focus-auto mantine-Text-root"
+              style=""
+            >
+              Menunggu...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component Coverage Tests > should render typebadge 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Poppins, sans-serif;--mantine-font-family-headings: Poppins, sans-serif;--mantine-radius-default: calc(0.5rem * var(--mantine-scale));}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+  </style>
+  <p
+    class="mantine-focus-auto mantine-Text-root"
+    style="color: var(--mantine-color-gray-text);"
+  >
+    Belum ada tipe yang dipilih
+  </p>
+</div>
+`;

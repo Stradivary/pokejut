@@ -156,9 +156,9 @@ export const useSimulator = create(
                                     loading="lazy"
                                     draggable={false}
                                     src={
-                                        evolvedPokemon?.sprites.other["dream_world"].front_default
-                                            ? evolvedPokemon?.sprites.other["dream_world"].front_default
-                                            : evolvedPokemon?.sprites.front_default
+                                        evolvedPokemon?.sprites?.other?.["dream_world"]?.front_default
+                                            ? evolvedPokemon?.sprites?.other?.["dream_world"]?.front_default
+                                            : evolvedPokemon?.sprites?.front_default
                                     }
                                     fallbackSrc="/pokenull.webp"
                                     alt="Pokemon"

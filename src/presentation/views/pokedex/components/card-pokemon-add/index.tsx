@@ -21,6 +21,7 @@ import style from "./style.module.scss";
 
 function mapEvolutionChain(data: any): EvolutionChain {
   return {
+    is_baby: false,
     species: data.species.name,
     evolves_to: data.evolves_to.map((evolution: any) => mapEvolutionChain(evolution))
   };
