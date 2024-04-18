@@ -8,7 +8,7 @@ export default mergeConfig(viteConfig, defineConfig({
         setupFiles: "tests/setupTest.ts",
         coverage: {
 
-            reporter: ['text', 'clover', 'json', 'html-spa', 'html'],
+            reporter: ['text', 'clover', 'json', 'html-spa', 'html', 'lcov'],
             include: [
                 'src/**/*.{ts,tsx}',
             ],
