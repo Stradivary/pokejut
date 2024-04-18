@@ -12,7 +12,7 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
-  Analysis:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,28 @@ jobs:
         
       - name: Test and coverage
         run: npm run cover
-        
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+
+  Analysis:
+    needs: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+
       - name: Analyze with SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -38,6 +59,8 @@ jobs:
             # mandatory
             -Dsonar.projectKey=Stradivary_pokejut
             -Dsonar.organization=stradivary
+
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
             # When you need the analysis to take place in a directory other than the one from which it was launched
