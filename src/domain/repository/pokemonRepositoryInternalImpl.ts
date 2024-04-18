@@ -71,6 +71,6 @@ class PokemonRepository {
 }
 
 
-const jsonPokemons = await import("../../data/pokemon_list.json");
+const jsonPokemons = await import("../../data/raw-data/pokemon_list.json");
 
 export const pokemonInternalRepo = new PokemonRepository(jsonPokemons.pokemons);
