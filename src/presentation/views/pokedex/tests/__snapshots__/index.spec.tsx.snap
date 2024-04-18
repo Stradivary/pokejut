@@ -438,3 +438,50 @@ exports[`Component Coverage Tests > should render typebadge 1`] = `
   </p>
 </div>
 `;
+
+exports[`Component Coverage Tests > should render typebadge with options 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Poppins, sans-serif;--mantine-font-family-headings: Poppins, sans-serif;--mantine-radius-default: calc(0.5rem * var(--mantine-scale));}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+  </style>
+  <div
+    class="mantine-Group-root"
+    style="--group-gap: calc(0.5rem * var(--mantine-scale)); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+  >
+    <div
+      class="mantine-ThemeIcon-root"
+      color="blue"
+      data-size="lg"
+      data-variant="filled"
+      radius="xl"
+      style="--ti-size: var(--ti-size-lg); --ti-radius: var(--mantine-radius-xl); --ti-bg: var(--mantine-color-blue-filled); --ti-color: var(--mantine-color-white); --ti-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-white);"
+    >
+      <img
+        alt="grass"
+        class="mantine-Image-root"
+        src="placeholder"
+        style=""
+      />
+    </div>
+    <div
+      class="mantine-Badge-root"
+      data-size="lg"
+      style="--badge-height: var(--badge-height-lg); --badge-padding-x: var(--badge-padding-x-lg); --badge-fz: var(--badge-fz-lg); --badge-bg: var(--mantine-color-blue-filled); --badge-color: var(--mantine-color-white); --badge-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; text-transform: capitalize;"
+    >
+      <span
+        class="mantine-Badge-label"
+        style=""
+      >
+        grass
+      </span>
+    </div>
+  </div>
+</div>
+`;

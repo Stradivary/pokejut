@@ -34,7 +34,15 @@ describe("Component Coverage Tests", () => {
 
         expect(container).toMatchSnapshot();
     });
+    it("should render typebadge with options", () => {
+        const { container } = render(<TypeBadge data={{
+            color: "blue",
+            img: "placeholder",
+            type: "grass"
+        }} />);
 
+        expect(container).toMatchSnapshot();
+    });
     it("should test the usePokedexViewModel", async () => {
 
         const mockResponse = { data: { id: 1, name: 'evolution1' } };
