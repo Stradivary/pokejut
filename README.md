@@ -1,4 +1,5 @@
 # Pokejut
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Stradivary_pokejut&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Stradivary_pokejut)
 
 ## Deskripsi
 
