@@ -108,6 +108,7 @@ describe('findEvolutionChain', () => {
             "evolves_to": [],
             "species": {
                 "name": "pikachu",
+                "url": ""
             },
         });
     });

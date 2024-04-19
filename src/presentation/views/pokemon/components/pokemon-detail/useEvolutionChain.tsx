@@ -6,13 +6,16 @@ import { useMemo } from "react";
 export const useEvolutionChain = (selectedPokemon?: PokemonState) => {
     const { evolves_to, name } = selectedPokemon ?? { evolves_to: {} as EvolutionChain, name: "" };
 
-    if (selectedPokemon == undefined || !evolves_to || !name) {
-        return { nextEvolutionChain: null };
-    };
 
-    const nextEvolutionChain = useMemo(() => findEvolutionChain(
-        evolves_to,
-        name ?? ""
-    ), [evolves_to, name]);
+    const nextEvolutionChain = useMemo(() => {
+        if (selectedPokemon == undefined || !evolves_to || !name) {
+            return null;
+        };
+    
+        return findEvolutionChain(
+            evolves_to,
+            name ?? ""
+        );
+    }, [evolves_to, name]);
     return { nextEvolutionChain };
 };
