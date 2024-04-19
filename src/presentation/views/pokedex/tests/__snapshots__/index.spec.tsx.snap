@@ -366,6 +366,21 @@ exports[`Component Coverage Tests > should render the PokemonDetail component co
             style="padding: var(--mantine-spacing-md);"
           />
           <div
+            class="mantine-Stack-root"
+            style="--stack-gap: var(--mantine-spacing-md); --stack-align: stretch; --stack-justify: center; width: 100%;"
+          >
+            <span
+              class="mantine-Loader-root"
+              style="margin-right: auto; margin-left: auto;"
+            />
+            <p
+              class="mantine-focus-auto mantine-Text-root"
+              style="margin-right: auto; margin-left: auto; text-align: center; width: 100%;"
+            >
+              Mohon Tunggu...
+            </p>
+          </div>
+          <div
             class="mantine-Center-root"
             style=""
           >
@@ -374,7 +389,7 @@ exports[`Component Coverage Tests > should render the PokemonDetail component co
               data-disabled="true"
               data-variant="transparent"
               disabled=""
-              style="--button-bg: transparent; --button-hover: transparent; --button-color: var(--mantine-color-blue-light-color); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+              style="--button-bg: transparent; --button-hover: transparent; --button-color: var(--mantine-color-blue-light-color); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; opacity: 0;"
               type="button"
             >
               <span
@@ -395,21 +410,12 @@ exports[`Component Coverage Tests > should render the PokemonDetail component co
                   class="mantine-Button-label"
                   style=""
                 >
+                   
+                   
                   Tidak ada Pokemon yang ditemukan
                 </span>
               </span>
             </button>
-          </div>
-          <div
-            class="mantine-Center-root"
-            style=""
-          >
-            <p
-              class="mantine-focus-auto mantine-Text-root"
-              style=""
-            >
-              Menunggu...
-            </p>
           </div>
         </div>
       </div>
