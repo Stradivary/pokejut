@@ -2,12 +2,12 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { useMantineColorScheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function useSettingsViewModel() {
     const navigate = useNavigate();
-    // force rerender to update cache size
+
     const [e, rerender] = useState(0);
 
     const { setColorScheme, colorScheme } = useMantineColorScheme();
@@ -27,7 +27,7 @@ export function useSettingsViewModel() {
     }];
 
     const cacheSize = useMemo(
-        () => { 
+        () => {
             return (localStorage.getItem('REACT_QUERY_OFFLINE_CACHE') ?? "").length;
         },
         [e]
@@ -54,7 +54,8 @@ export function useSettingsViewModel() {
         });
 
     };
-    const handleClearCache = () => {
+
+    const handleClearCache = useCallback(() => {
         localStorage.clear();
         notifications.show({
             title: "Berhasil",
@@ -64,9 +65,10 @@ export function useSettingsViewModel() {
         });
         rerender(e + 1);
 
-        navigate("/settings", { replace: true })
-    };
-    const cacheSizeInMB = cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0;
+        navigate("/settings", { replace: true });
+    }, [navigate, e]);
+
+    const cacheSizeInMB = useMemo(() => cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0, [cacheSize]);
 
     return {
         colorScheme,
