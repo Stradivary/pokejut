@@ -12,9 +12,11 @@ class LocalDataSource<T> implements DataSource<T> {
     }
     
     getAll(params?: any): Promise<T> {
+        console.log(params);
         return Promise.resolve(this.data);
     }
     getById(id: string, params?: any): Promise<T> {
+        console.log(params);
         return Promise.resolve(this.data[id]);
     }
 

@@ -28,9 +28,7 @@ describe('Pokemon Data Source', () => {
 
         const wrapper = ({ children }) => <QueryClientProvider client={queryClient}> {children} </QueryClientProvider>;
         const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({
-            pageSize: 10, filter: {
-                type: 'test-types'
-            }
+            filter: 'test-types'
         }), { wrapper });
 
         await waitFor(() => result.current.isSuccess);

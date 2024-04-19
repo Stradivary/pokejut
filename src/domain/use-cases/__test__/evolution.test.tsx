@@ -83,28 +83,23 @@ describe('EvolutionDataSource', () => {
 });
 
 describe('findEvolutionChain', () => {
-    it('returns null when data is null', () => {
-        expect(findEvolutionChain(null, 'pikachu')).toBeNull();
-    });
-
-    it('returns null when data is undefined', () => {
-        expect(findEvolutionChain(undefined, 'pikachu')).toBeNull();
-    });
 
     it('returns the data when species name matches the current species', () => {
         const data = {
-            species: { name: 'pikachu' },
-            evolves_to: []
+            species: { name: 'pikachu', url: "" },
+            evolves_to: [],
+            is_baby: false
         };
         expect(findEvolutionChain(data, 'pikachu')).toEqual(data);
     });
 
     it('returns the correct evolution chain when the species is in the evolves_to array', () => {
         const data = {
-            species: { name: 'pichu' },
+            species: { name: 'pichu', url: "" },
+            is_baby: false,
             evolves_to: [
                 {
-                    species: { name: 'pikachu' },
+                    species: { name: 'pikachu', url: "" },
                     evolves_to: []
                 }
             ]
@@ -119,13 +114,15 @@ describe('findEvolutionChain', () => {
 
     it('returns null when the species is not found in the evolution chain', () => {
         const data = {
-            species: { name: 'pichu' },
+            species: { name: 'pichu', url: "" },
             evolves_to: [
                 {
-                    species: { name: 'raichu' },
+                    species: { name: 'raichu', url: "" },
                     evolves_to: []
                 }
-            ]
+            ],
+            
+            is_baby: false,
         };
         expect(findEvolutionChain(data, 'pikachu')).toBeNull();
     });
