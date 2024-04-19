@@ -46,16 +46,17 @@ export const BerryCard = ({
         <Paper p={10} withBorder radius="lg">
           <Group gap={16}>
             <Image
-              width={64}
-              height={64}
+              w={64}
+              h={64}
               loading="lazy"
               draggable={false}
+              fallbackSrc="/pokeball.png"
               src={
                 data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : ""}
 
             />
             <Stack my={10}>
-              <Text>{berry?.name}</Text>
+              <Text tt="capitalize">{berry?.name}</Text>
               <Badge color={firmnesColor[berry?.firmness?.name ?? ""]}>
                 {berry?.firmness?.name?.replace("-", " ")}
               </Badge>
@@ -78,9 +79,10 @@ export const BerryCard = ({
     >
       <Image
         loading="lazy"
-        width={48}
-        height={48}
+        w={48}
+        h={48}
         draggable={false}
+        fallbackSrc="/pokeball.png"
         src={data?.sprites?.default ? data?.sprites?.default?.replace('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/', '/berries/') : "pokenull.webp"}
       />
     </ActionIcon>

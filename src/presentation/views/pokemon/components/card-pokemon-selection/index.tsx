@@ -14,7 +14,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
   useEffect(() => {
     if (pokemonName) {
-      const Color = getColorByType(pokemon ? pokemon?.types[0].type.name : "");
+      const Color = getColorByType(pokemon?.types?.[0]?.type?.name ?? "");
       setColor(Color);
     }
   }, [pokemonName, pokemon]);
@@ -50,9 +50,9 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
           }}
 
           src={
-            pokemon?.sprites.other["dream_world"].front_default
-              ? pokemon?.sprites.other["dream_world"].front_default
-              : pokemon?.sprites.front_default
+            pokemon?.sprites?.other?.["dream_world"].front_default
+              ? pokemon?.sprites?.other["dream_world"].front_default
+              : pokemon?.sprites?.front_default
           }
           fallbackSrc="/pokenull.webp"
           alt="Selected Pokemon"
@@ -64,10 +64,10 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               return (
                 <Image
                   loading="lazy"
-                  key={`${type.type.name}-card`}
+                  key={`${type?.type?.name}-card`}
                   draggable={false}
                   w={40}
-                  src={`/types/${type.type.name}.svg`}
+                  src={`/types/${type?.type?.name}.svg`}
                   alt=""
                 />
               );

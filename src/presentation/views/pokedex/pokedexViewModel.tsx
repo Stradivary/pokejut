@@ -7,6 +7,7 @@ const usePokedexViewModel = () => {
 
   const [selectedType, setSelectedType] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+
   const {
     status,
     data,
@@ -15,7 +16,7 @@ const usePokedexViewModel = () => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = usePokemonInfiniteGetAllInternal({ pageSize: 10, q: search, filter: { type: selectedType } });
+  } = usePokemonInfiniteGetAllInternal({ q: search, filter: selectedType });
 
   useEffect(() => {
     if (entry?.isIntersecting) {

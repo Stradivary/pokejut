@@ -9,7 +9,6 @@ export const PokemonSchema = z.object({
     types: z.array(z.any()).optional(),
     // stats: z.object({ hp: z.number(), attack: z.number(), defense: z.number(), speed: z.number() }),
     sprites: z.object({
-        back_default: z.string().optional(),
         front_default: z.string(),
         other: z.object({
             "official-artwork": z.object({ front_default: z.string() }),

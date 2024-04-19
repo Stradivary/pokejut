@@ -1,17 +1,17 @@
 // PokedexPage.js
 import { pokemonData } from '@/utils/constants';
-import { ActionIcon, Box, Button, Center, Flex, Group, Image, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Button, Center, Flex, Group, Image, Loader, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
 import React from 'react';
 import CardAddPokemon from './components/card-pokemon-add';
 import { SearchIcon } from "./components/searchIcon";
 import { TypeBadge } from './components/typeBadge';
-import usePokedexViewModel from './pokedexViewModel'; // Import the custom hook
+import usePokedexViewModel from './pokedexViewModel';
 
 
 const PokedexPage = () => {
 
     const { colorScheme } = useMantineColorScheme();
-    const binding = usePokedexViewModel(); // Use the custom hook
+    const binding = usePokedexViewModel();
 
     if (binding?.status === 'error') {
         return <Title>Error: {binding?.error?.message}</Title>;
@@ -83,8 +83,15 @@ const PokedexPage = () => {
                     ))}
 
                 </SimpleGrid>
+                {binding?.isFetching &&
+                    <Stack justify='center' w="100%">
+                        <Loader mx="auto" />
+                        <Text w="100%" mx="auto" ta="center">{!binding?.isFetchingNextPage ? 'Mohon Tunggu...' : null}</Text>
+                    </Stack>
+                }
                 <Center mt={20}>
                     <Button
+                        opacity={binding?.isFetching ? 0 : 1}
                         variant="transparent"
                         ref={binding?.intersectionRef} // Use the intersectionRef from the custom hook
                         onClick={() => binding?.fetchNextPage()}
@@ -94,24 +101,21 @@ const PokedexPage = () => {
                         {
                             binding?.isFetchingNextPage
                                 ? 'Menampilkan lebih banyak...'
-                                : null
+                                : " "
                         }
                         {
                             !binding?.isFetchingNextPage && binding?.hasNextPage
                                 ? 'Tampilkan lebih banyak'
-                                : null
+                                : " "
                         }
 
                         {
                             (!binding?.hasNextPage && binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
-                                ? 'Semua Pokemon ditampilkan' : 
+                                ? 'Semua Pokemon ditampilkan' :
                                 "Tidak ada Pokemon yang ditemukan"
-                        } 
+                        }
 
                     </Button>
-                </Center>
-                <Center>
-                    <Text>{binding?.isFetching && !binding?.isFetchingNextPage ? 'Menunggu...' : null}</Text>
                 </Center>
             </ScrollArea>
         </Box>

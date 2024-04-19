@@ -1,11 +1,11 @@
-import { pokemonInternalRepo } from "@/domain/repository/pokemonRepositoryInternalImpl";
+import { pokemonInternalRepo } from "@/domain/repository/pokemonRepository";
 import { UseQueryOptions, infiniteQueryOptions, queryOptions, useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
+import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
 import { Pokemon } from "@/data/entities/pokemon";
 
 const entity = 'pokemon';
 
-const pokeApiDataSource = new BaseRemoteDataSource<Pokemon>('pokemon');
+const pokeApiDataSource = new PokeApiEntityDataSource<Pokemon>('pokemon');
 
 const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opts?: UseQueryOptions<any, Error, any, any[]>) => {
     return queryOptions({
@@ -16,18 +16,6 @@ const pokemonOptions = (action: string, params: any, fn: () => Promise<any>, opt
     });
 };
 
-const PokemonQueryInfiniteInternal = (filter) =>
-    infiniteQueryOptions({
-        queryKey: [entity, "getAll", filter],
-        queryFn: async ({ pageParam = 0 }) => {
-            return pokemonInternalRepo.getPokemonsByPage({ page: pageParam, pageSize: filter?.pageSize ?? 10, q: filter?.q ?? "", filter: filter?.filter });
-        },
-        initialPageParam: 0,
-        getNextPageParam: (lastPage) => {
-            return lastPage?.meta?.hasNextPage ? lastPage?.meta?.nextPage : undefined;
-        },
-
-    });
 
 export const usePokemonGetByName = (name: string) => {
     return useQuery(pokemonOptions('getByName', name, async () => {
@@ -38,12 +26,26 @@ export const usePokemonGetByName = (name: string) => {
 
 
 export const usePokemonInfiniteGetAllInternal = (filter: {
-    pageSize?: number;
     q?: string;
-    filter?: {
-        type?: string;
-    };
+    filter?: string;
 }) => {
-    return useInfiniteQuery(PokemonQueryInfiniteInternal(filter));
+    const params = {
+        ...(filter?.q ? { q: filter.q } : undefined),
+        ...(filter?.filter ? { filter: filter.filter } : undefined),
+    };
+    return useInfiniteQuery(infiniteQueryOptions({
+        queryKey: ['pokemon', 'getAll', filter],
+        queryFn: async ({ pageParam }) => {
+            console.log('pageParam', pageParam);
+            return pokemonInternalRepo.getPokemonsByPage({
+                page: pageParam,
+                ...params,
+            });
+        },
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+            return lastPage?.meta?.hasNextPage ? lastPage?.meta?.nextPage : undefined;
+        },
+    }));
 };
 

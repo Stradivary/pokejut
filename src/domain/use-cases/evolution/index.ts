@@ -1,12 +1,12 @@
-import { EvolutionChain } from "@/data/entities/evolution";
+import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 
-import { BaseRemoteDataSource } from "../../data-source/baseDataSource";
+import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const entity = 'evolutions';
 
-const pokeApiDataSource = new BaseRemoteDataSource('evolution');
+const pokeApiDataSource = new PokeApiEntityDataSource('evolution');
 
 const evolutionOptions = (action: string, params: any, fn: () => Promise<any>) => {
     return queryOptions({
@@ -49,11 +49,11 @@ export const usePokemonGetSpecies = (id?: string) => {
 export const useEvolutionChainByPokemonName = (name?: string) => {
     const { data: species } = usePokemonGetSpecies(name);
     const evolutionId = species && (species?.evolution_chain?.url.split('/').reverse()[1] ?? '');
- 
+
     return usePokemonGetEvolutionChain(evolutionId);
 };
 
-export function findEvolutionChain(data: EvolutionChain | null, currentSpecies: string): EvolutionChain | null {
+export function findEvolutionChain(data: EvolutionChain, currentSpecies: string): EvolveTo | null {
     // Check if data is null or undefined
     if (!data) {
         return null;

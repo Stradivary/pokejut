@@ -19,7 +19,6 @@ const newPokemon = {
     name: 'Pikachu',
     pokeId: '1', weight: 1, height: 1, id: 1,
     abilities: [], species: { name: "", url: "" }, sprites: {
-        back_default: "",
         other: {} as any
     }, stats: {
         hp: 1,

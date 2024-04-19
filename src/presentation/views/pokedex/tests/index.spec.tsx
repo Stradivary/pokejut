@@ -60,7 +60,6 @@ describe("Component Coverage Tests", () => {
         const mockResponse = {
             data: {
                 id: 1, name: "pikachu", weight: 1, height: 1, abilities: [], species: { name: "", url: "" }, sprites: {
-                    back_default: "",
                     other: {} as any
                 }, stats: {
                     hp: 1,

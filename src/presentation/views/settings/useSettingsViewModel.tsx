@@ -2,16 +2,21 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { useMantineColorScheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function useSettingsViewModel() {
+    const navigate = useNavigate();
+    // force rerender to update cache size
+    const [e, rerender] = useState(0);
+
     const { setColorScheme, colorScheme } = useMantineColorScheme();
     const {
         pokemonList,
         clearPokemonList, clearSelectedPokemon
     } = useSimulator();
 
-    const canReleaseCollection = useMemo(() => pokemonList.length > 0, [pokemonList]);
+    const canReleaseCollection = useMemo(() => pokemonList.length === 0, [pokemonList]);
 
     const colorSchemeOptions = [{
         value: 'light',
@@ -20,7 +25,14 @@ export function useSettingsViewModel() {
         value: 'dark',
         label: 'Gelap',
     }];
-    const cacheSize = localStorage.getItem('REACT_QUERY_OFFLINE_CACHE')?.length;
+
+    const cacheSize = useMemo(
+        () => { 
+            return (localStorage.getItem('REACT_QUERY_OFFLINE_CACHE') ?? "").length;
+        },
+        [e]
+    );
+
     const handleReleaseCollection = () => {
         modals.openConfirmModal({
             title: "Lepas Semua Pokemon",
@@ -50,7 +62,9 @@ export function useSettingsViewModel() {
             color: "blue",
             icon: <img src="/pokeball.png" alt="pokeball" />,
         });
-        window.location.reload();
+        rerender(e + 1);
+
+        navigate("/settings", { replace: true })
     };
     const cacheSizeInMB = cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0;
 

@@ -1,14 +1,18 @@
+import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 import { findEvolutionChain } from "@/domain/use-cases/evolution";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { useMemo } from "react";
 
 export const useEvolutionChain = (selectedPokemon?: PokemonState) => {
-    const { evolves_to, name } = selectedPokemon ?? { evolves_to: [], name: "" };
-    const nextEvolutionChain = useMemo(() => {
-        return findEvolutionChain(
-            evolves_to?.[0],
-            name ?? ""
-        );
-    }, [evolves_to, name]);
+    const { evolves_to, name } = selectedPokemon ?? { evolves_to: {} as EvolutionChain, name: "" };
+
+    if (selectedPokemon == undefined || !evolves_to || !name) {
+        return { nextEvolutionChain: null };
+    };
+
+    const nextEvolutionChain = useMemo(() => findEvolutionChain(
+        evolves_to,
+        name ?? ""
+    ), [evolves_to, name]);
     return { nextEvolutionChain };
 };

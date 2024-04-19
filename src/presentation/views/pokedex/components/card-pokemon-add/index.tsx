@@ -58,11 +58,10 @@ export default function CardAddPokemon({
         height: pokemon.height,
         weight: pokemon.weight,
         sprites: {
-          front_default: pokemon.sprites.front_default,
-          back_default: "",
+          front_default: pokemon?.sprites?.front_default,
           other: {
             "dream_world": {
-              front_default: pokemon.sprites.other["dream_world"].front_default
+              front_default: pokemon?.sprites?.other?.["dream_world"]?.front_default
             },
             "home": {} as any
           }
@@ -110,9 +109,9 @@ export default function CardAddPokemon({
           draggable={false}
           className={style.cardPokemonImg}
           src={
-            pokemon?.sprites.other["dream_world"].front_default
-              ? pokemon?.sprites.other["dream_world"].front_default
-              : pokemon?.sprites.front_default
+            pokemon?.sprites?.other?.["dream_world"].front_default
+              ? pokemon?.sprites?.other["dream_world"].front_default
+              : pokemon?.sprites?.front_default
           }
           fallbackSrc="/pokenull.webp"
           alt={"Selected Pokemon " + pokemon?.name}
