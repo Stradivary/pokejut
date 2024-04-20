@@ -6,6 +6,38 @@ import { useState } from "react";
 import { BerryCard } from "./berryCard";
 import { useDisclosure, useHotkeys } from "@mantine/hooks";
 
+const FirmnessTable = ({ modifier }: { modifier: number; }) => {
+  return (
+    <Table mt={16}>
+      <Table.Thead>
+        <Table.Tr>
+          <Table.Th>Firmness Berry</Table.Th>
+          <Table.Th>Weight Increase</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
+
+      <Table.Tbody>
+        {
+          [
+            { firmness: "very-soft", weight: 2 },
+            { firmness: "soft", weight: 3 },
+            { firmness: "hard", weight: 4 },
+            { firmness: "very-hard", weight: 5 },
+            { firmness: "super-hard", weight: 10 },
+            { firmness: "others", weight: 1 }
+          ].map(({ firmness, weight }) => (
+            <Table.Tr key={firmness}>
+              <Table.Td>{firmness}</Table.Td>
+              <Table.Td>{weight * modifier}</Table.Td>
+            </Table.Tr>
+          ))
+
+        }
+      </Table.Tbody>
+    </Table>
+  );
+};
+
 export const BerriesFeeder = () => {
   const { data } = useBerryGetAll({
     limit: 100,
@@ -15,9 +47,12 @@ export const BerriesFeeder = () => {
   const { feedPokemon, selectedPokemonId } = useSimulator();
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedBerryState, setSelectedBerryState] = useState<BerryState>();
+
   useHotkeys([
     ['F', () => feedPokemon(selectedPokemonId ?? "", selectedBerryState as Partial<BerryState>)],
   ]);
+
+
 
   return (
     <Paper p={10} mih={80}>
@@ -36,65 +71,13 @@ export const BerriesFeeder = () => {
             Pokemon growth can be accelerated by feeding them with berries.
             The weight of the Pokemon will increase by this following rule:
 
-            <Table mt={16}>
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Firmness Berry</Table.Th>
-                  <Table.Th>Weight Increase</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-
-              <Table.Tbody>
-                {
-                  [
-                    { firmness: "very-soft", weight: 2 },
-                    { firmness: "soft", weight: 3 },
-                    { firmness: "hard", weight: 4 },
-                    { firmness: "very-hard", weight: 5 },
-                    { firmness: "super-hard", weight: 10 },
-                    { firmness: "others", weight: 1 }
-                  ].map(({ firmness, weight }) => (
-                    <Table.Tr key={firmness}>
-                      <Table.Td>{firmness}</Table.Td>
-                      <Table.Td>+{weight}</Table.Td>
-                    </Table.Tr>
-                  ))
-
-                }
-              </Table.Tbody>
-            </Table>
+            <FirmnessTable modifier={1} />
           </Tabs.Panel>
 
           <Tabs.Panel value="punishment">
-            If you feed the Pokemon with the same berry,
-            the Pokemon will have a stomachache and the weight will decrease by the following rule:
-            <Table mt={16}>
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Firmness Berry</Table.Th>
-                  <Table.Th>Weight Decrease</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-
-              <Table.Tbody>
-                {
-                  [
-                    { firmness: "very-soft", weight: 2 },
-                    { firmness: "soft", weight: 3 },
-                    { firmness: "hard", weight: 4 },
-                    { firmness: "very-hard", weight: 5 },
-                    { firmness: "super-hard", weight: 10 },
-                    { firmness: "others", weight: 1 }
-                  ].map(({ firmness, weight }) => (
-                    <Table.Tr key={firmness}>
-                      <Table.Td>{firmness}</Table.Td>
-                      <Table.Td>-{weight * 2}</Table.Td>
-                    </Table.Tr>
-                  ))
-
-                }
-              </Table.Tbody>
-            </Table>
+            If you feed the Pokemon with the same berry, the Pokemon will have
+            a stomachache and the weight will decrease by the following rule:
+            <FirmnessTable modifier={-1} />
           </Tabs.Panel>
 
         </Tabs>
@@ -103,27 +86,29 @@ export const BerriesFeeder = () => {
       <Group>
         <Title order={4} mb={8}>Beri Makan Berry </Title>
         <ActionIcon onClick={open} aria-label="Info" variant="outline" color="gray" size="sm">
-          ℹ️
+          i
         </ActionIcon>
       </Group>
       <Paper withBorder radius="lg" p={8} mb={16}>
         <ScrollArea w="100%" h={56} >
-          <Group w={"100%"} gap={8} wrap="nowrap" >
+          <Group w={"100%"} gap={8} wrap="nowrap">
             {data?.results?.map((berry: { name: string; }) => {
+              const handleBerryClick = (state: Partial<{ id: number; name: string; firmness: { name: string; url: string; }; item: { name: string; url: string; }; }>): void => {
+                if (berry?.name === selectedBerry) {
+                  setSelectedBerryState(undefined);
+                  return setSelectedBerry("");
+                }
+                setSelectedBerryState(state);
+                return setSelectedBerry(berry?.name);
+              };
+
               return (
                 <BerryCard
                   key={berry?.name + "-card"}
                   name={berry?.name}
                   selected={berry?.name === selectedBerry}
                   detailed={false}
-                  onClick={(state) => {
-                    if (berry?.name === selectedBerry) {
-                      setSelectedBerryState(undefined);
-                      return setSelectedBerry("");
-                    }
-                    setSelectedBerryState(state);
-                    return setSelectedBerry(berry?.name);
-                  }}
+                  onClick={handleBerryClick}
                 />
               );
             })}
