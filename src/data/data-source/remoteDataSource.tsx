@@ -16,12 +16,9 @@ class RemoteDataSource<T> implements DataSource<T> {
             const Uri = new URL(this.path, this.url);
             return this.engine(Uri.toString(), params);
         } catch (error) {
-            if (error instanceof Error) {
-                return Promise.reject(new Error('Get All Error ' + error.message));
-            }
-        }
+            return Promise.reject(new Error('Get All Error ' + (error as Error).message));
 
-        return Promise.reject(new Error('Unknown Error'));
+        }
     }
 
     async getById(id: string, params?: any): Promise<T> {
@@ -29,12 +26,9 @@ class RemoteDataSource<T> implements DataSource<T> {
             const Uri = new URL(`${this.path}/${id}`, this.url);
             return this.engine(Uri.toString(), params);
         } catch (error) {
-            if (error instanceof Error) {
-                return Promise.reject(new Error('Get By Id Error ' + error.message));
-            }
+            return Promise.reject(new Error('Get By Id Error ' + (error as Error).message));
         }
 
-        return Promise.reject(new Error('Unknown Error'));
     }
 
     initialize(): Promise<void> {

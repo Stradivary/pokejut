@@ -5,7 +5,7 @@ import viteConfig from './vite.config.ts';
 export default mergeConfig(viteConfig, defineConfig({
     test: {
         environment: 'happy-dom',
-        setupFiles: "tests/setupTest.ts",
+        setupFiles: "./tests/setupTest.ts",
         coverage: {
 
             reporter: ['text', 'clover', 'json', 'html-spa', 'html', 'lcov'],

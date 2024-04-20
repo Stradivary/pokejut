@@ -28,6 +28,7 @@ describe('Pokemon Data Source', () => {
 
         const wrapper = ({ children }) => <QueryClientProvider client={queryClient}> {children} </QueryClientProvider>;
         const { result } = renderHook(() => usePokemonInfiniteGetAllInternal({
+            q: "test",
             filter: 'test-types'
         }), { wrapper });
 
