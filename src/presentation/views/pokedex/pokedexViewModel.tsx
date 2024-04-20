@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
 
-
   const [selectedType, setSelectedType] = useState<string>("");
   const [search, setSearch] = useState<string>("");
 

@@ -2,6 +2,7 @@
 import { berriesGain, useBerryGetByName } from "@/domain/use-cases/berries";
 import { useItemGetByName } from "@/domain/use-cases/items";
 import { BerryState } from "@/domain/use-cases/simulator";
+import { firmnesColor } from "@/utils/constants";
 import {
   ActionIcon,
   Badge,
@@ -14,13 +15,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-const firmnesColor: Record<string, string> = {
-  "very-soft": "blue",
-  soft: "green",
-  hard: "yellow",
-  "very-hard": "orange",
-  "super-hard": "red",
-};
 
 
 export const BerryCard = ({

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function useSettingsViewModel() {
     const navigate = useNavigate();
 
-    const [e, rerender] = useState(0);
+    const [rerender, setRerender] = useState(0);
 
     const { setColorScheme, colorScheme } = useMantineColorScheme();
     const {
@@ -30,7 +30,7 @@ export function useSettingsViewModel() {
         () => {
             return (localStorage.getItem('REACT_QUERY_OFFLINE_CACHE') ?? "").length;
         },
-        [e]
+        [rerender]
     );
 
     const handleReleaseCollection = () => {
@@ -63,10 +63,10 @@ export function useSettingsViewModel() {
             color: "blue",
             icon: <img src="/pokeball.png" alt="pokeball" />,
         });
-        rerender(e + 1);
+        setRerender((e) => e + 1);
 
         navigate("/settings", { replace: true });
-    }, [navigate, e]);
+    }, [navigate, setRerender]);
 
     const cacheSizeInMB = useMemo(() => cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0, [cacheSize]);
 

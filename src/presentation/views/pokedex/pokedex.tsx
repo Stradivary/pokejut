@@ -1,8 +1,6 @@
-// PokedexPage.js
 import { pokemonData } from '@/utils/constants';
 import { ActionIcon, Box, Button, Center, Flex, Group, Image, Loader, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
-import React from 'react';
-import CardAddPokemon from './components/card-pokemon-add';
+import { PaginatedList } from './components/paginatedList';
 import { SearchIcon } from "./components/searchIcon";
 import { TypeBadge } from './components/typeBadge';
 import usePokedexViewModel from './pokedexViewModel';
@@ -40,14 +38,16 @@ const PokedexPage = () => {
                             <Group wrap='nowrap'>
                                 {pokemonData?.map(({ type, color, img }: any) => {
                                     const isSelected = type === binding.selectedType;
+                                    const handleFilterClick = () => {
+                                        if (isSelected) {
+                                            return binding.setSelectedType('');
+                                        }
+                                        return binding.setSelectedType(type);
+                                    };
+                                    
                                     return (
                                         <Tooltip key={`action-${type}`} label={type} position="bottom" withArrow>
-                                            <ActionIcon onClick={() => {
-                                                if (isSelected) {
-                                                    return binding.setSelectedType('');
-                                                }
-                                                return binding.setSelectedType(type);
-                                            }} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
+                                            <ActionIcon onClick={handleFilterClick} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
                                                 <Image w={28} h={28} src={img} alt={type} />
                                             </ActionIcon>
                                         </Tooltip>
@@ -70,18 +70,7 @@ const PokedexPage = () => {
                     w={{ base: "calc(100% - 32px)", md: "calc(100% - 300px)" }}
                     mt={32} verticalSpacing={56} spacing={12}
                     cols={{ xs: 2, sm: 3, md: 2, lg: 3, xl: 3 }}>
-                    {binding?.data?.pages?.map((page: { results; }, index: number) => (
-                        <React.Fragment key={index + '- page'}>
-                            {page?.results?.map(({ name, ...rest }: {
-                                [key: string]: any;
-                            }, index: number) => (
-                                <CardAddPokemon key={name + '-card-' + index}
-                                    pokemonName={name}
-                                    pokemonType={rest.types} />
-                            ))}
-                        </React.Fragment>
-                    ))}
-
+                    <PaginatedList pages={binding?.data?.pages ?? []} />
                 </SimpleGrid>
                 {binding?.isFetching &&
                     <Stack justify='center' w="100%">
@@ -108,7 +97,6 @@ const PokedexPage = () => {
                                 ? 'Tampilkan lebih banyak'
                                 : " "
                         }
-
                         {
                             (!binding?.hasNextPage && binding?.data?.pages?.[0] && binding?.data?.pages?.[0]?.meta?.totalPage > 0)
                                 ? 'Semua Pokemon ditampilkan' :
@@ -121,6 +109,7 @@ const PokedexPage = () => {
         </Box>
     );
 };
+
 
 PokedexPage.displayName = 'PokedexPage';
 

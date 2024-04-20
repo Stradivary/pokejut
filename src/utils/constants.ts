@@ -19,6 +19,15 @@ export const pokemonData = [
     { type: "water", color: "#3399FF", img: "/types/water.svg" },
 ];
 
+export const firmnesColor: Record<string, string> = {
+    "very-soft": "blue",
+    soft: "green",
+    hard: "yellow",
+    "very-hard": "orange",
+    "super-hard": "red",
+};
+
+
 export function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(
         (pokemon) => pokemon.type === pokemonType
