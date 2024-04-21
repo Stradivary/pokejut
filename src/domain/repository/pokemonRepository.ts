@@ -31,9 +31,7 @@ class PokemonRepository {
     constructor(dataSource: DataSource<Pokemon[]>) {
         // run async function to get data
         this.dataSource = dataSource;
-
         this.initDataSource();
-
     }
 
     async initDataSource() {
@@ -63,19 +61,20 @@ class PokemonRepository {
                 await new Promise((resolve) => setTimeout(resolve, 1500));
             }
 
-            if (this.pokemons.length === 0)
+            if (this.pokemons.length === 0) {
                 this.pokemons = await this.dataSource.getAll();
+            }
 
             let filteredPokemons = this.pokemons;
             // Apply general search query
-            if (q && q !== "") {
+            if (q !== undefined && q !== "") {
                 filteredPokemons = this.pokemons.filter(pokemon =>
                     pokemon.name.toLowerCase().includes(q.toLowerCase())
                 );
             }
 
             // Apply type filter
-            if (filter && filter !== "") {
+            if (filter !== undefined && filter !== "") {
                 filteredPokemons = filteredPokemons.filter(pokemon =>
                     pokemon?.types?.includes(filter)
                 );
@@ -101,7 +100,7 @@ class PokemonRepository {
                     totalPage: 0
                 }
             };
-        };
+        }
     }
 }
 

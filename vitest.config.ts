@@ -14,7 +14,6 @@ export default mergeConfig(viteConfig, defineConfig({
             ],
             exclude: [
                 'src/domain/use-cases/simulator/presistor.ts', // presistor merupakan wrapper dari idb keyval, tidak perlu di test
-                // 'src/presentation/**/*', // presentation layer di uji melalui e2e test  
                 'src/data/entities/**/*', // entities tidak perlu di cover, hanya berisi tipe data 
                 'src/main.tsx', // tidak perlu di cover, karena hanya bootstrap untuk react
                 'src/routes.tsx', // tidak perlu di cover, karena hanya berisi definisi route
