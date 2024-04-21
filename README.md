@@ -1,11 +1,8 @@
 # Pokejut
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Stradivary_pokejut&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Stradivary_pokejut)
-
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Stradivary_pokejut&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Stradivary_pokejut)
-
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Stradivary_pokejut&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Stradivary_pokejut)
-
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Stradivary_pokejut&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Stradivary_pokejut)
 
 ## Deskripsi
