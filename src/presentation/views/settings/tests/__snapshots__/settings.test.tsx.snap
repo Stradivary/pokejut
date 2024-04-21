@@ -65,7 +65,7 @@ exports[`Settings Component > should render the component correctly 1`] = `
             for=""
             style=""
           >
-            light
+            Terang
           </label>
         </div>
         <div
@@ -86,7 +86,7 @@ exports[`Settings Component > should render the component correctly 1`] = `
             for=""
             style=""
           >
-            dark
+            Gelap
           </label>
         </div>
       </div>
@@ -109,7 +109,7 @@ exports[`Settings Component > should render the component correctly 1`] = `
       style=""
     >
       Ukuran : 
-      10
+      0
        MB
     </p>
     <button
@@ -153,7 +153,9 @@ exports[`Settings Component > should render the component correctly 1`] = `
       Koleksi Pokemon
     </h4>
     <button
-      class="mantine-focus-auto mantine-active mantine-Button-root mantine-UnstyledButton-root"
+      class="mantine-focus-auto mantine-Button-root mantine-UnstyledButton-root"
+      data-disabled="true"
+      disabled=""
       style="--button-bg: var(--mantine-color-red-filled); --button-hover: var(--mantine-color-red-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; max-width: calc(15rem * var(--mantine-scale));"
       type="button"
     >

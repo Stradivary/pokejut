@@ -8,6 +8,7 @@ import { expect, describe, it, vi } from "vitest";
 import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { FirmnessTable } from "../components/pokemon-detail/berriesFeeder";
 
 const mock = new MockAdapter(axios);
 
@@ -96,5 +97,10 @@ describe("Component Coverage Tests", () => {
     const { container: container2 } = render(<BerryCard detailed name={""} />);
     expect(container2).toBeDefined();
     vi.restoreAllMocks();
+  });
+
+  it("should render FirmnessTable ", () => {
+    const { container } = render(<FirmnessTable modifier={0} />);
+    expect(container).toBeDefined();
   });
 });
