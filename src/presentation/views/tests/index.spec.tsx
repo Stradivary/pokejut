@@ -2,12 +2,10 @@ import { describe, expect, it, vi } from "vitest";
 import { render } from "~/tests/test-utils";
 import { Component as MainPage } from "../_layout";
 import { Component as PokedexPage } from "../pokedex/pokedex";
-import { mockIntersectionObserver } from "../pokedex/tests/mockIntersectionObserver";
+import { mockIntersectionObserver } from "../../../../tests/mockIntersectionObserver";
 import { PokemonDetail } from "../pokemon/components/pokemon-detail";
 import { Component as PokemonPage } from "../pokemon/pokemon";
 import { Component as SettingsPage } from "../settings/settings";
-
-
 
 describe("Component Coverage Tests", () => {
   it("should render the MainPage component correctly", () => {
@@ -46,8 +44,8 @@ describe("Component Coverage Tests", () => {
           hasNextPage: false,
           isFetchingNextPage: false,
           isFetching: false,
-          fetchNextPage: () => { },
-          intersectionRef: () => { },
+          fetchNextPage: () => {},
+          intersectionRef: () => {},
         };
       };
     });
@@ -55,7 +53,6 @@ describe("Component Coverage Tests", () => {
     const { container: container2 } = render(<PokedexPage />);
     expect(container2).toBeDefined();
   });
-
 
   it("should render the SettingsPage component correctly", () => {
     const { container } = render(<SettingsPage />);
@@ -72,5 +69,4 @@ describe("Component Coverage Tests", () => {
     const { container } = render(<PokemonDetail pokemonId="00" />);
     expect(container).toBeDefined();
   });
-
 });

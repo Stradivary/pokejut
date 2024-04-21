@@ -35,14 +35,8 @@ class PokemonRepository {
     }
 
     async initDataSource() {
-        try {
-            await this.dataSource.initialize();
-            this.isLoaded = true;
-        } catch (error) {
-            console.error(error);
-            this.pokemons = [];
-        }
-
+        await this.dataSource.initialize();
+        this.isLoaded = true;
     }
 
     async getPokemonsByPage(options: Partial<PaginationOptions> & { page: number; }): Promise<{
@@ -55,52 +49,43 @@ class PokemonRepository {
     }> {
 
         const { page, pageSize = 10, q, filter } = options;
-        try {
 
-            if (!this.isLoaded) {
-                await new Promise((resolve) => setTimeout(resolve, 1500));
-            }
-
-            if (this.pokemons.length === 0) {
-                this.pokemons = await this.dataSource.getAll();
-            }
-
-            let filteredPokemons = this.pokemons;
-            // Apply general search query
-            if (q !== undefined && q !== "") {
-                filteredPokemons = this.pokemons.filter(pokemon =>
-                    pokemon.name.toLowerCase().includes(q.toLowerCase())
-                );
-            }
-
-            // Apply type filter
-            if (filter !== undefined && filter !== "") {
-                filteredPokemons = filteredPokemons.filter(pokemon =>
-                    pokemon?.types?.includes(filter)
-                );
-            }
-
-
-            this.pokemonsByPage = getPages<Pokemon>(filteredPokemons, pageSize);
-            return {
-                results: this.pokemonsByPage[page],
-                meta: {
-                    nextPage: page + 1,
-                    hasNextPage: page + 1 < this.pokemonsByPage.length,
-                    totalPage: this.pokemonsByPage.length
-                }
-            };
-        } catch (error) {
-            console.error(error);
-            return {
-                results: [],
-                meta: {
-                    nextPage: 0,
-                    hasNextPage: false,
-                    totalPage: 0
-                }
-            };
+        if (!this.isLoaded) {
+            await new Promise((resolve) => setTimeout(resolve, 1500));
         }
+
+        if (this.pokemons.length === 0) {
+            this.pokemons = await this.dataSource.getAll();
+        }
+
+        let filteredPokemons = this.pokemons;
+        // Apply general search query
+        if (q !== undefined && q !== "") {
+            filteredPokemons = this.pokemons.filter(pokemon =>
+                pokemon.name.toLowerCase().includes(q.toLowerCase())
+            );
+        }
+
+        // Apply type filter
+        if (filter !== undefined && filter !== "") {
+            filteredPokemons = filteredPokemons
+                .filter((pokemon) => pokemon.types instanceof Array).
+                filter(pokemon =>
+                    pokemon.types.includes(filter)
+                );
+        }
+
+
+        this.pokemonsByPage = getPages<Pokemon>(filteredPokemons, pageSize);
+        return {
+            results: this.pokemonsByPage[page],
+            meta: {
+                nextPage: page + 1,
+                hasNextPage: page + 1 < this.pokemonsByPage.length,
+                totalPage: this.pokemonsByPage.length
+            }
+        };
+
     }
 }
 

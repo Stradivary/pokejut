@@ -12,20 +12,12 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
-import { EvolutionChain } from "@/data/entities/evolution";
 import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { getColorByType } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
+import { evolveSelectedPokemon } from "./mapEvolutionChain";
 import style from "./style.module.scss";
-
-function mapEvolutionChain(data: any): EvolutionChain {
-  return {
-    is_baby: false,
-    species: data.species.name,
-    evolves_to: data.evolves_to.map((evolution: any) => mapEvolutionChain(evolution))
-  };
-}
 
 export default function CardAddPokemon({
   pokemonName,
@@ -35,56 +27,40 @@ export default function CardAddPokemon({
   pokemonType?: any[];
 }>) {
   const { catchPokemon } = useSimulator();
-  const color = useMemo(() => getColorByType(pokemonType?.[0] ?? ""), [pokemonType]);
+  const color = useMemo(
+    () => getColorByType(pokemonType?.[0] ?? ""),
+    [pokemonType]
+  );
 
-  const { data: pokemon, isSuccess: pokeDone } = usePokemonGetByName(pokemonName);
+  const { data: pokemon, isSuccess: pokeDone } =
+    usePokemonGetByName(pokemonName);
 
-  const { data: evolveItem, isSuccess: evoDone } = useEvolutionChainByPokemonName(pokemon?.name);
+  const { data: evolveItem, isSuccess: evoDone } =
+    useEvolutionChainByPokemonName(pokemon?.name);
 
   const navigate = useNavigate();
 
   const selectPokemon = useCallback(() => {
-    if (pokemon && evolveItem) {
+    const success = evolveSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    if (success) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
         message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
         color: "blue",
         icon: <img src="/pokeball.png" alt="pokeball" />,
       });
-      const poke = {
-        id: pokemon.id,
-        name: pokemon.name,
-        types: pokemon.types,
-        height: pokemon.height,
-        weight: pokemon.weight,
-        sprites: {
-          front_default: pokemon?.sprites?.front_default,
-          other: {
-            "dream_world": {
-              front_default: pokemon?.sprites?.other?.["dream_world"]?.front_default
-            },
-            "home": {} as any
-          }
-        },
-        species: pokemon.species,
-      };
-
-      const evolves_to = mapEvolutionChain(evolveItem?.chain);
-
-
-      catchPokemon({ ...poke, evolves_to });
       navigate("/pokemon/selected", {
         unstable_viewTransition: true,
       });
     } else {
       notifications.show({
         title: "Gagal menambahkan pokemon",
-        message: "Terdapat kesalahan saat menambahkan pokemon, silahkan coba lagi",
+        message:
+          "Terdapat kesalahan saat menambahkan pokemon, silahkan coba lagi",
         color: "red",
         icon: <img src="/pokeball.png" alt="pokeball" />,
       });
     }
-
   }, [pokemon, evolveItem, navigate, catchPokemon]);
 
   return (
@@ -122,7 +98,7 @@ export default function CardAddPokemon({
           </Text>
           <Group align="center" justify="center">
             {pokemon?.types?.map(
-              (type: { type: { name: string; }; }, i: number) => {
+              (type: { type: { name: string } }, i: number) => {
                 return (
                   <Image
                     loading="lazy"
@@ -139,19 +115,18 @@ export default function CardAddPokemon({
           <Group gap={16} justify="center" wrap="nowrap">
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {(pokemon?.height ?? 0)} M
+                {pokemon?.height ?? 0} M
               </Text>
               📏
             </Group>
 
             <Group wrap="nowrap">
               <Text className={style["pokemon-stats"]}>
-                {(pokemon?.weight ?? 0)} Kg
+                {pokemon?.weight ?? 0} Kg
               </Text>
               🏋️
             </Group>
           </Group>
-
         </Stack>
         <Center>
           <Button
