@@ -9,13 +9,14 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Tooltip,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
 import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
-import { getColorByType } from "@/utils/constants";
+import { getColorByType, statLabels } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import { evolveSelectedPokemon } from "./mapEvolutionChain";
 import style from "./style.module.scss";
@@ -101,7 +102,7 @@ export default function CardAddPokemon({
             {pokemon?.types?.map(
               (type: { type: { name: string; }; }, i: number) => {
                 return (
-                  <Popover  key={`${pokemon?.name}-${type.type.name}-${i}`} >
+                  <Popover key={`${pokemon?.name}-${type.type.name}-${i}`} >
                     <Popover.Target>
                       <Image
                         loading="lazy"
@@ -120,20 +121,25 @@ export default function CardAddPokemon({
               }
             )}
           </Group>
-          <Group gap={16} justify="center" wrap="nowrap">
-            <Group wrap="nowrap">
-              <Text className={style["pokemon-stats"]}>
-                {pokemon?.height ?? 0} M
-              </Text>
-              📏
-            </Group>
 
-            <Group wrap="nowrap">
-              <Text className={style["pokemon-stats"]}>
-                {pokemon?.weight ?? 0} Kg
-              </Text>
-              🏋️
-            </Group>
+          <Group gap={16} justify="center" wrap="nowrap">
+            <Tooltip label={statLabels['height']} position="top">
+              <Group wrap="nowrap" align="center">
+                <Text className={style["pokemon-stats"]}>
+                  {(pokemon?.height ?? 0)} M
+                </Text>
+                📏
+              </Group>
+            </Tooltip>
+
+            <Tooltip label={statLabels['weight']} position="top">
+              <Group wrap="nowrap" align="center">
+                <Text className={style["pokemon-stats"]}>
+                  {(pokemon?.weight ?? 0)} Kg
+                </Text>
+                ⚖️
+              </Group>
+            </Tooltip>
           </Group>
         </Stack>
         <Center>

@@ -1,17 +1,20 @@
-import { Group, Image, Paper, Stack, Text } from "@mantine/core";
+import { ActionIcon, Flex, Group, HoverCard, Image, Menu, Paper, Popover, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useSimulator } from "@/domain/use-cases/simulator";
-import { getColorByType } from "@/utils/constants";
-import styles from "./style.module.scss";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
+import { useSimulator } from "@/domain/use-cases/simulator";
+import { getColorByType, statIcons, statLabels } from "@/utils/constants";
+import { handleModalRelease } from "../../pokemonSelectedViewModel";
+import styles from "./style.module.scss";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const [color, setColor] = useState<string | undefined>("#fff");
   const { pokemonList, setSelectedPokemon } = useSimulator();
 
+  const { releaseSelectedPokemon } = useSimulator();
+  const navigate = useNavigate();
   useEffect(() => {
     if (pokemonName) {
       const Color = getColorByType(pokemon?.types?.[0]?.type?.name ?? "");
@@ -23,76 +26,129 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
   return (
     <Paper
-      component={Link}
-      to={`./selected`}
-      unstable_viewTransition
       className={styles["card-pokemon"]}
       shadow="sm"
       withBorder
       style={{
         padding: 20,
-        borderLeftColor: `${color}`,
+        '--selected-color': `${color}`,
         viewTransitionName: `pokemon-card-${index}`
       }}
-      onClick={() => {
-        const selectedPoke = pokemonList.find(x => x.pokeId === index);
-        setSelectedPokemon(selectedPoke);
-      }}
     >
-      <Group align="stretch">
-        <Image
-          loading="lazy"
-          draggable={false}
-          className={styles["card-pokemon-img"]}
+      <Flex>
+        <Paper
           style={{
-            minWidth: 160,
-            viewTransitionName: `pokemon-image-${index}`
+            flex: 1,
           }}
+          withBorder={false}
+          shadow="0"
+          component={Link}
+          unstable_viewTransition
+          to={`./selected`} onClick={() => {
+            const selectedPoke = pokemonList.find(x => x.pokeId === index);
+            setSelectedPokemon(selectedPoke);
+          }} >
 
-          src={
-            pokemon?.sprites?.other?.["dream_world"].front_default
-              ? pokemon?.sprites?.other["dream_world"].front_default
-              : pokemon?.sprites?.front_default
-          }
-          fallbackSrc="/pokenull.webp"
-          alt="Selected Pokemon"
-        />
-        <Stack my={24} align="center" mx="auto">
-          <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
-          <Group align="center">
-            {pokemon?.types?.map((type: { type: { name: string; }; }) => {
-              return (
-                <Image
-                  loading="lazy"
-                  key={`${type?.type?.name}-card`}
-                  draggable={false}
-                  w={40}
-                  src={`/types/${type?.type?.name}.svg`}
-                  alt=""
-                />
-              );
-            })}
+          <Group align="stretch" >
+            <Image
+              loading="lazy"
+              draggable={false}
+              className={styles["card-pokemon-img"]}
+              style={{
+                minWidth: 160,
+                viewTransitionName: `pokemon-image-${index}`
+              }}
+
+              src={
+                pokemon?.sprites?.other?.["dream_world"].front_default
+                  ? pokemon?.sprites?.other["dream_world"].front_default
+                  : pokemon?.sprites?.front_default
+              }
+              fallbackSrc="/pokenull.webp"
+              alt="Selected Pokemon"
+            />
+            <Stack
+              my={24} align="center" mx="auto"
+            >
+              <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
+              <Group align="center">
+                {pokemon?.types?.map((type: { type: { name: string; }; }) => {
+                  return (
+                    <HoverCard key={`${type?.type?.name}-card`} withArrow>
+                      <HoverCard.Target>
+                        <Image
+                          loading="lazy"
+                          draggable={false}
+                          w={40}
+                          h={40}
+                          src={`/types/${type.type.name}.svg`}
+                          alt=""
+                        />
+                      </HoverCard.Target>
+                      <HoverCard.Dropdown>
+                        <Text>{type.type.name}</Text>
+                      </HoverCard.Dropdown>
+                    </HoverCard>
+                  );
+                })}
+              </Group>
+              <Group>
+                <Tooltip label={statLabels['height']} position="top">
+                  <Group align="center">
+                    <Text className="pokemon-stats">
+                      {(pokemon?.height ?? 0)} M
+                    </Text>
+                    📏
+                  </Group>
+                </Tooltip>
+
+                <Tooltip label={statLabels['weight']} position="top">
+                  <Group align="center">
+                    <Text className="pokemon-stats">
+                      {(weight ?? 0)} Kg
+                    </Text>
+                    ⚖️
+                  </Group>
+                </Tooltip>
+              </Group>
+
+
+              <SimpleGrid mt={24} cols={3}>
+                {pokemon?.stats?.map((stats: {
+                  base_stat: number;
+                  stat: { name: string; };
+                }) => {
+                  return (
+                    <Tooltip key={stats.stat.name} label={statLabels[stats.stat.name]} position="top">
+                      <Group align="center">
+                        {statIcons[stats.stat.name] ?? <></>}
+                        <span>{stats.base_stat}</span>
+                      </Group>
+                    </Tooltip>
+                  );
+                })}
+
+              </SimpleGrid>
+
+            </Stack>
+
           </Group>
-          <Group>
-            <Group align="center">
-              <Text className="pokemon-stats">
-                {(pokemon?.height ?? 0)} M
-              </Text>
-              📏
-            </Group>
+        </Paper>
+        <Menu withinPortal>
+          <Menu.Target >
+            <ActionIcon variant="light" w={64}>
 
-            <Group align="center">
-              <Text className="pokemon-stats">
-                {(weight ?? 0)} Kg
-              </Text>
-              ⚖️
-            </Group>
-          </Group>
-
-
-        </Stack>
-
-      </Group>
-    </Paper>
+              <Text>{"  ⋮  "}</Text>
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item onClick={() => {
+              setSelectedPokemon(pokemonList.find(x => x.pokeId === index));
+              return handleModalRelease(releaseSelectedPokemon, navigate);
+            }}>Lepaskan Pokemon</Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </Flex>
+    </Paper >
   );
 };

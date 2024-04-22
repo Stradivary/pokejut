@@ -26,7 +26,25 @@ export const firmnesColor: Record<string, string> = {
     "very-hard": "orange",
     "super-hard": "red",
 };
+export const statIcons: Record<string, string> = {
+    hp: '❤️',
+    attack: '⚔️',
+    defense: '🛡️',
+    speed: '⚡',
+    'special-attack': '🔥',
+    'special-defense': '🔵',
+};
 
+export const statLabels: Record<string, string> = {
+    height: 'Tinggi Pokemon',
+    weight: 'Berat Pokemon',
+    hp: 'Health Points',
+    attack: 'Attack',
+    defense: 'Defense',
+    speed: 'Speed',
+    'special-attack': 'Special Attack',
+    'special-defense': 'Special Defense',
+};
 
 export function getColorByType(pokemonType: string) {
     const foundPokemon = pokemonData.find(

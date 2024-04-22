@@ -8,7 +8,9 @@
 }
 
 .card-pokemon {
-  border-left-width: 5px;
+
+  border-left-color: var(--mantine-color-white);
+  border-left-width: 10px;
 
   & p {
     text-decoration: none;
@@ -17,6 +19,7 @@
 
   &:hover {
     border-left-width: 10px;
+    border-left-color: var(--selected-color);
   }
 }
 

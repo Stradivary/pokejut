@@ -1,6 +1,6 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
-import { getColorByType } from "@/utils/constants";
+import { firmnesColor, getColorByType, statIcons, statLabels } from "@/utils/constants";
 import {
   Badge,
   Group,
@@ -17,24 +17,8 @@ import {
 import React from "react";
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
-import { useNetwork } from "@mantine/hooks";
 
-const firmnesColor: Record<string, string> = {
-  "very-soft": "blue",
-  soft: "green",
-  hard: "yellow",
-  "very-hard": "orange",
-  "super-hard": "red",
-};
 
-const statIcons: Record<string, string> = {
-  hp: '❤️',
-  attack: '⚔️',
-  defense: '🛡️',
-  speed: '⚡',
-  'special-attack': '🔥',
-  'special-defense': '🔵',
-};
 
 export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) => {
 
@@ -97,18 +81,23 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
               )}
             </Group>
             <Group>
-              <Group align="center">
-                <Text className="pokemon-stats">
-                  {(pokemon?.height ?? 0)} M
-                </Text>
-                📏
-              </Group>
+              <Tooltip label={statLabels['height']} position="top">
+                <Group align="center">
+                  <Text className="pokemon-stats">
+                    {(pokemon?.height ?? 0)} M
+                  </Text>
+                  📏
+                </Group>
+              </Tooltip>
 
-              <Group align="center">
-                <Text className="pokemon-stats">{(weight ?? 0)} Kg</Text>
-                ⚖️
-              </Group>
-
+              <Tooltip label={statLabels['weight']} position="top">
+                <Group align="center">
+                  <Text className="pokemon-stats">
+                    {(weight ?? 0)} Kg
+                  </Text>
+                  ⚖️
+                </Group>
+              </Tooltip>
             </Group>
 
             <SimpleGrid mt={24} cols={3}>
@@ -117,7 +106,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                 stat: { name: string; };
               }) => {
                 return (
-                  <Tooltip key={stats.stat.name} label={stats.stat.name} position="top">
+                  <Tooltip key={stats.stat.name} label={statLabels[stats.stat.name]} position="top">
                     <Group align="center">
                       {statIcons[stats.stat.name] ?? <></>}
                       <span>{stats.base_stat}</span>
