@@ -6,15 +6,15 @@ import {
   Group,
   Image,
   Paper,
-  Popover,
   ScrollArea,
   SimpleGrid,
   Stack,
   Text,
   Title,
-  Tooltip,
+  Tooltip
 } from "@mantine/core";
 import React from "react";
+import { PokemonTypeBadge } from "../../../../components/PokemonTypeBadge";
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
 
@@ -61,21 +61,7 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
               {pokemon?.types?.map(
                 (type: { type: { name: string; }; }) => {
                   return (
-                    <Popover key={type?.type?.name} position="top" withArrow>
-                      <Popover.Target>
-                        <Image
-                          loading="lazy"
-                          draggable={false}
-                          w={40}
-                          h={40}
-                          src={`/types/${type.type.name}.svg`}
-                          alt=""
-                        />
-                      </Popover.Target>
-                      <Popover.Dropdown>
-                        <Text>{type.type.name}</Text>
-                      </Popover.Dropdown>
-                    </Popover>
+                    <PokemonTypeBadge key={`${pokemon?.name}-${type.type.name}-card`} type={type.type} />
                   );
                 }
               )}

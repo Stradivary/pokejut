@@ -1,10 +1,11 @@
-import { ActionIcon, Flex, Group, HoverCard, Image, Menu, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
+import { ActionIcon, Flex, Group, Image, Menu, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { getColorByType, statIcons, statLabels } from "@/utils/constants";
+import { PokemonTypeBadge } from "../../../../components/PokemonTypeBadge";
 import { handleModalRelease } from "../../pokemonSelectedViewModel";
 import styles from "./style.module.scss";
 
@@ -73,23 +74,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
               <Group align="center">
                 {pokemon?.types?.map((type: { type: { name: string; }; }) => {
-                  return (
-                    <HoverCard key={`${type?.type?.name}-card`} withArrow>
-                      <HoverCard.Target>
-                        <Image
-                          loading="lazy"
-                          draggable={false}
-                          w={40}
-                          h={40}
-                          src={`/types/${type.type.name}.svg`}
-                          alt=""
-                        />
-                      </HoverCard.Target>
-                      <HoverCard.Dropdown>
-                        <Text>{type.type.name}</Text>
-                      </HoverCard.Dropdown>
-                    </HoverCard>
-                  );
+                  return <PokemonTypeBadge key={`${pokemonName}-${type.type.name}-card`} type={type.type} />;
                 })}
               </Group>
               <Group>
@@ -152,3 +137,4 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
     </Paper >
   );
 };
+

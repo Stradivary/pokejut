@@ -5,17 +5,17 @@ import {
   Group,
   Image,
   Paper,
-  Popover,
   SimpleGrid,
   Stack,
   Text,
-  Tooltip,
+  Tooltip
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
 import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
+import { PokemonTypeBadge } from "@/presentation/components/PokemonTypeBadge";
 import { getColorByType, statLabels } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import { evolveSelectedPokemon } from "./mapEvolutionChain";
@@ -100,23 +100,9 @@ export default function CardAddPokemon({
           </Text>
           <Group align="center" justify="center">
             {pokemon?.types?.map(
-              (type: { type: { name: string; }; }, i: number) => {
+              (type: { type: { name: string; }; }) => {
                 return (
-                  <Popover key={`${pokemon?.name}-${type.type.name}-${i}`} >
-                    <Popover.Target>
-                      <Image
-                        loading="lazy"
-                        draggable={false}
-                        w={40}
-                        h={40}
-                        src={`/types/${type.type.name}.svg`}
-                        alt=""
-                      />
-                    </Popover.Target>
-                    <Popover.Dropdown>
-                      <Text>{type.type.name}</Text>
-                    </Popover.Dropdown>
-                  </Popover>
+                  <PokemonTypeBadge key={`${pokemon?.name}-${type.type.name}-card`} type={type.type} />
                 );
               }
             )}
