@@ -22,6 +22,7 @@ export const evolveSelectedPokemon = (
     types: pokemon.types,
     height: pokemon.height,
     weight: pokemon.weight,
+    stats: pokemon.stats, 
     sprites: {
       front_default: pokemon?.sprites?.front_default,
       other: {

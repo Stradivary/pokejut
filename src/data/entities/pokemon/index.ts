@@ -7,7 +7,7 @@ export const PokemonSchema = z.object({
     weight: z.number(),
     species: z.object({ name: z.string(), url: z.string() }),
     types: z.array(z.any()).optional(),
-    // stats: z.object({ hp: z.number(), attack: z.number(), defense: z.number(), speed: z.number() }),
+    stats: z.object({ hp: z.number(), attack: z.number(), defense: z.number(), speed: z.number() }),
     sprites: z.object({
         front_default: z.string(),
         other: z.object({

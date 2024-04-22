@@ -1,5 +1,5 @@
-import { ActionIcon, AppShell, Burger, Group, Title, useMantineColorScheme } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { ActionIcon, AppShell, Burger, Center, Group, Image, Modal, Stack, Title, useMantineColorScheme } from "@mantine/core";
+import { useDisclosure, useNetwork } from "@mantine/hooks";
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { MainNavbar } from "../components/navbar/mainNavbar";
 import { data } from "./data";
@@ -8,6 +8,10 @@ export function Component() {
   const [opened, { toggle }] = useDisclosure();
   const { pathname } = useLocation();
   const { colorScheme } = useMantineColorScheme();
+
+  const { online } = useNetwork();
+
+
   return (
     <AppShell
       header={{ height: { base: 1, md: 1, lg: 1, xl: 1 } }}
@@ -33,7 +37,15 @@ export function Component() {
       </AppShell.Navbar>
       <AppShell.Main >
         <Outlet />
+        <Modal opened={online === false} onClose={() => { }} centered withCloseButton={false} >
+          <Stack>
+            <Image src="/pokenull.webp" alt="Pokenull Logo" w={200} h={200} />
+            <Title order={4} style={{ color: "red" }}>
+              Kamu sedang offline
+            </Title>
 
+          </Stack>
+        </Modal>
         <ScrollRestoration />
       </AppShell.Main>
       <AppShell.Footer  >

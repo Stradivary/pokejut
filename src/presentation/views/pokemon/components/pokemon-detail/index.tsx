@@ -6,15 +6,18 @@ import {
   Group,
   Image,
   Paper,
+  Popover,
   ScrollArea,
   SimpleGrid,
   Stack,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import React from "react";
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
+import { useNetwork } from "@mantine/hooks";
 
 const firmnesColor: Record<string, string> = {
   "very-soft": "blue",
@@ -22,6 +25,15 @@ const firmnesColor: Record<string, string> = {
   hard: "yellow",
   "very-hard": "orange",
   "super-hard": "red",
+};
+
+const statIcons: Record<string, string> = {
+  hp: '❤️',
+  attack: '⚔️',
+  defense: '🛡️',
+  speed: '⚡',
+  'special-attack': '🔥',
+  'special-defense': '🔵',
 };
 
 export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) => {
@@ -65,15 +77,21 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
               {pokemon?.types?.map(
                 (type: { type: { name: string; }; }) => {
                   return (
-                    <Image
-                      loading="lazy"
-                      key={type?.type?.name}
-                      draggable={false}
-                      w={40}
-                      h={40}
-                      src={`/types/${type.type.name}.svg`}
-                      alt=""
-                    />
+                    <Popover key={type?.type?.name} position="top" withArrow>
+                      <Popover.Target>
+                        <Image
+                          loading="lazy"
+                          draggable={false}
+                          w={40}
+                          h={40}
+                          src={`/types/${type.type.name}.svg`}
+                          alt=""
+                        />
+                      </Popover.Target>
+                      <Popover.Dropdown>
+                        <Text>{type.type.name}</Text>
+                      </Popover.Dropdown>
+                    </Popover>
                   );
                 }
               )}
@@ -90,8 +108,25 @@ export const PokemonDetail: React.FC<{ pokemonId: string; }> = ({ pokemonId }) =
                 <Text className="pokemon-stats">{(weight ?? 0)} Kg</Text>
                 ⚖️
               </Group>
+
             </Group>
 
+            <SimpleGrid mt={24} cols={3}>
+              {pokemon?.stats?.map((stats: {
+                base_stat: number;
+                stat: { name: string; };
+              }) => {
+                return (
+                  <Tooltip key={stats.stat.name} label={stats.stat.name} position="top">
+                    <Group align="center">
+                      {statIcons[stats.stat.name] ?? <></>}
+                      <span>{stats.base_stat}</span>
+                    </Group>
+                  </Tooltip>
+                );
+              })}
+
+            </SimpleGrid>
           </Stack>
         </Group>
       </Paper>

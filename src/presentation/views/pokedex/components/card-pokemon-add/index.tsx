@@ -5,6 +5,7 @@ import {
   Group,
   Image,
   Paper,
+  Popover,
   SimpleGrid,
   Stack,
   Text,
@@ -98,16 +99,23 @@ export default function CardAddPokemon({
           </Text>
           <Group align="center" justify="center">
             {pokemon?.types?.map(
-              (type: { type: { name: string } }, i: number) => {
+              (type: { type: { name: string; }; }, i: number) => {
                 return (
-                  <Image
-                    loading="lazy"
-                    key={`${pokemon?.name}-${type.type.name}-${i}`}
-                    draggable={false}
-                    w={40}
-                    src={`/types/${type.type.name}.svg`}
-                    alt=""
-                  />
+                  <Popover  key={`${pokemon?.name}-${type.type.name}-${i}`} >
+                    <Popover.Target>
+                      <Image
+                        loading="lazy"
+                        draggable={false}
+                        w={40}
+                        h={40}
+                        src={`/types/${type.type.name}.svg`}
+                        alt=""
+                      />
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Text>{type.type.name}</Text>
+                    </Popover.Dropdown>
+                  </Popover>
                 );
               }
             )}
