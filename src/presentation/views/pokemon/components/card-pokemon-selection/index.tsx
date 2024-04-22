@@ -1,4 +1,4 @@
-import { ActionIcon, Flex, Group, HoverCard, Image, Menu, Paper, Popover, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
+import { ActionIcon, Flex, Group, HoverCard, Image, Menu, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
