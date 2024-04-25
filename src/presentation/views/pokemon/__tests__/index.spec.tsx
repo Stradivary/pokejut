@@ -62,9 +62,10 @@ describe("Component Coverage Tests", () => {
   });
 
   it("should render the CardPokedex component correctly", () => {
-    const { container } = render(<CardPokedex pokemonName={""} readyToEvolve={{}} setReadyToEvolve={function (value: { [key: string]: boolean; }): void {
-      throw new Error("Function not implemented.");
-    } } />);
+    const { container } = render(<CardPokedex pokemonName={""} readyToEvolve={{}}
+      setReadyToEvolve={function (value: { [key: string]: boolean; }): void {
+        console.log(value);
+      }} />);
     expect(container).toBeDefined();
   });
 
