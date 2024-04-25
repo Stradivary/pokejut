@@ -27,7 +27,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache npm dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4.0.2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -49,11 +49,6 @@ jobs:
           args: >
             -Dsonar.projectKey=Stradivary_pokejut
             -Dsonar.organization=stradivary
-  
-  quality_gate:
-    needs: sonar
-    runs-on: ubuntu-latest
-    steps:
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
         run: |
@@ -78,7 +73,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy_vercel:
-    needs: quality_gate
+    needs: sonar
     runs-on: ubuntu-latest
     steps:
       - name: Install Vercel CLI
