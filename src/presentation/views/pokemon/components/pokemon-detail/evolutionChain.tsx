@@ -1,13 +1,8 @@
-import { useSimulator } from "@/domain/use-cases/simulator";
 import { Alert, Paper, SimpleGrid, Title } from "@mantine/core";
 import EvolutionCard from "../evolution-card";
-import { useEvolutionChain } from "./useEvolutionChain";
 
-export const EvolutionChainPage = ({ pokemonId }) => {
-
-  const { selectedPokemon } = useSimulator();
-  const pokemonState = selectedPokemon();
-  const { nextEvolutionChain } = useEvolutionChain(pokemonState);
+export const EvolutionChainPage = ({ pokemonId, pokemonState, nextEvolutionChain, readyToEvolve, setReadyToEvolve }) => {
+  
   return (
     <Paper p="md" miw={200} >
       <Title order={2} mt="lg">
@@ -19,6 +14,8 @@ export const EvolutionChainPage = ({ pokemonId }) => {
             key={"evolve-card-" + pokemon?.species + "-" + pokemonId}
             pokemonName={pokemon?.species}
             oldPokemon={pokemonState}
+            readyToEvolve={readyToEvolve}
+            setReadyToEvolve={setReadyToEvolve}
           />
         ))}
 

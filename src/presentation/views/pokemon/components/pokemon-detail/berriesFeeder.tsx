@@ -1,68 +1,37 @@
 import { useBerryGetAll } from "@/domain/use-cases/berries";
-import { BerryState, useSimulator } from "@/domain/use-cases/simulator";
 import {
   ActionIcon,
+  Alert,
   Drawer,
   Group,
   Paper,
   ScrollArea,
-  Table,
   Tabs,
   Title,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import { FirmnessTable } from "./FirmnessTable";
 import { BerryCard } from "./berryCard";
-import { useDisclosure, useHotkeys } from "@mantine/hooks";
 
-export const FirmnessTable = ({ modifier }: { modifier: number }) => {
-  return (
-    <Table mt={16}>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Firmness Berry</Table.Th>
-          <Table.Th>Weight Increase</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-
-      <Table.Tbody>
-        {[
-          { firmness: "very-soft", weight: 2 },
-          { firmness: "soft", weight: 3 },
-          { firmness: "hard", weight: 4 },
-          { firmness: "very-hard", weight: 5 },
-          { firmness: "super-hard", weight: 10 },
-          { firmness: "others", weight: 1 },
-        ].map(({ firmness, weight }) => (
-          <Table.Tr key={firmness}>
-            <Table.Td>{firmness}</Table.Td>
-            <Table.Td>{weight * modifier}</Table.Td>
-          </Table.Tr>
-        ))}
-      </Table.Tbody>
-    </Table>
-  );
-};
-
-export const BerriesFeeder = () => {
+export const BerriesFeeder = ({
+  feedPokemon, selectedPokemonId, canFeedBerry
+}) => {
   const { data } = useBerryGetAll({
     limit: 100,
     offset: 0,
   });
   const [selectedBerry, setSelectedBerry] = useState<string>("");
-  const { feedPokemon, selectedPokemonId } = useSimulator();
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedBerryState, setSelectedBerryState] = useState<BerryState>();
 
-  useHotkeys([
-    [
-      "F",
-      () =>
-        feedPokemon(
-          selectedPokemonId ?? "",
-          selectedBerryState as Partial<BerryState>
-        ),
-    ],
-  ]);
+  const createBerryClickHandler = (berryName: string) => {
+    return () => {
+      if (berryName === selectedBerry) {
+        return setSelectedBerry("");
+      }
+      return setSelectedBerry(berryName);
+    };
+  };
 
   return (
     <Paper p={10} mih={80}>
@@ -109,33 +78,15 @@ export const BerriesFeeder = () => {
       <Paper withBorder radius="lg" p={8} mb={16}>
         <ScrollArea w="100%" h={56}>
           <Group w={"100%"} gap={8} wrap="nowrap">
-            {data?.results?.map((berry: { name: string }) => {
-              const handleBerryClick = (
-                state: Partial<{
-                  id: number;
-                  name: string;
-                  firmness: { name: string; url: string };
-                  item: { name: string; url: string };
-                }>
-              ): void => {
-                if (berry?.name === selectedBerry) {
-                  setSelectedBerryState(undefined);
-                  return setSelectedBerry("");
-                }
-                setSelectedBerryState(state);
-                return setSelectedBerry(berry?.name);
-              };
-
-              return (
-                <BerryCard
-                  key={berry?.name + "-card"}
-                  name={berry?.name}
-                  selected={berry?.name === selectedBerry}
-                  detailed={false}
-                  onClick={handleBerryClick}
-                />
-              );
-            })}
+            {data?.results?.map((berry: { name: string; }) => (
+              <BerryCard
+                key={berry?.name + "-card"}
+                name={berry?.name}
+                selected={berry?.name === selectedBerry}
+                detailed={false}
+                onClick={createBerryClickHandler(berry?.name)}
+              />
+            ))}
           </Group>
         </ScrollArea>
       </Paper>
@@ -143,11 +94,13 @@ export const BerriesFeeder = () => {
         <BerryCard
           name={selectedBerry}
           detailed
-          onClick={(berryState) => {
-            feedPokemon(selectedPokemonId ?? "", berryState);
-          }}
+          disabled={!canFeedBerry}
+          onClick={(berryState) => { feedPokemon(selectedPokemonId ?? "", berryState); }}
         />
       )}
+      {!canFeedBerry && <Alert mt={10} title="Pokemon Sudah Kenyang">
+        Pokemon sudah bisa melakukan evolusi, dan tidak bisa diberi makan lagi.
+      </Alert>}
     </Paper>
   );
 };

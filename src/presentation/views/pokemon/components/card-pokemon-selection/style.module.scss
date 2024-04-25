@@ -9,8 +9,17 @@
 
 .card-pokemon {
 
-  border-left-color: var(--mantine-color-white);
-  border-left-width: 10px;
+  // is not touch device
+  @media screen and (hover: hover) {
+    border-left-color: var(--mantine-color-white);
+    border-left-width: 5px;
+  }
+
+  // is touch device
+  @media screen and (hover: none) {
+    border-left-color: var(--selected-color);
+    border-left-width: 10px;
+  }
 
   & p {
     text-decoration: none;

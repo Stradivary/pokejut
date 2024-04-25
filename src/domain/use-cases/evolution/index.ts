@@ -1,12 +1,14 @@
 import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 
-import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
 
 const entity = 'evolutions';
 
-const pokeApiDataSource = new PokeApiEntityDataSource('evolution');
+const pokeApiEvolutionDataSource = new PokeApiEntityDataSource('evolution-chain');
+
+const pokeApiSpeciesDataSource = new PokeApiEntityDataSource<Species>('pokemon-species');
+
 
 const evolutionOptions = (action: string, params: any, fn: () => Promise<any>) => {
     return queryOptions({
@@ -16,15 +18,11 @@ const evolutionOptions = (action: string, params: any, fn: () => Promise<any>) =
     });
 };
 
-export const useEvolutionGetAll = (filter: { offset: number; limit: number; }) => {
-    return useQuery(evolutionOptions('getAll', filter, async () => {
-        return await pokeApiDataSource.getAll({ params: filter });
-    }));
-};
+
 
 export const useEvolutionGetByName = (name: string) => {
     return useQuery(evolutionOptions('getByName', { name }, async () => {
-        return await pokeApiDataSource.getOne(name);
+        return;
     }));
 };
 
@@ -32,7 +30,7 @@ export const useEvolutionGetByName = (name: string) => {
 export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
     return useQuery({
         queryKey: ["pokemon", "evolutionChain", evolutionChain],
-        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/evolution-chain/${evolutionChain}`).then((res) => res.data),
+        queryFn: async () => await pokeApiEvolutionDataSource.getOne(evolutionChain ?? ""),
         enabled: !!evolutionChain,
     });
 };
@@ -40,7 +38,7 @@ export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
 export const usePokemonGetSpecies = (id?: string) => {
     return useQuery({
         queryKey: ["pokemon", "species", id],
-        queryFn: async () => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) => res.data),
+        queryFn: async () => await pokeApiSpeciesDataSource.getOne(id ?? ""),
         enabled: !!id,
     });
 };
@@ -54,19 +52,16 @@ export const useEvolutionChainByPokemonName = (name?: string) => {
 };
 
 export function findEvolutionChain(data: EvolutionChain, currentSpecies: string): EvolveTo | null {
-    // Check if data is null or undefined
     if (!data) {
         return null;
     }
-
-    // Check if species property exists and matches the current species
+    
     if (`${data?.species?.name}`.toLowerCase() === `${currentSpecies}`.toLowerCase() || `${data?.species}`.toLowerCase() === `${currentSpecies}`.toLowerCase()) {
         return data;
     }
-    // Iterate through evolves_to array if it exists
+
     if (data.evolves_to) {
         for (const evolution of data.evolves_to) {
-            // Recursive call with additional null check
             const nextEvolution = findEvolutionChain(evolution, currentSpecies);
             if (!nextEvolution) {
                 continue;
@@ -75,6 +70,49 @@ export function findEvolutionChain(data: EvolutionChain, currentSpecies: string)
         }
     }
 
-    // Return null if no matching species or next evolution is found
     return null;
 }
+
+export function mapEvolutionChain(data: any): EvolutionChain {
+    return {
+        is_baby: false,
+        species: data.species.name,
+        evolves_to: data.evolves_to.map((evolution: any) =>
+            mapEvolutionChain(evolution)
+        ),
+    };
+}
+
+
+export const evolveSelectedPokemon = (
+    pokemon: any,
+    evolveItem: any,
+    catchPokemon: any
+) => {
+    if (!pokemon || !evolveItem) return false;
+    const poke = {
+        id: pokemon.id,
+        name: pokemon.name,
+        types: pokemon.types,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        stats: pokemon.stats,
+        sprites: {
+            front_default: pokemon?.sprites?.front_default,
+            other: {
+                dream_world: {
+                    front_default:
+                        pokemon?.sprites?.other?.["dream_world"]?.front_default,
+                },
+                home: {} as any,
+            },
+        },
+        species: pokemon.species,
+    };
+
+    const evolves_to = mapEvolutionChain(evolveItem?.chain);
+
+    catchPokemon({ ...poke, evolves_to });
+
+    return true;
+};

@@ -102,54 +102,6 @@ exports[`Settings Component > should render the component correctly 1`] = `
       data-order="4"
       style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
     >
-      Cache
-    </h4>
-    <p
-      class="mantine-focus-auto mantine-Text-root"
-      style=""
-    >
-      Ukuran : 
-      0
-       MB
-    </p>
-    <button
-      class="mantine-focus-auto mantine-active mantine-Button-root mantine-UnstyledButton-root"
-      style="--button-bg: var(--mantine-color-red-filled); --button-hover: var(--mantine-color-red-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; max-width: calc(15rem * var(--mantine-scale));"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-        class="mantine-Button-loader"
-        style=""
-      >
-        <span
-          class="mantine-Loader-root"
-          style="--loader-size: calc(var(--button-height) / 1.8); --loader-color: var(--button-color);"
-        />
-      </span>
-      <span
-        class="mantine-Button-inner"
-        style=""
-      >
-        <span
-          class="mantine-Button-label"
-          style=""
-        >
-          Hapus Cache
-        </span>
-      </span>
-    </button>
-    <div
-      class="mantine-Divider-root"
-      data-orientation="horizontal"
-      role="separator"
-      style=""
-    />
-    <h4
-      class="mantine-Title-root"
-      data-order="4"
-      style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
-    >
       Koleksi Pokemon
     </h4>
     <button

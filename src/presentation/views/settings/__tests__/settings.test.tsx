@@ -1,11 +1,10 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
+import snapshotSanitizer from "~/tests/snapshot-sanitizer";
 import { render } from "~/tests/test-utils";
 import { Component as Settings } from "../settings";
-import snapshotSanitizer from "~/tests/snapshot-sanitizer";
 import {
   confirmReleaseCollection,
-  onClearCache,
-  onReleaseCollection,
+  onReleaseCollection
 } from "../useSettingsViewModel";
 
 vi.mock("../useSettingsViewModel", async () => {
@@ -15,8 +14,6 @@ vi.mock("../useSettingsViewModel", async () => {
     colorScheme: "light",
     setColorScheme: vi.fn(),
     colorSchemeOptions: ["light", "dark"],
-    cacheSizeInMB: 10,
-    handleClearCache: vi.fn(),
     canReleaseCollection: false,
     handleReleaseCollection: vi.fn(),
   };
@@ -62,13 +59,4 @@ describe("onReleaseCollection", () => {
   });
 });
 
-describe("onClearCache", () => {
-  it("should call setRerender and navigate functions", () => {
-    const setRerender = vi.fn();
-    const navigate = vi.fn();
 
-    onClearCache(setRerender, navigate);
-
-    expect(setRerender).toBeDefined();
-  });
-});

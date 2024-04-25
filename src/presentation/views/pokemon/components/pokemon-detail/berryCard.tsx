@@ -1,8 +1,8 @@
 
-import { berriesGain, useBerryGetByName } from "@/domain/use-cases/berries";
+import { useBerryGetByName } from "@/domain/use-cases/berries";
 import { useItemGetByName } from "@/domain/use-cases/items";
 import { BerryState } from "@/domain/use-cases/simulator";
-import { firmnesColor } from "@/utils/constants";
+import { berriesGain, firmnesColor } from "@/utils/constants";
 import {
   ActionIcon,
   Badge,
@@ -22,11 +22,13 @@ export const BerryCard = ({
   selected,
   onClick,
   detailed,
+  disabled,
 }: {
   name: string;
   selected?: boolean;
   onClick?: (berryState: BerryState) => void;
   detailed?: boolean;
+  disabled?: boolean;
 }) => {
   const { data: berry } = useBerryGetByName(name);
   const { data } = useItemGetByName(berry?.item?.name);
@@ -60,9 +62,10 @@ export const BerryCard = ({
             </Stack>
           </Group>
         </Paper>
-        <Button onClick={() => onClick?.(berry as BerryState)}>
+        <Button onClick={() => onClick?.(berry as BerryState)} disabled={disabled}>
           Feed Pokemon
         </Button>
+        
       </SimpleGrid>
     </Paper>
   ) : (

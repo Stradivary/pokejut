@@ -1,4 +1,4 @@
-import { Button, Divider, Group, SegmentedControl, Stack, Text, Title } from "@mantine/core";
+import { Button, Divider, Group, SegmentedControl, Stack, Title } from "@mantine/core";
 import { useSettingsViewModel } from "./useSettingsViewModel";
 
 export function Component() {
@@ -13,14 +13,6 @@ export function Component() {
                     onChange={(value) => bindings.setColorScheme(value as 'light' | 'dark')}
                     data={bindings.colorSchemeOptions} fullWidth />
             </Group>
-            <Divider />
-
-            <Title order={4} fw="bold">Cache</Title>
-
-            <Text key={`cacheSize`}>Ukuran : {bindings.cacheSizeInMB} MB</Text>
-
-            <Button maw={240} color="red" onClick={bindings.handleClearCache}>Hapus Cache</Button>
-
             <Divider />
 
             <Title order={4} fw="bold">Koleksi Pokemon</Title>

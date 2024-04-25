@@ -5,12 +5,12 @@ import { create } from 'zustand';
 import { getBerryGain } from '../berries';
 
 import { Pokemon } from '@/data/entities/pokemon';
+import { getPokemonImage } from '@/utils/image';
 import { Group, Image, Stack, Text, Title } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { NavigateFunction, redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
-import { storage } from './presistor';
 
 export type BerryState = Partial<Berry>;
 
@@ -155,11 +155,7 @@ export const useSimulator = create(
                                     style={{ width: "80%" }}
                                     loading="lazy"
                                     draggable={false}
-                                    src={
-                                        evolvedPokemon?.sprites?.other?.["dream_world"]?.front_default
-                                            ? evolvedPokemon?.sprites?.other?.["dream_world"]?.front_default
-                                            : evolvedPokemon?.sprites?.front_default
-                                    }
+                                    src={getPokemonImage(evolvedPokemon)}
                                     fallbackSrc="/pokenull.webp"
                                     alt="Pokemon"
                                 />
@@ -207,7 +203,7 @@ export const useSimulator = create(
         }),
         {
             name: 'pokemon-storage',
-            storage: createJSONStorage(() => storage),
+            storage: createJSONStorage(() => sessionStorage),
         }
     )
 );

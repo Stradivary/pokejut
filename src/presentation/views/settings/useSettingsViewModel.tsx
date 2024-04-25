@@ -30,9 +30,6 @@ export function useSettingsViewModel() {
     },
   ];
 
-  const cacheSize = useMemo(() => {
-    return (localStorage.getItem("REACT_QUERY_OFFLINE_CACHE") ?? "").length;
-  }, []);
 
   const handleReleaseCollection = useCallback(
     () =>
@@ -49,16 +46,12 @@ export function useSettingsViewModel() {
     onClearCache(setRerender, navigate);
   }, [navigate, rerender, setRerender]);
 
-  const cacheSizeInMB = useMemo(
-    () => (cacheSize ? (cacheSize / 1024 / 1024).toFixed(2) : 0),
-    [cacheSize]
-  );
+
 
   return {
     colorScheme,
     setColorScheme,
     colorSchemeOptions,
-    cacheSizeInMB,
     handleClearCache,
     handleReleaseCollection,
     canReleaseCollection,

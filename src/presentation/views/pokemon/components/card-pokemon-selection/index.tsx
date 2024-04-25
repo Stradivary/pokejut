@@ -1,10 +1,11 @@
-import { ActionIcon, Flex, Group, Image, Menu, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
+import { Button, Flex, Group, Image, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { getColorByType, statIcons, statLabels } from "@/utils/constants";
+import { getPokemonImage } from "@/utils/image";
 import { PokemonTypeBadge } from "../../../../components/PokemonTypeBadge";
 import { handleModalRelease } from "../../pokemonSelectedViewModel";
 import styles from "./style.module.scss";
@@ -60,11 +61,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
                 viewTransitionName: `pokemon-image-${index}`
               }}
 
-              src={
-                pokemon?.sprites?.other?.["dream_world"].front_default
-                  ? pokemon?.sprites?.other["dream_world"].front_default
-                  : pokemon?.sprites?.front_default
-              }
+              src={getPokemonImage(pokemon)}
               fallbackSrc="/pokenull.webp"
               alt="Selected Pokemon"
             />
@@ -107,7 +104,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
                     <Tooltip key={stats.stat.name} label={statLabels[stats.stat.name]} position="top">
                       <Group align="center">
                         {statIcons[stats.stat.name] ?? <></>}
-                        <span>{stats.base_stat}</span>
+                        <p>{stats.base_stat}</p>
                       </Group>
                     </Tooltip>
                   );
@@ -119,20 +116,11 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
           </Group>
         </Paper>
-        <Menu withinPortal>
-          <Menu.Target >
-            <ActionIcon variant="light" w={64}>
-
-              <Text>{"  ⋮  "}</Text>
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item onClick={() => {
-              setSelectedPokemon(pokemonList.find(x => x.pokeId === index));
-              return handleModalRelease(releaseSelectedPokemon, navigate);
-            }}>Lepaskan Pokemon</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+        <Button onClick={() => {
+          setSelectedPokemon(pokemonList.find(x => x.pokeId === index));
+          return handleModalRelease(releaseSelectedPokemon, navigate);
+        }}>Lepaskan
+        </Button>
       </Flex>
     </Paper >
   );

@@ -3,6 +3,7 @@ import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { getColorByType } from "@/utils/constants";
+import { getPokemonImage } from "@/utils/image";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +12,14 @@ import "./style.scss";
 export default function EvolutionCard({
   pokemonName,
   oldPokemon,
+  readyToEvolve,
+  setReadyToEvolve,
 }: Readonly<{
   pokemonName: string;
   oldPokemon?: PokemonState;
+  readyToEvolve: { [key: string]: boolean; };
+  setReadyToEvolve: (value: { [key: string]: boolean; }) => void;
 }>) {
-
 
   const { data: pokemon } = usePokemonGetByName(pokemonName);
   const color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "#fff");
@@ -37,6 +41,10 @@ export default function EvolutionCard({
   }, [oldPokemon, pokemon]);
 
   const navigate = useNavigate();
+
+  if (canEvolve && !readyToEvolve[pokemonName] && pokemonName) {
+    setReadyToEvolve({ ...readyToEvolve, [pokemonName]: true });
+  }
 
   return (
     <Stack key={pokemon?.name} miw={180} mih={100}>
@@ -62,11 +70,7 @@ export default function EvolutionCard({
                 style={{ width: "80%" }}
                 loading="lazy"
                 draggable={false}
-                src={
-                  pokemon?.sprites?.other?.["dream_world"]?.front_default
-                    ? pokemon?.sprites?.other["dream_world"]?.front_default
-                    : pokemon?.sprites?.front_default
-                }
+                src={getPokemonImage(pokemon)}
                 fallbackSrc="/pokenull.webp"
                 alt="Pokemon"
               />
@@ -91,7 +95,6 @@ export default function EvolutionCard({
           onClick={() => {
             const pokemonData: PokemonState = { ...oldPokemon, ...pokemon };
             evolveSelectedPokemon(pokemonData, navigate);
-           
           }}
         >
           Evolusi ke

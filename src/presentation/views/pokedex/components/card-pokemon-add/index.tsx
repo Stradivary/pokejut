@@ -13,12 +13,11 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
-import { useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
+import { evolveSelectedPokemon, useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { PokemonTypeBadge } from "@/presentation/components/PokemonTypeBadge";
 import { getColorByType, statLabels } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
-import { evolveSelectedPokemon } from "./mapEvolutionChain";
 import style from "./style.module.scss";
 
 export default function CardAddPokemon({

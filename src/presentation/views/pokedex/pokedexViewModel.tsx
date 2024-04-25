@@ -1,6 +1,7 @@
 import { usePokemonInfiniteGetAllInternal } from "@/domain/use-cases/pokemon";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useState } from "react";
+
 const usePokedexViewModel = () => {
   const { ref, entry } = useIntersection();
 

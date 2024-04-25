@@ -13,8 +13,6 @@ vi.mock("../useSettingsViewModel", () => ({
     colorScheme: "light",
     setColorScheme: vi.fn(),
     colorSchemeOptions: ["light", "dark"],
-    cacheSizeInMB: 10,
-    handleClearCache: vi.fn(),
     canReleaseCollection: true,
     handleReleaseCollection: vi.fn(),
   })),
@@ -29,7 +27,6 @@ describe("useSettingsViewModel", () => {
   it("should initialize with default values", () => {
     const { result } = renderHook(() => useSettingsViewModel(), { wrapper });
 
-    expect(result.current.cacheSizeInMB).toBe(10);
     expect(result.current.canReleaseCollection).toBeTruthy();
   });
 
@@ -43,13 +40,5 @@ describe("useSettingsViewModel", () => {
     });
   });
 
-  it("should handle clearing cache", () => {
-    const { result } = renderHook(() => useSettingsViewModel(), { wrapper });
 
-    expect(result.current.cacheSizeInMB).toBe(10);
-
-    act(() => {
-      result.current.handleClearCache();
-    });
-  });
 });

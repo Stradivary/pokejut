@@ -38,7 +38,7 @@ export function Component() {
       <AppShell.Main >
         <Outlet />
         <Modal opened={online === false} onClose={() => { }} centered withCloseButton={false} >
-          <Stack>
+          <Stack justify="center" align="center">
             <Image src="/pokenull.webp" alt="Pokenull Logo" w={200} h={200} />
             <Title order={4} style={{ color: "red" }}>
               Kamu sedang offline

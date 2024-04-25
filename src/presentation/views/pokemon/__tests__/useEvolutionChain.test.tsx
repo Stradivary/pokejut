@@ -1,7 +1,7 @@
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { useEvolutionChain } from '../components/pokemon-detail/useEvolutionChain';
+import { useEvolutionChain } from '../../../../domain/use-cases/evolution/useEvolutionChain';
 import * as evolution from '@/domain/use-cases/evolution';
 
 describe('useEvolutionChain', () => {

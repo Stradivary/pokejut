@@ -1,7 +1,8 @@
 
+import { Berry } from "@/data/entities/berries";
+import { berriesGain } from "@/utils/constants";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
-import { Berry } from "@/data/entities/berries";
 
 const entity = 'berries';
 
@@ -28,13 +29,6 @@ export const useBerryGetByName = (name: string) => {
 };
 
 
-export const berriesGain: Record<string, number> = {
-    'very-soft': 2,
-    'soft': 3,
-    'hard': 5,
-    'very-hard': 8,
-    'super-hard': 10,
-};
 
 export const getBerryGain = (firmness?: string) => {
     return berriesGain[firmness ?? ""] ?? 1;

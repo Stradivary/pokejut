@@ -8,7 +8,7 @@ import { expect, describe, it, vi } from "vitest";
 import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { FirmnessTable } from "../components/pokemon-detail/berriesFeeder";
+import { FirmnessTable } from "../components/pokemon-detail/FirmnessTable";
 
 const mock = new MockAdapter(axios);
 
@@ -57,7 +57,7 @@ describe("Component Coverage Tests", () => {
 
   // evolution chain, CardPokedex, CardPokemonSelection
   it("should render the evolution chain component correctly", () => {
-    const { container } = render(<EvolutionChainPage pokemonId={undefined} />);
+    const { container } = render(<EvolutionChainPage pokemonId={undefined} pokemonState={undefined} nextEvolutionChain={undefined} />);
     expect(container).toBeDefined();
   });
 

@@ -1,12 +1,12 @@
 // FILEPATH: /home/syid/dev/pokemon-app/src/data/data-source/Berries/berryDataSource.test.ts
-import { renderHook, waitFor } from '@testing-library/react';
+import { berriesGain } from '@/utils/constants';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { renderHook, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { useBerryGetAll, useBerryGetByName } from '../berries';
-import { describe, expect, it } from 'vitest';
 import { act } from 'react-dom/test-utils';
-import { getBerryGain, berriesGain } from '../berries';
+import { describe, expect, it } from 'vitest';
+import { getBerryGain, useBerryGetAll, useBerryGetByName } from '../berries';
 
 const mock = new MockAdapter(axios);
 const queryClient = new QueryClient();
@@ -20,7 +20,7 @@ describe('getBerryGain', () => {
     });
 
     it('returns 1 when firmness is undefined', () => {
-        expect(getBerryGain(undefined)).toEqual(1);
+        expect(getBerryGain()).toEqual(1);
     });
 
     it('returns 1 when firmness is not in the berriesGain record', () => {

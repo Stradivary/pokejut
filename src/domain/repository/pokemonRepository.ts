@@ -51,7 +51,7 @@ class PokemonRepository {
         const { page, pageSize = 10, q, filter } = options;
 
         if (!this.isLoaded) {
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            await new Promise((resolve) => setTimeout(resolve, 3500));
         }
 
         if (this.pokemons.length === 0) {

@@ -1,13 +1,10 @@
+import { evolveSelectedPokemon, mapEvolutionChain } from "@/domain/use-cases/evolution";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { describe, expect, it, vi } from "vitest";
 import { mockIntersectionObserver } from "~/tests/mockIntersectionObserver";
 import { render } from "~/tests/test-utils";
 import CardAddPokemon from "../components/card-pokemon-add";
-import {
-  evolveSelectedPokemon,
-  mapEvolutionChain,
-} from "../components/card-pokemon-add/mapEvolutionChain";
 import { TypeBadge } from "../components/typeBadge";
 import { Component as PokemonList } from "../pokedex";
 

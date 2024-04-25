@@ -4,6 +4,10 @@ import { StateStorage } from 'zustand/middleware';
 const db = localForage.createInstance({
     name: 'pokemonDB',
     storeName: 'data',
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+    ],
 });
 
 export const storage: StateStorage = {
