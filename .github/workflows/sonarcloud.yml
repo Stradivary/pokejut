@@ -1,4 +1,5 @@
 name: Vercel Production Deployment
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -14,40 +15,49 @@ on:
       - main
 
 jobs:
-  Deploy-Production:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      deployment-url: ${{ steps.deploy.outputs.deployment-url }}
     steps:
-      - uses: actions/checkout@v4.1.4
-
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+      - name: Checkout code
+        uses: actions/checkout@v4.1.4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.2
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+          
       - name: Install dependencies
         run: npm install
 
       - name: Run tests with coverage
         run: npm run cover
 
-      # Run SonarQube analysis
-      - name: Run SonarQube Scanner
+  sonar:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run SonarQube analysis
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.projectKey=Stradivary_pokejut
             -Dsonar.organization=stradivary
   
-      # Check SonarQube Quality Gate Status
+  quality_gate:
+    needs: sonar
+    runs-on: ubuntu-latest
+    steps:
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
         run: |
-          URL="https://sonarcloud.io/api/qualitygates/project_status?projectKey=projectkey_web-pokemon-evolution"
+          URL="https://sonarcloud.io/api/qualitygates/project_status?projectKey=Stradivary_pokejut"
           TOKEN="${{ secrets.SONAR_TOKEN }}"
           STATUS="NONE"
           while [ "$STATUS" != "OK" ] && [ "$STATUS" != "ERROR" ]; do
@@ -67,14 +77,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # Conditional step based on Quality Gate result
-      - name: Halt Deployment Due to Failed Quality Gate
-        if: steps.quality_gate.outputs.quality_gate_passed != 'true'
-        run: |
-          echo "Halting deployment due to failed Quality Gate."
-          exit 1
+  deploy_vercel:
+    needs: quality_gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      # Build and deploy to Vercel and capture deployment URL
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
@@ -89,7 +98,11 @@ jobs:
         if: success()
         id: extract-url
         run: echo "::set-output name=deployment-url::$(tail -1 deployment-url.txt)"
-        
+
+  zap_scan:
+    needs: deploy_vercel
+    runs-on: ubuntu-latest
+    steps:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
