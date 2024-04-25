@@ -66,7 +66,7 @@ describe("Component Coverage Tests", () => {
 
   // PokemonDetail
   it("should render the PokemonDetail component correctly", () => {
-    const { container } = render(<PokemonDetail pokemonId="00" />);
+    const { container } = render(<PokemonDetail pokemonId="00" readyToEvolve={{}} />);
     expect(container).toBeDefined();
   });
 });

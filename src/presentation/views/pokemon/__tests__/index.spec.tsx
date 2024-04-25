@@ -57,12 +57,14 @@ describe("Component Coverage Tests", () => {
 
   // evolution chain, CardPokedex, CardPokemonSelection
   it("should render the evolution chain component correctly", () => {
-    const { container } = render(<EvolutionChainPage pokemonId={undefined} pokemonState={undefined} nextEvolutionChain={undefined} />);
+    const { container } = render(<EvolutionChainPage pokemonId={undefined} pokemonState={undefined} nextEvolutionChain={undefined} readyToEvolve={undefined} setReadyToEvolve={undefined} />);
     expect(container).toBeDefined();
   });
 
   it("should render the CardPokedex component correctly", () => {
-    const { container } = render(<CardPokedex pokemonName={""} />);
+    const { container } = render(<CardPokedex pokemonName={""} readyToEvolve={{}} setReadyToEvolve={function (value: { [key: string]: boolean; }): void {
+      throw new Error("Function not implemented.");
+    } } />);
     expect(container).toBeDefined();
   });
 
