@@ -42,11 +42,10 @@ jobs:
           args: >
             -Dsonar.projectKey=Stradivary_pokejut
             -Dsonar.organization=stradivary
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=${{ env.SONAR_TOKEN }}
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.coverage.exclusions='src/**/*.test.ts, src/**/*.test.tsx, __snapshots__/**/*, src/**/*.spec.ts, src/**/*.spec.tsx, src/domain/use-cases/simulator/presistor.ts, src/data/entities/**/*, src/main.tsx, src/routes.tsx'
-
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+            -Dsonar.sources=./src
+            -Dsonar.exclusions='src\**\*.test.ts, src\**\*.test.tsx, __snapshots__\**\*, src\**\*.spec.ts, src\**\*.spec.tsx, src\domain\use-cases\simulator\presistor.ts, src\data\entities\**\*, src\main.tsx, src\routes.tsx'
+            
       # Check SonarQube Quality Gate Status
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
