@@ -9,6 +9,10 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PRODUCTION_DEPLOYMENT_URL: 'https://pokejut.vercel.app/'
 
+permissions:
+  contents: read
+  issues: write
+
 on:
   push:
     branches:
