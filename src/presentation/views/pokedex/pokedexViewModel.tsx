@@ -27,7 +27,7 @@ const usePokedexViewModel = () => {
 
   return {
     status,
-    data: data,
+    data,
     error,
     isFetching,
     isFetchingNextPage,

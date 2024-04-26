@@ -28,15 +28,14 @@ export default function EvolutionCard({
 
   const weightPercentage = useMemo(() => {
     const pokemonWeight = oldPokemon?.weight ?? 0;
-    const nextEvolutionPokemonWeight = pokemon?.weight ?? 8000;
+    const nextEvolutionPokemonWeight = pokemon?.weight ?? 80000;
     return pokemonWeight < nextEvolutionPokemonWeight
-      ? (pokemonWeight / nextEvolutionPokemonWeight) * 100
-      : 100;
+      ? (pokemonWeight / nextEvolutionPokemonWeight) * 100 : 100;
   }, [oldPokemon, pokemon]);
 
   const canEvolve = useMemo(() => {
     const pokemonWeight = oldPokemon?.weight ?? 0;
-    const nextEvolutionPokemonWeight = pokemon?.weight ?? 8000;
+    const nextEvolutionPokemonWeight = pokemon?.weight ?? 80000;
     return pokemonWeight >= nextEvolutionPokemonWeight;
   }, [oldPokemon, pokemon]);
 
