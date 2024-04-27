@@ -9,6 +9,10 @@ import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { FirmnessTable } from "../components/pokemon-detail/FirmnessTable";
+import { PokemonDetail } from "../components/pokemon-detail";
+
+import { Component as PokemonPage } from "../pokemon";
+import { BerriesFeeder } from "../components/pokemon-detail/berriesFeeder";
 
 const mock = new MockAdapter(axios);
 
@@ -104,6 +108,24 @@ describe("Component Coverage Tests", () => {
 
   it("should render FirmnessTable ", () => {
     const { container } = render(<FirmnessTable modifier={0} />);
+    expect(container).toBeDefined();
+  });
+
+  it("should render the PokemonPage component correctly", () => {
+    const { container } = render(<PokemonPage />);
+    expect(container).toBeDefined();
+  });
+
+  // PokemonDetail
+  it("should render the PokemonDetail component correctly", () => {
+    const { container } = render(<PokemonDetail pokemonId="00" readyToEvolve={{}} />);
+    expect(container).toBeDefined();
+  });
+
+  it("should render Berries Feeder component correctly", () => {
+    const { container } = render(<BerriesFeeder
+      feedPokemon={() => { }}
+      selectedPokemonId="1" canFeedBerry={true} />);
     expect(container).toBeDefined();
   });
 });

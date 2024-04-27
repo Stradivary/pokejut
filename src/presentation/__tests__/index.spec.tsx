@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
 import { render } from "~/tests/test-utils";
-import { Component as MainPage } from "../_layout";
-import { Component as PokedexPage } from "../pokedex/pokedex";
-import { mockIntersectionObserver } from "../../../../tests/mockIntersectionObserver";
-import { PokemonDetail } from "../pokemon/components/pokemon-detail";
-import { Component as PokemonPage } from "../pokemon/pokemon";
-import { Component as SettingsPage } from "../settings/settings";
+import { Component as MainPage } from "../views/_layout";
+import { Component as PokedexPage } from "../views/pokedex/pokedex";
+import { mockIntersectionObserver } from "../../../tests/mockIntersectionObserver";
+
+import { Component as SettingsPage } from "../views/settings/settings";
+import { PokemonTypeBadge } from "../components/PokemonTypeBadge";
 
 describe("Component Coverage Tests", () => {
   it("should render the MainPage component correctly", () => {
@@ -44,8 +44,8 @@ describe("Component Coverage Tests", () => {
           hasNextPage: false,
           isFetchingNextPage: false,
           isFetching: false,
-          fetchNextPage: () => {},
-          intersectionRef: () => {},
+          fetchNextPage: () => { },
+          intersectionRef: () => { },
         };
       };
     });
@@ -59,14 +59,11 @@ describe("Component Coverage Tests", () => {
     expect(container).toBeDefined();
   });
 
-  it("should render the PokemonPage component correctly", () => {
-    const { container } = render(<PokemonPage />);
+  it("should render the PokemonTypeBadge component correctly", () => {
+    const { container } = render(<PokemonTypeBadge type={{
+      name: "grass"
+    }} />);
     expect(container).toBeDefined();
   });
 
-  // PokemonDetail
-  it("should render the PokemonDetail component correctly", () => {
-    const { container } = render(<PokemonDetail pokemonId="00" readyToEvolve={{}} />);
-    expect(container).toBeDefined();
-  });
 });
