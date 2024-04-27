@@ -54,7 +54,7 @@ jobs:
       quality_gate_passed: ${{ steps.quality_gate.outputs.quality_gate_passed  }}
     steps:
       - name: Reuse checked-out code from previous job
-        uses: actions/cache@v4.0.2
+        uses: actions/checkout@v4.1.4
         with:
           path: .
       - name: download coverage
