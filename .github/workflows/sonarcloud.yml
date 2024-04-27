@@ -43,28 +43,33 @@ jobs:
       - name: Run tests with coverage
         run: npm run cover
       - name: Upload coverage to build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.3.3
         with:
           name: coverage
-          path: coverage
+          path: coverage/lcov.info
   sonar:
     needs: build
     runs-on: ubuntu-latest
     outputs:
       quality_gate_passed: ${{ steps.quality_gate.outputs.quality_gate_passed  }}
     steps:
+      - name: Reuse checked-out code from previous job
+        uses: actions/cache@v4.0.2
+        with:
+          path: .
       - name: download coverage
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: coverage
-          path: coverage
+          path: coverage/lcov.info
       - name: Run SonarQube analysis
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=Stradivary_pokejut
-            -Dsonar.organization=stradivary
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.projectKey=Stradivary_pokejut 
+            -Dsonar.organization=stradivary 
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info 
+            -Dsonar.source=src 
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
         run: |
