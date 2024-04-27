@@ -5,9 +5,9 @@ export function Component() {
     const bindings = useSettingsViewModel();
     return (
         <Stack p={16}>
-            <Title  >Pengaturan</Title>
+            <Title order={1} fz={18} >Pengaturan</Title>
             <Group w="80%" mt={16} justify="space-between">
-                <Title order={4} fw="bold">Tema</Title>
+                <Title order={2} fz={16} fw="bold">Tema</Title>
                 <SegmentedControl
                     value={bindings.colorScheme}
                     onChange={(value) => bindings.setColorScheme(value as 'light' | 'dark')}
@@ -15,7 +15,7 @@ export function Component() {
             </Group>
             <Divider />
 
-            <Title order={4} fw="bold">Koleksi Pokemon</Title>
+            <Title order={2} fz={16} fw="bold">Koleksi Pokemon</Title>
 
             <Button maw={240} disabled={bindings.canReleaseCollection} color="red" onClick={bindings.handleReleaseCollection}>Hapus Koleksi Pokemon</Button>
 
