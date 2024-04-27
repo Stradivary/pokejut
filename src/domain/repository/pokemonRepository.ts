@@ -59,18 +59,20 @@ class PokemonRepository {
         }
 
         let filteredPokemons = this.pokemons;
-        // Apply general search query
+
         if (q !== undefined && q !== "") {
-            filteredPokemons = this.pokemons.filter(pokemon =>
-                pokemon.name.toLowerCase().includes(q.toLowerCase())
-            );
+            filteredPokemons = this.pokemons
+                .filter(pokemon =>
+                    pokemon.name
+                        .toLowerCase()
+                        .includes(q.toLowerCase())
+                );
         }
 
-        // Apply type filter
         if (filter !== undefined && filter !== "") {
             filteredPokemons = filteredPokemons
-                .filter((pokemon) => pokemon.types instanceof Array).
-                filter(pokemon =>
+                .filter((pokemon) => pokemon.types instanceof Array)
+                .filter(pokemon =>
                     pokemon.types.includes(filter)
                 );
         }

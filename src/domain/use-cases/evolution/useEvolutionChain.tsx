@@ -11,11 +11,8 @@ export const useEvolutionChain = (selectedPokemon?: PokemonState) => {
         if (selectedPokemon == undefined || !evolves_to || !name) {
             return null;
         };
-    
-        return findEvolutionChain(
-            evolves_to,
-            name ?? ""
-        );
+
+        return findEvolutionChain(evolves_to, name ?? "");
     }, [evolves_to, name]);
     return { nextEvolutionChain };
 };
