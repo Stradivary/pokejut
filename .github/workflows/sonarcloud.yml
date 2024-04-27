@@ -3,11 +3,11 @@ name: Vercel Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  PRODUCTION_DEPLOYMENT_URL: 'https://pokejut.vercel.app/'
+  PRODUCTION_DEPLOYMENT_URL: "https://pokejut.vercel.app/"
 
 permissions:
   contents: read
@@ -36,30 +36,40 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-          
+
       - name: Install dependencies
         run: npm install
 
       - name: Run tests with coverage
         run: npm run cover
-
+      - name: Upload coverage to build
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
   sonar:
     needs: build
     runs-on: ubuntu-latest
+    outputs:
+      quality_gate_passed: ${{ steps.quality_gate.outputs.quality_gate_passed  }}
     steps:
+      - name: download coverage
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+          path: coverage
       - name: Run SonarQube analysis
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.projectKey=Stradivary_pokejut
             -Dsonar.organization=stradivary
-            -Dsonar.sources=src
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
         run: |
           URL="https://sonarcloud.io/api/qualitygates/project_status?projectKey=Stradivary_pokejut"
-          TOKEN="${{ secrets.SONAR_TOKEN }}"
+          TOKEN="${{ env.SONAR_TOKEN }}"
           STATUS="NONE"
           while [ "$STATUS" != "OK" ] && [ "$STATUS" != "ERROR" ]; do
             RESPONSE=$(curl -u $TOKEN: "$URL")
@@ -76,7 +86,7 @@ jobs:
           echo "Quality Gate passed."
           echo "quality_gate_passed=true" >> $GITHUB_OUTPUT
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
 
   deploy_vercel:
     needs: sonar
@@ -89,14 +99,14 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      
+        run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
+
       - name: Deploy Project Artifacts to Vercel
-        if: success() && steps.quality_gate.outputs.quality_gate_passed == 'true'
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt
+        if: success() && needs.sonar.outputs.quality_gate_passed == 'true'
+        run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }} > deployment-url.txt
 
       - name: Extract Deployment URL
         if: success()
