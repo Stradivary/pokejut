@@ -27,13 +27,13 @@ exports[`Settings Component > should render the component correctly 1`] = `
       class="mantine-Group-root"
       style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: space-between; --group-wrap: wrap; width: 80%;"
     >
-      <h4
+      <h2
         class="mantine-Title-root"
-        data-order="4"
-        style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
+        data-order="2"
+        style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size); font-weight: bold;"
       >
         Tema
-      </h4>
+      </h2>
       <div
         class="mantine-SegmentedControl-root"
         data-full-width="true"
@@ -97,13 +97,13 @@ exports[`Settings Component > should render the component correctly 1`] = `
       role="separator"
       style=""
     />
-    <h4
+    <h2
       class="mantine-Title-root"
-      data-order="4"
-      style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); font-weight: bold;"
+      data-order="2"
+      style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size); font-weight: bold;"
     >
       Koleksi Pokemon
-    </h4>
+    </h2>
     <button
       class="mantine-focus-auto mantine-Button-root mantine-UnstyledButton-root"
       data-disabled="true"
