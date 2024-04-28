@@ -13,6 +13,7 @@
 }
 
 .cardAddPokemon {
+  --card-background-color: #f5f5f5;
   position: relative;
   display: flex;
   align-items: center;
@@ -26,13 +27,18 @@
   width: 100%;
   color: #fff;
   background-color: light-dark(var(--mantine-color-white), var(--mantine-color-black));
+  background-image: url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, var(--card-background-color), #060e20cc);
+
 }
 
 .cardPokemonImg { 
   width: 100%;
   transform: scale(0.5);
   filter: saturate(1.9);
-
+  min-width: 300px;
+  height: 300px;
+  object-fit: contain; 
+  
   @media screen and (max-width: 1224px) {
     width: 200px;
     transform: scale(0.7);

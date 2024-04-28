@@ -6,7 +6,7 @@ import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { getColorByType, statIcons, statLabels } from "@/utils/constants";
 import { getPokemonImage } from "@/utils/image";
-import { PokemonTypeBadge } from "../../../../components/PokemonTypeBadge";
+import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
 import { handleModalRelease } from "../../pokemonSelectedViewModel";
 import styles from "./style.module.scss";
 
@@ -29,10 +29,8 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
   return (
     <Paper
       className={styles["card-pokemon"]}
-      shadow="sm"
       withBorder
       style={{
-        padding: 20,
         '--selected-color': `${color}`,
         viewTransitionName: `pokemon-card-${index}`
       }}
@@ -57,10 +55,8 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               draggable={false}
               className={styles["card-pokemon-img"]}
               style={{
-                minWidth: 160,
                 viewTransitionName: `pokemon-image-${index}`
               }}
-
               src={getPokemonImage(pokemon)}
               fallbackSrc="/pokenull.webp"
               alt="Selected Pokemon"

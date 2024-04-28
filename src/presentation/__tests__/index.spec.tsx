@@ -5,7 +5,7 @@ import { Component as PokedexPage } from "../views/pokedex/pokedex";
 import { mockIntersectionObserver } from "../../../tests/mockIntersectionObserver";
 
 import { Component as SettingsPage } from "../views/settings/settings";
-import { PokemonTypeBadge } from "../components/PokemonTypeBadge";
+import { PokemonTypeBadge } from "../components/pokemonTypeBadge";
 
 describe("Component Coverage Tests", () => {
   it("should render the MainPage component correctly", () => {

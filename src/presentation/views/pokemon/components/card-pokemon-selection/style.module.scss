@@ -9,9 +9,12 @@
 
 .card-pokemon {
 
+  padding: 20px;
+  box-shadow: var(--mantine-shadow-sm);
+
   // is not touch device
   @media screen and (hover: hover) {
-    border-left-color: var(--mantine-color-white);
+    border-left-color: var(--selected-color);
     border-left-width: 5px;
   }
 
@@ -35,7 +38,8 @@
 .card-pokemon-img {
   position: relative;
   width: 100%;
-  max-height: 180px;
+  min-height: 180px;
+  min-width: 160px;
   margin-right: auto;
   margin-left: auto;
   object-fit: contain;

@@ -1,5 +1,5 @@
 import { Image } from "@mantine/core";
-import { NavItemData } from "../components/navbar/types";
+import { NavItemData } from "../components/types";
 
 
 export const data: NavItemData[] = [

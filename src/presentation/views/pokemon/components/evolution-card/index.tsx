@@ -7,7 +7,7 @@ import { getPokemonImage } from "@/utils/image";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.scss";
+import styles from "./style.module.scss";
 
 export default function EvolutionCard({
   pokemonName,
@@ -46,7 +46,7 @@ export default function EvolutionCard({
   }
 
   return (
-    <Stack key={pokemon?.name} miw={180} mih={100}>
+    <Stack key={pokemon?.name} className={styles.root} >
       <HoverCard
         offset={10}
         radius="sm"
@@ -55,18 +55,13 @@ export default function EvolutionCard({
           <Stack>
             <Paper
               key={pokemon?.name}
-              className="card-pokedex"
+              className={styles["card-pokedex"]}
               style={{
-                position: 'relative',
-                width: "100%",
-                height: 200,
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
+                '--selected-color': `${color}`,
               }}
             >
               <Image
-                style={{ width: "80%" }}
+                className={styles["card-pokemon-img"]}
                 loading="lazy"
                 draggable={false}
                 src={getPokemonImage(pokemon)}
@@ -74,7 +69,7 @@ export default function EvolutionCard({
                 alt="Pokemon"
               />
 
-              <Title order={5} style={{ textAlign: "center", position: "absolute", bottom: 0, left: 0, right: 0 }}>
+              <Title order={5} className={styles["card-title"]}>
                 {pokemon?.name}
               </Title>
             </Paper>

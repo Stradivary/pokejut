@@ -15,10 +15,11 @@ import { useCallback, useMemo } from "react";
 
 import { evolveSelectedPokemon, useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
-import { PokemonTypeBadge } from "@/presentation/components/PokemonTypeBadge";
+import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
 import { getColorByType, statLabels } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
+import { getPokemonImage } from "@/utils/image";
 
 export default function CardAddPokemon({
   pokemonName,
@@ -68,8 +69,7 @@ export default function CardAddPokemon({
     <Paper
       className={style.cardAddPokemon}
       style={{
-        backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
-        backgroundRepeat: "no-repeat",
+        '--card-background-color': color,
       }}
       mih={600}
       p={16}
@@ -77,19 +77,9 @@ export default function CardAddPokemon({
       <SimpleGrid cols={{ base: 1, xs: 1, sm: 1, md: 1, lg: 1 }} spacing={16}>
         <Image
           loading="lazy"
-          style={{
-            width: "100%",
-            minWidth: 300,
-            height: 300,
-            objectFit: "contain",
-          }}
           draggable={false}
           className={style.cardPokemonImg}
-          src={
-            pokemon?.sprites?.other?.["dream_world"].front_default
-              ? pokemon?.sprites?.other["dream_world"].front_default
-              : pokemon?.sprites?.front_default
-          }
+          src={getPokemonImage(pokemon)}
           fallbackSrc="/pokenull.webp"
           alt={"Selected Pokemon " + pokemon?.name}
         />

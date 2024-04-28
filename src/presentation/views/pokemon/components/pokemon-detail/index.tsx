@@ -1,6 +1,6 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
-import { PokemonTypeBadge } from "@/presentation/components/PokemonTypeBadge";
+import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
 import { firmnesColor, getColorByType, statIcons, statLabels } from "@/utils/constants";
 import { getPokemonImage } from "@/utils/image";
 import {
@@ -40,9 +40,8 @@ export const PokemonDetail: React.FC<{
       <Paper
         className={styles["card-pokemon"]}
         style={{
-          marginTop: 40,
-          minHeight: 400,
-          backgroundImage: `url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, ${color}, #060e20cc)`,
+          '--selected-color': `${color}`,
+          
           viewTransitionName: `pokemon-card-${pokemonId}`
         }}
       >

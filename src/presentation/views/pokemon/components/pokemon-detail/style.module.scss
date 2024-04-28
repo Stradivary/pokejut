@@ -15,10 +15,13 @@
   background-position: center left, bottom 50% center;
   background-size: 50%, auto;
   background-repeat: no-repeat;
+  background-image: url('/svgs/half-pokeball.svg'), radial-gradient(80% 80% at 50% bottom, var(--selected-color), #060e20cc);
   backdrop-filter: blur(10px);
   width: 100%;
   color: #fff;
   align-items: stretch;
+  margin-top: 40px;
+  min-height: 400px;
 }
 
 .card-pokemon-img {

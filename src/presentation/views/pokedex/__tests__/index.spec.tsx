@@ -4,7 +4,7 @@ import MockAdapter from "axios-mock-adapter";
 import { describe, expect, it, vi } from "vitest";
 import { mockIntersectionObserver } from "~/tests/mockIntersectionObserver";
 import { render } from "~/tests/test-utils";
-import CardAddPokemon from "../components/card-pokemon-add";
+import CardAddPokemon from "../components/cardAddPokemon";
 import { TypeBadge } from "../components/typeBadge";
 import { Component as PokemonList } from "../pokedex";
 

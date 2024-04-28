@@ -1,5 +1,5 @@
 import React from 'react';
-import CardAddPokemon from './card-pokemon-add';
+import CardAddPokemon from './cardAddPokemon';
 
 export const PaginatedList = ({ pages }: { pages: any[]; }) => pages.map((page, index: number) => (
     <React.Fragment key={index + '-page'}>
