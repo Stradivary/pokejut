@@ -1,25 +1,32 @@
-name: Vercel Production Deployment
-
+# Workflow Pokejut
+name: CI/CD Pipeline
+# Environment Variables yang digunakan dalam workflow
+# Variabel sensitif yang digunakan diambil dari repository secret, 
+# sisanya dideklarasikan di sini
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  NODE_VERSION: "20"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  NODE_VERSION: "20" # non sensitive variable
   PRODUCTION_DEPLOYMENT_URL: "https://pokejut.vercel.app/"
 
+# Permissions yang digunakan dalam workflow
 permissions:
-  contents: read
-  issues: write
+  contents: read # digunakan untuk membaca isi repository
+  issues: write # digunakan untuk menulis issue, dipakai oleh ZAP Scan
 
+# Trigger yang digunakan dalam workflow, yaitu ketika ada push ke branch main
 on:
   push:
     branches:
       - main
 
+# Jobs yand direncanakan dalam workflow
 jobs:
-  build:
+  build: # Job Build and Test untuk menjalankan test dan coverage
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -42,13 +49,16 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run cover
+
       - name: Upload coverage to build
         uses: actions/upload-artifact@v4.3.3
         with:
           name: coverage
           path: coverage
-  sonar:
+
+  sonar: # Job SonarQube untuk melakukan analisis kualitas kode
     needs: build
+    name: Code Quality Analysis
     runs-on: ubuntu-latest
     outputs:
       quality_gate_passed: ${{ steps.quality_gate.outputs.quality_gate_passed  }}
@@ -57,11 +67,13 @@ jobs:
         uses: actions/checkout@v4.1.4
         with:
           path: .
+
       - name: download coverage
         uses: actions/download-artifact@v4.1.7
         with:
           name: coverage
           path: coverage
+
       - name: Run SonarQube analysis
         uses: SonarSource/sonarcloud-github-action@master
         with:
@@ -69,7 +81,8 @@ jobs:
             -Dsonar.projectKey=Stradivary_pokejut 
             -Dsonar.organization=stradivary 
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info 
-            -Dsonar.source=src 
+            -Dsonar.source=src
+
       - name: Check SonarQube Quality Gate Status
         id: quality_gate
         run: |
@@ -93,7 +106,8 @@ jobs:
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
 
-  deploy_vercel:
+  deploy_vercel: # Job untuk melakukan deploy ke Vercel
+    name: Deploy to Vercel
     needs: sonar
     runs-on: ubuntu-latest
     steps:
@@ -119,7 +133,8 @@ jobs:
         run: |
           echo "deployment-url=$(tail -1 deployment-url.txt)" >> $GITHUB_OUTPUT
 
-  zap_scan:
+  zap_scan: # Job untuk melakukan Security Scan
+    name: Security Scan
     needs: deploy_vercel
     runs-on: ubuntu-latest
     steps:
