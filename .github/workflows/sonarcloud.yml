@@ -25,8 +25,8 @@ on:
 
 # Jobs yand direncanakan dalam workflow
 jobs:
-  build: # Job Build and Test untuk menjalankan test dan coverage
-    name: Build and Test
+  test: # Job Build and Test untuk menjalankan test dan coverage
+    name: Install & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -56,8 +56,8 @@ jobs:
           name: coverage
           path: coverage
 
-  sonar: # Job SonarQube untuk melakukan analisis kualitas kode
-    needs: build
+  quality: # Job SonarQube untuk melakukan analisis kualitas kode
+    needs: test
     name: Code Quality Analysis
     runs-on: ubuntu-latest
     outputs:
@@ -106,9 +106,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
 
-  deploy_vercel: # Job untuk melakukan deploy ke Vercel
-    name: Deploy to Vercel
-    needs: sonar
+  deploy: # Job untuk melakukan deploy ke Vercel
+    name: Build and Deploy
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -135,7 +135,7 @@ jobs:
 
   zap_scan: # Job untuk melakukan Security Scan
     name: Security Scan
-    needs: deploy_vercel
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: ZAP Scan
