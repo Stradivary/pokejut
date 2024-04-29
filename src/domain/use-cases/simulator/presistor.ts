@@ -10,7 +10,7 @@ const db = localForage.createInstance({
     ],
 });
 
-export const storage: StateStorage = {
+export const indexedDBStorage: StateStorage = {
     getItem: async (name: string): Promise<string | null> => {
         return (await db.getItem(name)) as string;
     },

@@ -10,15 +10,6 @@ export function useSettingsViewModel() {
 
   const [rerender, setRerender] = useState(0);
 
-  const { setColorScheme, colorScheme } = useMantineColorScheme();
-  const { pokemonList, clearPokemonList, clearSelectedPokemon } =
-    useSimulator();
-
-  const canReleaseCollection = useMemo(
-    () => pokemonList.length === 0,
-    [pokemonList]
-  );
-
   const colorSchemeOptions = [
     {
       value: "light",
@@ -29,6 +20,17 @@ export function useSettingsViewModel() {
       label: "Gelap",
     },
   ];
+
+  const { setColorScheme, colorScheme } = useMantineColorScheme();
+
+
+  const { pokemonList, clearPokemonList, clearSelectedPokemon } =
+    useSimulator();
+
+  const canReleaseCollection = useMemo(
+    () => pokemonList.length === 0,
+    [pokemonList]
+  );
 
 
   const handleReleaseCollection = useCallback(
@@ -41,18 +43,11 @@ export function useSettingsViewModel() {
     [clearPokemonList, clearSelectedPokemon]
   );
 
-  const handleClearCache = useCallback(() => {
-    if (rerender === -1) return;
-    onClearCache(setRerender, navigate);
-  }, [navigate, rerender, setRerender]);
-
-
 
   return {
     colorScheme,
     setColorScheme,
     colorSchemeOptions,
-    handleClearCache,
     handleReleaseCollection,
     canReleaseCollection,
   };

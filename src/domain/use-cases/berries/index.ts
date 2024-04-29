@@ -2,11 +2,11 @@
 import { Berry } from "@/data/entities/berries";
 import { berriesGain } from "@/utils/constants";
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
+import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
 
 const entity = 'berries';
 
-const pokeApiDataSource = new PokeApiEntityDataSource<Berry>('berry');
+const PokeApiRepository = new PokeApiEntityRepository<Berry>('berry');
 
 const berryOptions = (action: string, params: any, fn: () => Promise<any>) => {
     return queryOptions({
@@ -18,13 +18,13 @@ const berryOptions = (action: string, params: any, fn: () => Promise<any>) => {
 
 export const useBerryGetAll = (filter: { offset: number; limit: number; }) => {
     return useQuery(berryOptions('getAll', filter, async () => {
-        return await pokeApiDataSource.getAll({ params: filter });
+        return await PokeApiRepository.getAll({ params: filter });
     }));
 };
 
 export const useBerryGetByName = (name: string) => {
     return useQuery(berryOptions('getByName', name, async () => {
-        return await pokeApiDataSource.getOne(name);
+        return await PokeApiRepository.getOne(name);
     }));
 };
 

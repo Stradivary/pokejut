@@ -1,7 +1,7 @@
 import { AppShell, Burger, Group, Image, NavLink, ScrollArea, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { NavLink as NL, useLocation } from "react-router-dom";
-import { NavItemData } from "./types";
+import { NavItemData } from "../../utils/types";
 
 export const MainNavbar = ({
     data,

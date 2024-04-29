@@ -6,3 +6,5 @@ export interface DataSource<T> {
     getAll(params?: any): Promise<T>;
     getById(id: string, params?: any): Promise<T>;
 }
+
+

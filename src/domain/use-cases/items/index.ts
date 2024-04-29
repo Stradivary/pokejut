@@ -1,8 +1,8 @@
 import { UseQueryOptions, queryOptions, useQuery } from "@tanstack/react-query";
-import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
+import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
 const entity = 'items';
 
-const pokeApiDataSource = new PokeApiEntityDataSource('item');
+const pokeApiItemRepository = new PokeApiEntityRepository('item');
 
 const itemOptions = (action: string, params: any, fn: () => Promise<any>, opts?: Partial<UseQueryOptions<any, Error, any, any[]>>
 ) => {
@@ -16,7 +16,7 @@ const itemOptions = (action: string, params: any, fn: () => Promise<any>, opts?:
 
 export const useItemGetByName = (name?: string) => {
     return useQuery(itemOptions('getByName', name, async () => {
-        return pokeApiDataSource.getOne(name as string);
+        return pokeApiItemRepository.getOne(name as string);
     }, {
         enabled: !!name,
     }));

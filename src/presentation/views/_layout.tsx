@@ -2,7 +2,7 @@ import { ActionIcon, AppShell, Burger, Group, Image, Modal, Stack, Title, useMan
 import { useDisclosure, useNetwork } from "@mantine/hooks";
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { MainNavbar } from "../components/mainNavbar";
-import { data } from "./data";
+import { data } from "../../utils/navigation";
 
 export function Component() {
   const [opened, { toggle }] = useDisclosure();

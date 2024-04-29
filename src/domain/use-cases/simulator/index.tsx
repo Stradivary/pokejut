@@ -204,6 +204,7 @@ export const useSimulator = create(
         {
             name: 'pokemon-storage',
             storage: createJSONStorage(() => sessionStorage),
+            // atau bisa juga menggunakan indexedDBStorage
         }
     )
 );

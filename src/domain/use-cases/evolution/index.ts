@@ -1,13 +1,13 @@
 import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { PokeApiEntityDataSource } from "../../repository/pokeApiRepository";
+import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
 
 const entity = 'evolutions';
 
-const pokeApiEvolutionDataSource = new PokeApiEntityDataSource('evolution-chain');
+const pokeApiEvolutionRepository = new PokeApiEntityRepository('evolution-chain');
 
-const pokeApiSpeciesDataSource = new PokeApiEntityDataSource<Species>('pokemon-species');
+const pokeApiSpeciesRepository = new PokeApiEntityRepository<Species>('pokemon-species');
 
 
 const evolutionOptions = (action: string, params: any, fn: () => Promise<any>) => {
@@ -30,7 +30,7 @@ export const useEvolutionGetByName = (name: string) => {
 export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
     return useQuery({
         queryKey: ["pokemon", "evolutionChain", evolutionChain],
-        queryFn: async () => await pokeApiEvolutionDataSource.getOne(evolutionChain ?? ""),
+        queryFn: async () => await pokeApiEvolutionRepository.getOne(evolutionChain ?? ""),
         enabled: !!evolutionChain,
     });
 };
@@ -38,7 +38,7 @@ export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
 export const usePokemonGetSpecies = (id?: string) => {
     return useQuery({
         queryKey: ["pokemon", "species", id],
-        queryFn: async () => await pokeApiSpeciesDataSource.getOne(id ?? ""),
+        queryFn: async () => await pokeApiSpeciesRepository.getOne(id ?? ""),
         enabled: !!id,
     });
 };

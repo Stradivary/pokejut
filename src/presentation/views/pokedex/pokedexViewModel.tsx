@@ -3,10 +3,12 @@ import { useIntersection } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 
 const usePokedexViewModel = () => {
-  const { ref, entry } = useIntersection();
 
   const [selectedType, setSelectedType] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+
+  
+  const { ref, entry } = useIntersection();
 
   const {
     status,

@@ -19,7 +19,6 @@ export function Component() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(readyToEvolve, nextEvolutionChain);
     if (nextEvolutionChain) {
       nextEvolutionChain?.evolves_to?.forEach((evolution) => {
         if (evolution.species) {

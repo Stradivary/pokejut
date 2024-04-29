@@ -21,7 +21,7 @@ class PokeApiRepository<T, P = AxiosRequestConfig<any>> {
 }
 
 
-export class PokeApiEntityDataSource<T> extends PokeApiRepository<T> {
+export class PokeApiEntityRepository<T> extends PokeApiRepository<T> {
     constructor(entity: string) {
         super(new RemoteDataSource<T>(
             'https://pokeapi.co/api/v2/', entity
