@@ -139,6 +139,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.12.0
+        uses: zaproxy/action-baseline@master
         with:
           target: ${{ env.PRODUCTION_DEPLOYMENT_URL }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          rules_file_name: '.github/workflows/rules.tsv'
+          cmd_options: '-a -z "-config view.locale=id_ID"'
+
