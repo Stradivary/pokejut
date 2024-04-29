@@ -1,7 +1,7 @@
 # Workflow Pokejut
 name: CI/CD Pipeline
 # Environment Variables yang digunakan dalam workflow
-# Variabel sensitif yang digunakan diambil dari repository secret, 
+# Variabel sensitif yang digunakan diambil dari repository secret,
 # sisanya dideklarasikan di sini
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -50,7 +50,7 @@ jobs:
       - name: Run tests with coverage
         run: npm run cover
 
-      - name: Upload coverage to build
+      - name: Upload coverage to quality analysis
         uses: actions/upload-artifact@v4.3.3
         with:
           name: coverage
@@ -124,7 +124,7 @@ jobs:
         run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        if: success() && needs.sonar.outputs.quality_gate_passed == 'true'
+        if: success() && needs.quality.outputs.quality_gate_passed == 'true'
         run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }} > deployment-url.txt
 
       - name: Extract Deployment URL
