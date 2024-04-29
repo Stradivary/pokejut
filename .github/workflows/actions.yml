@@ -146,6 +146,5 @@ jobs:
         with:
           target: ${{ env.PRODUCTION_DEPLOYMENT_URL }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          rules_file_name: '.github/workflows/rules.tsv'
           cmd_options: '-a -z "-config view.locale=id_ID"'
 
