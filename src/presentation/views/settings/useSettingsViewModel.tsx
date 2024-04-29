@@ -2,14 +2,10 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { useMantineColorScheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
-import { useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useMemo } from "react";
 
 export function useSettingsViewModel() {
-  const navigate = useNavigate();
-
-  const [rerender, setRerender] = useState(0);
-
+  
   const colorSchemeOptions = [
     {
       value: "light",
