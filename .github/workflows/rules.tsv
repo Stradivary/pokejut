@@ -1,11 +1,11 @@
-10015	IGNORE	(Incomplete or No Cache-control and Pragma HTTP Header Set)
-10020	IGNORE	(X-Frame-Options Header Scanner)
-10021	IGNORE	(X-Content-Type-Options Header Missing)
-10027	IGNORE	(Information Disclosure - Suspicious Comments)
-10038   IGNORE  (Content Security Policy)
-10049   IGNORE  (Non-Storable Content)
-10050   IGNORE  (Permissions Policy Header Not Set)
-10094   IGNORE  (Base64 Exposure)
-10098   IGNORE  (Invalid Cross Domain Configuration)
-10109   IGNORE  (Modern Web App)
-90005   IGNORE  (Sec-Fetch-Dest Header is Missing)
+10015	IGNORE
+10020	IGNORE
+10021	IGNORE
+10027	IGNORE
+10038	IGNORE
+10049	IGNORE
+10050	IGNORE
+10094	IGNORE
+10098	IGNORE
+10109	IGNORE
+90005	IGNORE
