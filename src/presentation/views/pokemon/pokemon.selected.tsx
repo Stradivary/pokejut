@@ -1,4 +1,4 @@
-import { Box, Button, Group } from "@mantine/core";
+import { Box, Button, Center, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { PokemonDetail } from "./components/pokemon-detail";
 import { EvolutionChainPage } from "./components/pokemon-detail/evolutionChain";
@@ -27,7 +27,7 @@ export function Component() {
         )}
       </Group>
       {binding.isNoSelectionFound && (
-        <div>Not found</div>
+        <Center mt={120}>Tidak ada pokemon yang dipilih</Center>
       )}
       {binding.selectedPokemonId && (
         <>

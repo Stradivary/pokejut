@@ -11,6 +11,7 @@ import { modals } from '@mantine/modals';
 import { NavigateFunction, redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { type PokemonState } from './pokemonState';
+import { indexedDBStorage } from './presistor';
 
 export type BerryState = Partial<Berry>;
 
@@ -173,14 +174,8 @@ export const useSimulator = create(
                                 confirm: "Pergi Ke Daftar Pokemon",
                                 cancel: "Tutup"
                             },
-
-                            onConfirm: () => {
-                                navigate("/pokemon");
-                            },
-
-                            onCancel: () => {
-                                modals.closeAll();
-                            }
+                            onConfirm: () => { navigate("/pokemon"); },
+                            onCancel: () => { modals.closeAll(); }
 
                         });
 
@@ -203,8 +198,7 @@ export const useSimulator = create(
         }),
         {
             name: 'pokemon-storage',
-            storage: createJSONStorage(() => sessionStorage),
-            // atau bisa juga menggunakan indexedDBStorage
+            storage: createJSONStorage(() => indexedDBStorage)
         }
     )
 );

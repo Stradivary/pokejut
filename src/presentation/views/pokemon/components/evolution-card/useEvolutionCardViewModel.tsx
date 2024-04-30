@@ -4,8 +4,8 @@ import { getColorByType } from "@/utils/constants";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const useEvolutionCardViewModel = (pokemonName: string, oldPokemon: any, readyToEvolve: any, setReadyToEvolve: any) => {
-  const { data: pokemon } = usePokemonGetByName(pokemonName);
+export const useEvolutionCardViewModel = (name: string, oldPokemon: any, readyToEvolve: any, setReadyToEvolve: any) => {
+  const { data: pokemon } = usePokemonGetByName(name);
 
   const color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "#fff");
 
@@ -26,8 +26,11 @@ export const useEvolutionCardViewModel = (pokemonName: string, oldPokemon: any, 
 
   const navigate = useNavigate();
 
-  if (canEvolve && !readyToEvolve[pokemonName] && pokemonName) {
-    setReadyToEvolve({ ...readyToEvolve, [pokemonName]: true });
+  const pokemonSpecies = pokemon?.species?.name ?? "";
+  const pokemonName = pokemon?.name;
+
+  if (canEvolve && !readyToEvolve[name] && name) {
+    setReadyToEvolve({ ...readyToEvolve, [name]: true });
   }
 
   return {
@@ -36,7 +39,9 @@ export const useEvolutionCardViewModel = (pokemonName: string, oldPokemon: any, 
     weightPercentage,
     canEvolve,
     navigate,
-    evolveSelectedPokemon
+    evolveSelectedPokemon,
+    pokemonSpecies,
+    pokemonName
   };
 
 };

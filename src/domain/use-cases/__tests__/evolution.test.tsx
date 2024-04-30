@@ -51,6 +51,8 @@ describe('findEvolutionChain', () => {
             evolves_to: [],
             is_baby: false
         };
+        
+        expect(findEvolutionChain(undefined, 'pikachu')).toEqual(null);
         expect(findEvolutionChain(data, 'pikachu')).toEqual(data);
     });
 

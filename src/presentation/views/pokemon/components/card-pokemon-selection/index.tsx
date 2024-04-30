@@ -1,41 +1,30 @@
-import { Button, Flex, Group, Image, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
-import { useSimulator } from "@/domain/use-cases/simulator";
-import { getColorByType, statIcons, statLabels } from "@/utils/constants";
-import { getPokemonImage } from "@/utils/image";
 import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
+import { statIcons, statLabels } from "@/utils/constants";
+import { getPokemonImage } from "@/utils/image";
+import { Button, Flex, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Link } from "react-router-dom";
+import { usePokemonSelectCardViewModel } from "./usePokemonSelectCardViewModel";
+import { Tooltip } from '@/presentation/components/tooltip';
+
 import styles from "./style.module.scss";
-import { handleModalRelease } from "../../usePokemonSelectedViewModel";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
-  const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const [color, setColor] = useState<string | undefined>("#fff");
-  const { pokemonList, setSelectedPokemon } = useSimulator();
-
-  const { releaseSelectedPokemon } = useSimulator();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (pokemonName) {
-      const Color = getColorByType(pokemon?.types?.[0]?.type?.name ?? "");
-      setColor(Color);
-    }
-  }, [pokemonName, pokemon]);
-
-
+  const binding = usePokemonSelectCardViewModel(pokemonName, index);
 
   return (
     <Paper
       className={styles["card-pokemon"]}
       withBorder
       style={{
-        '--selected-color': `${color}`,
+        '--selected-color': `${binding.color}`,
         viewTransitionName: `pokemon-card-${index}`
       }}
     >
-      <Flex>
+      <Flex direction={{
+        base: "column",
+        lg: "row",
+        xs: "column"
+      }}>
         <Paper
           style={{
             flex: 1,
@@ -44,10 +33,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
           shadow="0"
           component={Link}
           unstable_viewTransition
-          to={`./selected`} onClick={() => {
-            const selectedPoke = pokemonList.find(x => x.pokeId === index);
-            setSelectedPokemon(selectedPoke);
-          }} >
+          to={`./selected`} onClick={binding.onSelectClick} >
 
           <Group align="stretch" >
             <Image
@@ -57,16 +43,16 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
               style={{
                 viewTransitionName: `pokemon-image-${index}`
               }}
-              src={getPokemonImage(pokemon)}
+              src={getPokemonImage(binding.pokemon)}
               fallbackSrc="/pokenull.webp"
               alt="Selected Pokemon"
             />
             <Stack
               my={24} align="center" mx="auto"
             >
-              <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
+              <Text className={styles["card-pokemon-name"]}>{binding.pokemon?.name}</Text>
               <Group align="center">
-                {pokemon?.types?.map((type: { type: { name: string; }; }) => {
+                {binding.pokemonTypes?.map((type: { type: { name: string; }; }) => {
                   return <PokemonTypeBadge key={`${pokemonName}-${type.type.name}-card`} type={type.type} />;
                 })}
               </Group>
@@ -74,7 +60,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
                 <Tooltip label={statLabels['height']} position="top">
                   <Group align="center">
                     <Text className="pokemon-stats">
-                      {(pokemon?.height ?? 0)} M
+                      {(binding.pokemon?.height ?? 0)} M
                     </Text>
                     📏
                   </Group>
@@ -92,7 +78,7 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
 
               <SimpleGrid mt={24} cols={3}>
-                {pokemon?.stats?.map((stats: {
+                {binding.pokemonStats?.map((stats: {
                   base_stat: number;
                   stat: { name: string; };
                 }) => {
@@ -112,13 +98,10 @@ export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; w
 
           </Group>
         </Paper>
-        <Button onClick={() => {
-          setSelectedPokemon(pokemonList.find(x => x.pokeId === index));
-          return handleModalRelease(releaseSelectedPokemon, navigate);
-        }}>Lepaskan
-        </Button>
+        <Button onClick={binding.onReleaseClick}>Lepaskan</Button>
       </Flex>
     </Paper >
   );
 };
+
 

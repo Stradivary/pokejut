@@ -20,7 +20,7 @@ export default function EvolutionCard({
   const binding = useEvolutionCardViewModel(pokemonName, oldPokemon, readyToEvolve, setReadyToEvolve);
 
   return (
-    <Stack key={binding?.pokemon?.name} className={styles.root} >
+    <Stack key={binding?.pokemonName} className={styles.root} >
       <HoverCard
         offset={10}
         radius="sm"
@@ -28,7 +28,7 @@ export default function EvolutionCard({
         <HoverCard.Target>
           <Stack>
             <Paper
-              key={binding?.pokemon?.name}
+              key={binding?.pokemonName}
               className={styles["card-pokedex"]}
               style={{
                 '--selected-color': `${binding?.color}`,
@@ -44,7 +44,7 @@ export default function EvolutionCard({
               />
 
               <Title order={5} className={styles["card-title"]}>
-                {binding?.pokemon?.name}
+                {binding?.pokemonName}
               </Title>
             </Paper>
             <Progress value={binding?.weightPercentage} />
@@ -66,7 +66,7 @@ export default function EvolutionCard({
           }}
         >
           Evolusi ke <br />
-          {binding?.pokemon?.species.name}
+          {binding?.pokemonSpecies}
         </Button>
       )}
     </Stack>

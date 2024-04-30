@@ -7,9 +7,10 @@ import {
   Paper,
   SimpleGrid,
   Stack,
-  Text,
-  Tooltip
+  Text
 } from "@mantine/core";
+
+import { Tooltip } from '@/presentation/components/tooltip';
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
@@ -62,7 +63,7 @@ export default function CardAddPokemon({
         icon: <img src="/pokeball.png" alt="pokeball" />,
       });
     }
-    
+
   }, [pokemon, evolveItem, navigate, catchPokemon]);
 
   return (

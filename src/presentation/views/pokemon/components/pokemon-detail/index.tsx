@@ -10,10 +10,9 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Title,
-  Tooltip
+  Title
 } from "@mantine/core";
-
+import { Tooltip } from '@/presentation/components/tooltip';
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
 import { usePokemonDetailViewModel } from "./usePokemonDetailViewModel";

@@ -36,6 +36,7 @@ export const usePokemonInfiniteGetAllInternal = (filter: {
     return useInfiniteQuery(infiniteQueryOptions({
         queryKey: ['pokemon', 'getAll', filter],
         queryFn: async ({ pageParam }) => {
+            await pokemonInternalRepo.initDataSource();
             return pokemonInternalRepo.getPokemonsByPage({
                 page: pageParam,
                 ...params,

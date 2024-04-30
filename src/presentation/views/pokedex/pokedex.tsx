@@ -1,5 +1,6 @@
+import { Tooltip } from '@/presentation/components/tooltip';
 import { pokemonData } from '@/utils/constants';
-import { ActionIcon, Box, Button, Center, Flex, Group, Image, Loader, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Button, Center, Flex, Group, Image, Loader, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title, useMantineColorScheme } from '@mantine/core';
 import { PaginatedList } from './components/paginatedList';
 import { SearchIcon } from "./components/searchIcon";
 import { TypeBadge } from './components/typeBadge';
@@ -44,7 +45,7 @@ const PokedexPage = () => {
                                         }
                                         return binding.setSelectedType(type);
                                     };
-                                    
+
                                     return (
                                         <Tooltip key={`action-${type}`} label={type} position="bottom" withArrow>
                                             <ActionIcon onClick={handleFilterClick} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>

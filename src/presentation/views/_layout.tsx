@@ -8,9 +8,7 @@ export function Component() {
   const [opened, { toggle }] = useDisclosure();
   const { pathname } = useLocation();
   const { colorScheme } = useMantineColorScheme();
-
   const { online } = useNetwork();
-
 
   return (
     <AppShell

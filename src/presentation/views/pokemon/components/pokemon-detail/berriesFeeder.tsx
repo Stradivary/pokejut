@@ -12,7 +12,8 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { FirmnessTable } from "./firmnessTable";
-import { BerryCard, BerryCardDetail } from "./berryCard";
+import { BerryCard } from "./berryCard";
+import { BerryCardDetail } from "./berryCardDetail";
 
 export const BerriesFeeder = ({
   feedPokemon, selectedPokemonId, canFeedBerry

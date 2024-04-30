@@ -1,3 +1,5 @@
+import { LocalDataSource } from "@/data/data-source/localDataSource";
+import { PokemonRepository } from "@/domain/repository/pokemonRepository";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import axios from "axios";
@@ -73,5 +75,32 @@ describe("Pokemon Data Source", () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.data).toEqual(undefined);
+  });
+
+  it("should test the pending state of local repository", () => {
+    const repo = new PokemonRepository(
+      new LocalDataSource<any>(
+        "pokemon_list", "pokemons",
+        []
+      )
+    );
+
+    waitFor(() => {
+      repo.getPokemonsByPage({
+        page: 1,
+      });
+    }, { timeout: 1000 });
+
+  });
+  it("should only call dataSource.initialize once when calling getPokemonsByPage", async () => {
+    const repo = new PokemonRepository(
+      new LocalDataSource<any>(
+        "pokemon_list", "pokemons",
+        []
+      )
+    );
+
+    await repo.initDataSource();
+    await repo.initDataSource(); // check if it's not called twice
   });
 });

@@ -1,30 +1,12 @@
 import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
 
-const entity = 'evolutions';
 
 const pokeApiEvolutionRepository = new PokeApiEntityRepository('evolution-chain');
 
 const pokeApiSpeciesRepository = new PokeApiEntityRepository<Species>('pokemon-species');
-
-
-const evolutionOptions = (action: string, params: any, fn: () => Promise<any>) => {
-    return queryOptions({
-        queryKey: [entity, action, params],
-        queryFn: async () => fn(),
-        staleTime: Infinity,
-    });
-};
-
-
-
-export const useEvolutionGetByName = (name: string) => {
-    return useQuery(evolutionOptions('getByName', { name }, async () => {
-        return;
-    }));
-};
 
 
 export const usePokemonGetEvolutionChain = (evolutionChain?: string) => {
@@ -51,11 +33,11 @@ export const useEvolutionChainByPokemonName = (name?: string) => {
     return usePokemonGetEvolutionChain(evolutionId);
 };
 
-export function findEvolutionChain(data: EvolutionChain, currentSpecies: string): EvolveTo | null {
+export function findEvolutionChain(data?: EvolutionChain, currentSpecies: string = ""): EvolveTo | null {
     if (!data) {
         return null;
     }
-    
+
     if (`${data?.species?.name}`.toLowerCase() === `${currentSpecies}`.toLowerCase() || `${data?.species}`.toLowerCase() === `${currentSpecies}`.toLowerCase()) {
         return data;
     }

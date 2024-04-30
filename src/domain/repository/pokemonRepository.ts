@@ -22,7 +22,7 @@ const getPages = <T>(data: T[], pageSize: number) => {
     return pages;
 };
 
-class PokemonRepository {
+export class PokemonRepository {
     private pokemons: Pokemon[] = [];
     private pokemonsByPage: Pokemon[][] = [];
     private dataSource: DataSource<Pokemon[]>;
@@ -31,12 +31,13 @@ class PokemonRepository {
     constructor(dataSource: DataSource<Pokemon[]>) {
         // run async function to get data
         this.dataSource = dataSource;
-        this.initDataSource();
     }
 
     async initDataSource() {
-        await this.dataSource.initialize();
-        this.isLoaded = true;
+        if (this.isLoaded) return;
+        await this.dataSource.initialize().then(() => {
+            this.isLoaded = true;
+        });
     }
 
     async getPokemonsByPage(options: Partial<PaginationOptions> & { page: number; }): Promise<{
