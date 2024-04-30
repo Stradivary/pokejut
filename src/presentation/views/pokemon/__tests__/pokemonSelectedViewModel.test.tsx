@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import {
   confirmReleasePokemon,
   handleModalRelease,
-} from "../pokemonSelectedViewModel";
+} from "../usePokemonCollectionViewModel";
 
 vi.mock("@/utils", () => ({
   modals: {

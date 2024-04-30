@@ -17,23 +17,19 @@ import {
 } from "@mantine/core";
 
 
-export const BerryCard = ({
+export const BerryCardDetail = ({
   name,
-  selected,
   onClick,
-  detailed,
   disabled,
 }: {
   name: string;
-  selected?: boolean;
   onClick?: (berryState: BerryState) => void;
-  detailed?: boolean;
   disabled?: boolean;
 }) => {
   const { data: berry } = useBerryGetByName(name);
   const { data } = useItemGetByName(berry?.item?.name);
-  
-  return detailed ? (
+
+  return (
     <Paper>
       <Title order={5} mb={10} className="pokemon-stats">
         Berries Detail
@@ -65,10 +61,25 @@ export const BerryCard = ({
         <Button onClick={() => onClick?.(berry as BerryState)} disabled={disabled}>
           Feed Pokemon
         </Button>
-        
+
       </SimpleGrid>
     </Paper>
-  ) : (
+  );
+};
+
+export const BerryCard = ({
+  name,
+  selected,
+  onClick,
+}: {
+  name: string;
+  selected?: boolean;
+  onClick?: (berryState: BerryState) => void;
+}) => {
+  const { data: berry } = useBerryGetByName(name);
+  const { data } = useItemGetByName(berry?.item?.name);
+
+  return (
     <ActionIcon
       variant={selected ? "filled" : "light"}
       onClick={() => onClick?.(data as BerryState)}

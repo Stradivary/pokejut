@@ -1,13 +1,9 @@
 
-import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
-import { useSimulator } from "@/domain/use-cases/simulator";
 import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
-import { getColorByType } from "@/utils/constants";
 import { getPokemonImage } from "@/utils/image";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
-import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./style.module.scss";
+import { useEvolutionCardViewModel } from "./useEvolutionCardViewModel";
 
 export default function EvolutionCard({
   pokemonName,
@@ -21,32 +17,10 @@ export default function EvolutionCard({
   setReadyToEvolve: (value: { [key: string]: boolean; }) => void;
 }>) {
 
-  const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const color = getColorByType(pokemon ? pokemon?.types?.[0]?.type?.name : "#fff");
-
-  const { evolveSelectedPokemon } = useSimulator();
-
-  const weightPercentage = useMemo(() => {
-    const pokemonWeight = oldPokemon?.weight ?? 0;
-    const nextEvolutionPokemonWeight = pokemon?.weight ?? 80000;
-    return pokemonWeight < nextEvolutionPokemonWeight
-      ? (pokemonWeight / nextEvolutionPokemonWeight) * 100 : 100;
-  }, [oldPokemon, pokemon]);
-
-  const canEvolve = useMemo(() => {
-    const pokemonWeight = oldPokemon?.weight ?? 0;
-    const nextEvolutionPokemonWeight = pokemon?.weight ?? 80000;
-    return pokemonWeight >= nextEvolutionPokemonWeight;
-  }, [oldPokemon, pokemon]);
-
-  const navigate = useNavigate();
-
-  if (canEvolve && !readyToEvolve[pokemonName] && pokemonName) {
-    setReadyToEvolve({ ...readyToEvolve, [pokemonName]: true });
-  }
+  const binding = useEvolutionCardViewModel(pokemonName, oldPokemon, readyToEvolve, setReadyToEvolve);
 
   return (
-    <Stack key={pokemon?.name} className={styles.root} >
+    <Stack key={binding?.pokemon?.name} className={styles.root} >
       <HoverCard
         offset={10}
         radius="sm"
@@ -54,46 +28,45 @@ export default function EvolutionCard({
         <HoverCard.Target>
           <Stack>
             <Paper
-              key={pokemon?.name}
+              key={binding?.pokemon?.name}
               className={styles["card-pokedex"]}
               style={{
-                '--selected-color': `${color}`,
+                '--selected-color': `${binding?.color}`,
               }}
             >
               <Image
                 className={styles["card-pokemon-img"]}
                 loading="lazy"
                 draggable={false}
-                src={getPokemonImage(pokemon)}
+                src={getPokemonImage(binding?.pokemon)}
                 fallbackSrc="/pokenull.webp"
                 alt="Pokemon"
               />
 
               <Title order={5} className={styles["card-title"]}>
-                {pokemon?.name}
+                {binding?.pokemon?.name}
               </Title>
             </Paper>
-            <Progress value={weightPercentage} />
+            <Progress value={binding?.weightPercentage} />
           </Stack>
         </HoverCard.Target>
         <HoverCard.Dropdown>
           <Stack>
-            <Text>Bobot diperlukan untuk evolusi: {pokemon?.weight}kg</Text>
+            <Text>Bobot diperlukan untuk evolusi: {binding?.pokemon?.weight}kg</Text>
             <Text>Bobot saat ini: {oldPokemon?.weight}kg</Text>
           </Stack>
         </HoverCard.Dropdown>
       </HoverCard>
-      {canEvolve && (
+      {binding.canEvolve && (
         <Button
           variant="gradient"
           onClick={() => {
-            const pokemonData: PokemonState = { ...oldPokemon, ...pokemon };
-            evolveSelectedPokemon(pokemonData, navigate);
+            const pokemonData: PokemonState = { ...oldPokemon, ...binding?.pokemon };
+            binding.evolveSelectedPokemon(pokemonData, binding.navigate);
           }}
         >
-          Evolusi ke
-          <br />
-          {pokemon?.species.name}
+          Evolusi ke <br />
+          {binding?.pokemon?.species.name}
         </Button>
       )}
     </Stack>

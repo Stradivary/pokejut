@@ -1,7 +1,5 @@
-import { useSimulator } from "@/domain/use-cases/simulator";
-import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
 import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
-import { firmnesColor, getColorByType, statIcons, statLabels } from "@/utils/constants";
+import { firmnesColor, statIcons, statLabels } from "@/utils/constants";
 import { getPokemonImage } from "@/utils/image";
 import {
   Badge,
@@ -15,10 +13,10 @@ import {
   Title,
   Tooltip
 } from "@mantine/core";
-import React, { useMemo } from "react";
+
 import { BerriesFeeder } from "./berriesFeeder";
 import styles from "./style.module.scss";
-
+import { usePokemonDetailViewModel } from "./usePokemonDetailViewModel";
 
 
 export const PokemonDetail: React.FC<{
@@ -26,22 +24,14 @@ export const PokemonDetail: React.FC<{
   readyToEvolve: { [key: string]: boolean; };
 }> = ({ pokemonId, readyToEvolve }) => {
 
-  const { feedPokemon, selectedPokemonId, pokemonList } = useSimulator();
-  const pokemonState = pokemonList.find((poke) => poke.pokeId === pokemonId);
-  const color = getColorByType(pokemonState?.types?.[0]?.type?.name ?? "") ?? "#fff";
-  const { weight, fedBerries, ...pokemon } = pokemonState ?? ({} as PokemonState);
-
-  const lastFeedBerries = fedBerries?.slice(-5).reverse();
-
-  const canFeedBerry = useMemo(() => Object.values(readyToEvolve).some((value) => value === false), [readyToEvolve]);
-
+  const binding = usePokemonDetailViewModel(pokemonId, readyToEvolve);
   return (
     <SimpleGrid px="md" cols={{ base: 1, md: 2 }}>
       <Paper
         className={styles["card-pokemon"]}
         style={{
-          '--selected-color': `${color}`,
-          
+          '--selected-color': `${binding.color}`,
+
           viewTransitionName: `pokemon-card-${pokemonId}`
         }}
       >
@@ -51,16 +41,16 @@ export const PokemonDetail: React.FC<{
             draggable={false}
             className={styles["card-pokemon-img"]}
             style={{ viewTransitionName: `pokemon-image-${pokemonId}` }}
-            src={getPokemonImage(pokemon)}
+            src={getPokemonImage(binding.pokemon)}
             fallbackSrc="/pokenull.webp"
             alt="Selected Pokemon"
           />
           <Stack my={16} align="center" mx="auto">
-            <Text className={styles["card-pokemon-name"]}>{pokemon?.name}</Text>
+            <Text className={styles["card-pokemon-name"]}>{binding.pokemon?.name}</Text>
             <Group align="center">
-              {pokemon?.types?.map((type: { type: { name: string; }; }) => {
+              {binding.pokemon?.types?.map((type: { type: { name: string; }; }) => {
                 return (
-                  <PokemonTypeBadge key={`${pokemon?.name}-${type.type.name}-card`} type={type.type} />
+                  <PokemonTypeBadge key={`${binding.pokemon?.name}-${type.type.name}-card`} type={type.type} />
                 );
               })}
             </Group>
@@ -68,7 +58,7 @@ export const PokemonDetail: React.FC<{
               <Tooltip label={statLabels['height']} position="top">
                 <Group align="center">
                   <Text className="pokemon-stats">
-                    {(pokemon?.height ?? 0)} M
+                    {(binding.pokemon?.height ?? 0)} M
                   </Text>
                   📏
                 </Group>
@@ -77,7 +67,7 @@ export const PokemonDetail: React.FC<{
               <Tooltip label={statLabels['weight']} position="top">
                 <Group align="center">
                   <Text className="pokemon-stats">
-                    {(weight ?? 0)} Kg
+                    {(binding.weight ?? 0)} Kg
                   </Text>
                   ⚖️
                 </Group>
@@ -85,7 +75,7 @@ export const PokemonDetail: React.FC<{
             </Group>
 
             <SimpleGrid mt={24} cols={3}>
-              {pokemon?.stats?.map((stats: {
+              {binding.pokemon?.stats?.map((stats: {
                 base_stat: number;
                 stat: { name: string; };
               }) => {
@@ -104,20 +94,21 @@ export const PokemonDetail: React.FC<{
         </Group>
       </Paper>
 
-      <BerriesFeeder feedPokemon={feedPokemon} selectedPokemonId={selectedPokemonId} canFeedBerry={canFeedBerry} />
+      <BerriesFeeder feedPokemon={binding.feedPokemon} selectedPokemonId={binding.selectedPokemonId} canFeedBerry={binding.canFeedBerry} />
+
       <Stack>
         <Title order={5} style={{ textAlign: "center" }}>
           Berry Terakhir yang Diberikan
         </Title>
         <ScrollArea style={{ height: 64, width: "100%" }}>
           <Group w="100%">
-            {fedBerries?.length !== 0 && lastFeedBerries
+            {binding.fedBerries?.length !== 0 && binding.lastFeedBerries
               .map((berry, index) => (
                 <Badge key={`${berry}-badge-${index}`}
                   color={firmnesColor[berry]}>{berry.replace("-", " ")}</Badge>
               ))
             }
-            {fedBerries?.length === 0 && (
+            {binding.fedBerries?.length === 0 && (
               <Text>
                 Belum ada berry yang diberikan
               </Text>)}

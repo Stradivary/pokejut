@@ -84,7 +84,7 @@ export function mapEvolutionChain(data: any): EvolutionChain {
 }
 
 
-export const evolveSelectedPokemon = (
+export const addSelectedPokemon = (
     pokemon: any,
     evolveItem: any,
     catchPokemon: any

@@ -13,7 +13,7 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
-import { evolveSelectedPokemon, useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
+import { addSelectedPokemon, useEvolutionChainByPokemonName } from "@/domain/use-cases/evolution";
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
 import { getColorByType, statLabels } from "@/utils/constants";
@@ -33,17 +33,16 @@ export default function CardAddPokemon({
     () => getColorByType(pokemonType?.[0] ?? ""),
     [pokemonType]
   );
-
-  const { data: pokemon, isSuccess: pokeDone } =
-    usePokemonGetByName(pokemonName);
-
-  const { data: evolveItem, isSuccess: evoDone } =
-    useEvolutionChainByPokemonName(pokemon?.name);
+  // Informasi pokemon diambil untuk mengurangi jumlah request ke API
+  // data yang disimpan disini akan digunakan untuk repository saat 
+  // datanya di tambahkan ke dalam daftar pokemon
+  const { data: pokemon, isSuccess: pokeDone } = usePokemonGetByName(pokemonName);
+  const { data: evolveItem, isSuccess: evoDone } = useEvolutionChainByPokemonName(pokemon?.name);
 
   const navigate = useNavigate();
 
   const selectPokemon = useCallback(() => {
-    const success = evolveSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    const success = addSelectedPokemon(pokemon, evolveItem, catchPokemon);
     if (success) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
@@ -63,6 +62,7 @@ export default function CardAddPokemon({
         icon: <img src="/pokeball.png" alt="pokeball" />,
       });
     }
+    
   }, [pokemon, evolveItem, navigate, catchPokemon]);
 
   return (

@@ -7,8 +7,8 @@ import { useSimulator } from "@/domain/use-cases/simulator";
 import { getColorByType, statIcons, statLabels } from "@/utils/constants";
 import { getPokemonImage } from "@/utils/image";
 import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
-import { handleModalRelease } from "../../pokemonSelectedViewModel";
 import styles from "./style.module.scss";
+import { handleModalRelease } from "../../usePokemonSelectedViewModel";
 
 export const CardPokemonSelect: React.FC<{ pokemonName: string; index: string; weight: any; }> = ({ pokemonName, index, weight }) => {
   const { data: pokemon } = usePokemonGetByName(pokemonName);

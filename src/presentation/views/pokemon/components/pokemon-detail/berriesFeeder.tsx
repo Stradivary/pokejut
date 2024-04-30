@@ -11,8 +11,8 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import { FirmnessTable } from "./FirmnessTable";
-import { BerryCard } from "./berryCard";
+import { FirmnessTable } from "./firmnessTable";
+import { BerryCard, BerryCardDetail } from "./berryCard";
 
 export const BerriesFeeder = ({
   feedPokemon, selectedPokemonId, canFeedBerry
@@ -83,7 +83,6 @@ export const BerriesFeeder = ({
                 key={berry?.name + "-card"}
                 name={berry?.name}
                 selected={berry?.name === selectedBerry}
-                detailed={false}
                 onClick={createBerryClickHandler(berry?.name)}
               />
             ))}
@@ -91,11 +90,10 @@ export const BerriesFeeder = ({
         </ScrollArea>
       </Paper>
       {selectedBerry !== "" && (
-        <BerryCard
+        <BerryCardDetail
           name={selectedBerry}
-          detailed
-          disabled={!canFeedBerry}
           onClick={(berryState) => { feedPokemon(selectedPokemonId ?? "", berryState); }}
+          disabled={!canFeedBerry}
         />
       )}
       {!canFeedBerry && <Alert mt={10} title="Pokemon Sudah Kenyang">

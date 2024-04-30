@@ -5,7 +5,7 @@ import { notifications } from "@mantine/notifications";
 import { useCallback, useMemo } from "react";
 
 export function useSettingsViewModel() {
-  
+
   const colorSchemeOptions = [
     {
       value: "light",
@@ -19,7 +19,6 @@ export function useSettingsViewModel() {
 
   const { setColorScheme, colorScheme } = useMantineColorScheme();
 
-
   const { pokemonList, clearPokemonList, clearSelectedPokemon } =
     useSimulator();
 
@@ -28,10 +27,8 @@ export function useSettingsViewModel() {
     [pokemonList]
   );
 
-
   const handleReleaseCollection = useCallback(
-    () =>
-      onReleaseCollection(
+    () => onReleaseCollection(
         clearSelectedPokemon,
         clearPokemonList,
         notifications
@@ -39,10 +36,11 @@ export function useSettingsViewModel() {
     [clearPokemonList, clearSelectedPokemon]
   );
 
-
+  const handleChangeColorScheme = useCallback((value) => setColorScheme(value as 'light' | 'dark'), [setColorScheme]);
+ 
   return {
     colorScheme,
-    setColorScheme,
+    handleChangeColorScheme,
     colorSchemeOptions,
     handleReleaseCollection,
     canReleaseCollection,

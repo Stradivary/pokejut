@@ -8,7 +8,7 @@ import { expect, describe, it, vi } from "vitest";
 import { BerryCard } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { FirmnessTable } from "../components/pokemon-detail/FirmnessTable";
+import { FirmnessTable } from "../components/pokemon-detail/firmnessTable";
 import { PokemonDetail } from "../components/pokemon-detail";
 
 import { Component as PokemonPage } from "../pokemon";

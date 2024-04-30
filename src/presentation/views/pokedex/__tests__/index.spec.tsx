@@ -1,4 +1,4 @@
-import { evolveSelectedPokemon, mapEvolutionChain } from "@/domain/use-cases/evolution";
+import { addSelectedPokemon, mapEvolutionChain } from "@/domain/use-cases/evolution";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { describe, expect, it, vi } from "vitest";
@@ -155,7 +155,7 @@ describe("mapEvolutionChain", () => {
 
 describe("evolveSelectedPokemon", () => {
   it("should return false if either pokemon or evolveItem is not provided", () => {
-    const result = evolveSelectedPokemon(null, null, null);
+    const result = addSelectedPokemon(null, null, null);
     expect(result).toBe(false);
   });
 
@@ -196,7 +196,7 @@ describe("evolveSelectedPokemon", () => {
     };
     const catchPokemon = vi.fn();
 
-    evolveSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    addSelectedPokemon(pokemon, evolveItem, catchPokemon);
 
     expect(catchPokemon).toHaveBeenCalledWith({
       id: 1,
@@ -272,7 +272,7 @@ describe("evolveSelectedPokemon", () => {
     };
     const catchPokemon = vi.fn();
 
-    const result = evolveSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    const result = addSelectedPokemon(pokemon, evolveItem, catchPokemon);
 
     expect(result).toBe(true);
   });
