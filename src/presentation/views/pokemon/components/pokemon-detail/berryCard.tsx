@@ -1,7 +1,7 @@
 
 import { useBerryGetByName } from "@/domain/use-cases/berries";
 import { useItemGetByName } from "@/domain/use-cases/items";
-import { BerryState } from "@/domain/use-cases/simulator";
+import type { BerryState } from "@/domain/use-cases/simulator/types";
 import {
   ActionIcon,
   Image,

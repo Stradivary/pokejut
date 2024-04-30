@@ -1,34 +1,17 @@
-import { Berry } from '@/data/entities/berries';
 import { notifications } from '@mantine/notifications';
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import { getBerryGain } from '../berries';
 
-import { Pokemon } from '@/data/entities/pokemon';
 import { getPokemonImage } from '@/utils/image';
 import { Group, Image, Stack, Text, Title } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { NavigateFunction, redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { type PokemonState } from './pokemonState';
 import { indexedDBStorage } from './presistor';
+import type { PokemonState, PokemonStore } from './types';
 
-export type BerryState = Partial<Berry>;
 
-export type PokemonStore = {
-    selectedPokemonId: string | undefined;
-    selectedPokemonEvolutionName: string | undefined;
-    pokemonList: PokemonState[];
-    selectedPokemon: () => PokemonState | undefined;
-    setSelectedPokemon: (pokemon: PokemonState | undefined) => void;
-    clearSelectedPokemon: () => void;
-    clearPokemonList: () => void;
-    releaseSelectedPokemon: () => void;
-    catchPokemon: (pokemon: any) => void;
-    feedPokemon: (pokemonId: string, berry: BerryState) => void;
-    addPokemon: (pokemon: Pokemon) => void;
-    evolveSelectedPokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => void;
-};
 
 export const useSimulator = create(
     persist<PokemonStore>(

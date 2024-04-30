@@ -2,7 +2,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { PokemonState } from '../simulator/pokemonState';
+import { PokemonState } from '../simulator/types';
 import { useSimulator } from '../simulator/index';
 
 

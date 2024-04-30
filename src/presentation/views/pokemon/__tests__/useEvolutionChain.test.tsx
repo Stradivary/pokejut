@@ -1,4 +1,4 @@
-import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
+import type { PokemonState } from '@/domain/use-cases/simulator/types';
 import { renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { useEvolutionChain } from '../../../../domain/use-cases/evolution/useEvolutionChain';

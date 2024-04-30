@@ -1,5 +1,5 @@
 
-import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
+import type { PokemonState } from '@/domain/use-cases/simulator/types';
 import { getPokemonImage } from "@/utils/image";
 import { Button, HoverCard, Image, Paper, Progress, Stack, Text, Title } from "@mantine/core";
 import styles from "./style.module.scss";

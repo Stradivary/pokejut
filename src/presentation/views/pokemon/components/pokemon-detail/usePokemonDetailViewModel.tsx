@@ -1,5 +1,5 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { PokemonState } from '@/domain/use-cases/simulator/pokemonState';
+import type { PokemonState } from '@/domain/use-cases/simulator/types';
 import { getColorByType } from "@/utils/constants";
 import { useMemo } from "react";
 
