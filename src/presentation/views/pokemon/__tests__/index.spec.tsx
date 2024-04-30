@@ -5,7 +5,7 @@ import CardPokedex from "../components/evolution-card";
 import { CardPokemonSelect } from "../components/card-pokemon-selection";
 import { EvolutionChainPage } from "../components/pokemon-detail/evolutionChain";
 import { expect, describe, it, vi } from "vitest";
-import { BerryCard } from "../components/pokemon-detail/berryCard";
+import { BerryCard, BerryCardDetail } from "../components/pokemon-detail/berryCard";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { FirmnessTable } from "../components/pokemon-detail/firmnessTable";
@@ -101,7 +101,7 @@ describe("Component Coverage Tests", () => {
         releaseSelectedPokemon: vi.fn(),
       }),
     }));
-    const { container: container2 } = render(<BerryCard detailed name={""} />);
+    const { container: container2 } = render(<BerryCardDetail name={""} />);
     expect(container2).toBeDefined();
     vi.restoreAllMocks();
   });

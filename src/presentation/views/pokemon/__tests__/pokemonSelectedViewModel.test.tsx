@@ -1,9 +1,6 @@
 import { act } from "react-dom/test-utils";
-import { describe, expect, it, vi } from "vitest";
-import {
-  confirmReleasePokemon,
-  handleModalRelease,
-} from "../usePokemonCollectionViewModel";
+import { describe, expect, it, vi } from "vitest"; 
+import { handleModalRelease, confirmReleasePokemon } from "../usePokemonSelectedViewModel";
 
 vi.mock("@/utils", () => ({
   modals: {
