@@ -22,7 +22,7 @@ const getPages = <T>(data: T[], pageSize: number) => {
     return pages;
 };
 
-class PokemonRepository {
+export class PokemonRepository {
     private pokemons: Pokemon[] = [];
     private pokemonsByPage: Pokemon[][] = [];
     private dataSource: DataSource<Pokemon[]>;
