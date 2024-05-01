@@ -5,10 +5,7 @@ Berikut merupakan stack yang digunakan dalam proyek ini.
 |---------------------|----------------------------------------|-----------|
 | Frontend Framework  | React                                  | ^18.2.0   |
 |                     | React-router-dom                       | ^6.20.1   |
-| UI Framework        | MantineUI Core                         | ^7.3.1    |
-|                     | MantineUI Hooks                        | ^7.3.1    |
-|                     | MantineUI Modals                       | ^7.3.1    |
-|                     | MantineUI Notifications                | ^7.3.1    |
+| UI Framework        | MantineUI                              | ^7.3.1    |
 | State Management    | Zustand                                | ^4.4.7    |
 |                     | UUID                                   | ^9.0.1    |
 | Data Fetching       | Axios                                  | ^1.6.2    |
@@ -22,7 +19,6 @@ Berikut merupakan stack yang digunakan dalam proyek ini.
 |                     | PostCSS                                | ^8.4.32   |
 |                     | PostCSS Preset for Mantine             | ^1.12.0   |
 |                     | TypeScript                             | ^5.2.2    |
-|                     | TypeScript ESLint Plugin               | ^6.10.0   |
 | Build Tools         | Vite                                   | ^5.0.0    |
 |                     | SASS                                   | ^1.69.5   |
 |                     | Dotenv                                 | ^16.3.1   |

@@ -1,7 +1,9 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
-import { useNavigate } from "react-router-dom";
-import { useEvolutionChain } from "../../../domain/use-cases/evolution/useEvolutionChain";
+import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 import { useEffect, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
 
 export const usePokemonCollectionViewModel = () => {
   const { selectedPokemonId, selectedPokemon, releaseSelectedPokemon } = useSimulator();
@@ -33,11 +35,6 @@ export const usePokemonCollectionViewModel = () => {
   };
 };
 
-
-import { modals } from "@mantine/modals";
-import { notifications } from "@mantine/notifications";
-import { NavigateFunction } from "react-router-dom";
-
 export function handleModalRelease(
   releaseSelectedPokemon: () => void,
   navigate: NavigateFunction
@@ -47,7 +44,14 @@ export function handleModalRelease(
     title: "Lepaskan Pokemon",
     children: <>Apakah kamu yakin ingin melepaskan pokemon ini?</>,
     onConfirm: () => {
-      confirmReleasePokemon(releaseSelectedPokemon, navigate);
+      releaseSelectedPokemon();
+      navigate("..");
+      notifications.show({
+        title: "Pokemon dilepas",
+        message: "Pokemon dilepas dari koleksi",
+        icon: <img src="/pokeball.png" alt="pokeball" />,
+        color: "red",
+      });
     },
     labels: {
       cancel: "Batal",
@@ -56,16 +60,3 @@ export function handleModalRelease(
   });
 }
 
-export function confirmReleasePokemon(
-  releaseSelectedPokemon: () => void,
-  navigate: NavigateFunction
-) {
-  releaseSelectedPokemon();
-  navigate("..");
-  notifications.show({
-    title: "Pokemon dilepas",
-    message: "Pokemon dilepas dari koleksi",
-    icon: <img src="/pokeball.png" alt="pokeball" />,
-    color: "red",
-  });
-}

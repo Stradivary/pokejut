@@ -1,5 +1,5 @@
 
-export function getPokemonImage(pokemon: {
+export function getPokemonImage(pokemon?: {
     [x: string]: any;
 }): any {
 

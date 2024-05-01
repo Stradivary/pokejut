@@ -28,16 +28,12 @@ export function useSettingsViewModel() {
   );
 
   const handleReleaseCollection = useCallback(
-    () => onReleaseCollection(
-        clearSelectedPokemon,
-        clearPokemonList,
-        notifications
-      ),
+    () => onReleaseCollection(clearSelectedPokemon, clearPokemonList, notifications),
     [clearPokemonList, clearSelectedPokemon]
   );
 
   const handleChangeColorScheme = useCallback((value) => setColorScheme(value as 'light' | 'dark'), [setColorScheme]);
- 
+
   return {
     colorScheme,
     handleChangeColorScheme,
@@ -45,18 +41,6 @@ export function useSettingsViewModel() {
     handleReleaseCollection,
     canReleaseCollection,
   };
-}
-
-export function onClearCache(setRerender, navigate) {
-  localStorage.clear();
-  notifications.show({
-    title: "Berhasil",
-    message: "Cache berhasil dihapus",
-    color: "blue",
-    icon: <img src="/pokeball.png" alt="pokeball" />,
-  });
-  setRerender((e) => e + 1);
-  navigate("/settings", { replace: true });
 }
 
 export function onReleaseCollection(
@@ -67,12 +51,7 @@ export function onReleaseCollection(
   modals.openConfirmModal({
     title: "Lepas Semua Pokemon",
     children: "Apakah kamu yakin ingin melepaskan semua koleksi pokemon?",
-    onConfirm: () =>
-      confirmReleaseCollection(
-        clearSelectedPokemon,
-        clearPokemonList,
-        notifications
-      ),
+    onConfirm: () => confirmReleaseCollection(clearSelectedPokemon, clearPokemonList, notifications),
     labels: {
       confirm: "Lepas Semua",
       cancel: "Batal",

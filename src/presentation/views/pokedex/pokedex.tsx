@@ -48,8 +48,8 @@ const PokedexPage = () => {
 
                                     return (
                                         <Tooltip key={`action-${type}`} label={type} position="bottom" withArrow>
-                                            <ActionIcon onClick={handleFilterClick} color={color} c="white" radius="xl" variant={isSelected ? "filled" : "subtle"}>
-                                                <Image w={28} h={28} src={img} alt={type} />
+                                            <ActionIcon onClick={handleFilterClick} color={color} c="white" radius="xl" size="lg" variant={ "filled" }>
+                                                <Image w={20} h={20} src={img} alt={type} />
                                             </ActionIcon>
                                         </Tooltip>
                                     );

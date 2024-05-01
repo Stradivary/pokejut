@@ -37,17 +37,17 @@ export default function CardAddPokemon({
   // Informasi pokemon diambil untuk mengurangi jumlah request ke API
   // data yang disimpan disini akan digunakan untuk repository saat 
   // datanya di tambahkan ke dalam daftar pokemon
-  const { data: pokemon, isSuccess: pokeDone } = usePokemonGetByName(pokemonName);
-  const { data: evolveItem, isSuccess: evoDone } = useEvolutionChainByPokemonName(pokemon?.name);
+  const { data: pokemonDetail, isSuccess: pokeDone } = usePokemonGetByName(pokemonName);
+  const { data: evolveItem, isSuccess: evoDone } = useEvolutionChainByPokemonName(pokemonDetail?.name);
 
   const navigate = useNavigate();
 
   const selectPokemon = useCallback(() => {
-    const success = addSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    const success = addSelectedPokemon(pokemonDetail, evolveItem, catchPokemon);
     if (success) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
-        message: `Pokemon ${pokemon.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
+        message: `Pokemon ${pokemonDetail.name} berhasil ditambahkan ke dalam daftar pokemon kamu`,
         color: "blue",
         icon: <img src="/pokeball.png" alt="pokeball" />,
       });
@@ -64,7 +64,7 @@ export default function CardAddPokemon({
       });
     }
 
-  }, [pokemon, evolveItem, navigate, catchPokemon]);
+  }, [pokemonDetail, evolveItem, navigate, catchPokemon]);
 
   return (
     <Paper
@@ -80,19 +80,19 @@ export default function CardAddPokemon({
           loading="lazy"
           draggable={false}
           className={style.cardPokemonImg}
-          src={getPokemonImage(pokemon)}
+          src={getPokemonImage(pokemonDetail)}
           fallbackSrc="/pokenull.webp"
-          alt={"Selected Pokemon " + pokemon?.name}
+          alt={"Selected Pokemon " + pokemonDetail?.name}
         />
         <Stack gap={16}>
           <Text className={style.pokemonName} px={20}>
-            {pokemon?.name}
+            {pokemonDetail?.name}
           </Text>
           <Group align="center" justify="center">
-            {pokemon?.types?.map(
+            {pokemonDetail?.types?.map(
               (type: { type: { name: string; }; }) => {
                 return (
-                  <PokemonTypeBadge key={`${pokemon?.name}-${type.type.name}-card`} type={type.type} />
+                  <PokemonTypeBadge key={`${pokemonDetail?.name}-${type.type.name}-card`} type={type.type} />
                 );
               }
             )}
@@ -102,7 +102,7 @@ export default function CardAddPokemon({
             <Tooltip label={statLabels['height']} position="top">
               <Group wrap="nowrap" align="center">
                 <Text className={style["pokemon-stats"]}>
-                  {(pokemon?.height ?? 0)} M
+                  {(pokemonDetail?.height ?? 0)} M
                 </Text>
                 📏
               </Group>
@@ -111,7 +111,7 @@ export default function CardAddPokemon({
             <Tooltip label={statLabels['weight']} position="top">
               <Group wrap="nowrap" align="center">
                 <Text className={style["pokemon-stats"]}>
-                  {(pokemon?.weight ?? 0)} Kg
+                  {(pokemonDetail?.weight ?? 0)} Kg
                 </Text>
                 ⚖️
               </Group>
@@ -121,6 +121,7 @@ export default function CardAddPokemon({
         <Center>
           <Button
             type="button"
+            data-testid="select-pokemon"
             className={style["btn-choose"]}
             variant="gradient"
             disabled={!(pokeDone && evoDone)}

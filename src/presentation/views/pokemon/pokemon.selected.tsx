@@ -19,9 +19,7 @@ export function Component() {
           Kembali
         </Button>
         {binding.selectedPokemonId && (
-          <Button onClick={
-            () => handleModalRelease(binding.releaseSelectedPokemon, binding.navigate)
-          }>
+          <Button onClick={() => handleModalRelease(binding.releaseSelectedPokemon, binding.navigate)}>
             Lepaskan Pokemon
           </Button>
         )}
