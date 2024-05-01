@@ -1,4 +1,5 @@
 import { useSimulator } from "@/domain/use-cases/simulator";
+import { CollectionDB, SelectionDB } from "@/domain/use-cases/simulator/usePokemonCollection";
 import { useMantineColorScheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
@@ -28,7 +29,7 @@ export function useSettingsViewModel() {
   );
 
   const handleReleaseCollection = useCallback(
-    () => onReleaseCollection(clearSelectedPokemon, clearPokemonList, notifications),
+    () => onReleaseCollection(SelectionDB.deselect, CollectionDB.clear, notifications),
     [clearPokemonList, clearSelectedPokemon]
   );
 

@@ -21,6 +21,25 @@ export type PokemonStore = {
     releaseSelectedPokemon: () => void;
     catchPokemon: (pokemon: any) => void;
     feedPokemon: (pokemonId: string, berry: BerryState) => void;
-    addPokemon: (pokemon: Pokemon) => void;
     evolveSelectedPokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => void;
+};
+
+
+export type CollectionStore = {
+    selectedPokemonId: string | undefined;
+    selectedPokemonEvolutionName: string | undefined;
+    pokemonList: PokemonState[];
+    selectedPokemon: () => PokemonState | undefined;
+    selectPokemon: (pokemon: PokemonState | undefined) => void;
+    deselectPokemon: () => void;
+    releaseAllPokemon: () => void;
+    releaseCurrentPokemon: () => void;
+};
+
+export type FeederStore = {
+    feedPokemon: (berry: BerryState) => void;
+};
+
+export type EvolverStore = {
+    evolvePokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => void;
 };

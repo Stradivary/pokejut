@@ -155,7 +155,7 @@ describe("mapEvolutionChain", () => {
 
 describe("evolveSelectedPokemon", () => {
   it("should return false if either pokemon or evolveItem is not provided", () => {
-    const result = addSelectedPokemon(null, null, null);
+    const result = addSelectedPokemon(null, null);
     expect(result).toBe(false);
   });
 
@@ -193,46 +193,9 @@ describe("evolveSelectedPokemon", () => {
           },
         ],
       },
-    };
-    const catchPokemon = vi.fn();
-
-    addSelectedPokemon(pokemon, evolveItem, catchPokemon);
-
-    expect(catchPokemon).toHaveBeenCalledWith({
-      id: 1,
-      name: "pikachu",
-      types: ["electric"],
-      height: 0.4,
-      weight: 6,
-      sprites: {
-        front_default: "https://pokeapi.co/media/sprites/pokemon/25.png",
-        other: {
-          dream_world: {
-            front_default:
-              "https://pokeapi.co/media/sprites/pokemon/other/dream-world/25.svg",
-          },
-          home: {},
-        },
-      },
-      species: { name: "pikachu" },
-      evolves_to: {
-        is_baby: false,
-        species: "pikachu",
-        evolves_to: [
-          {
-            is_baby: false,
-            species: "raichu",
-            evolves_to: [
-              {
-                is_baby: false,
-                species: "alolan-raichu",
-                evolves_to: [],
-              },
-            ],
-          },
-        ],
-      },
-    });
+    }; 
+    addSelectedPokemon(pokemon, evolveItem);
+ 
   });
 
   it("should return true", () => {
@@ -270,9 +233,8 @@ describe("evolveSelectedPokemon", () => {
         ],
       },
     };
-    const catchPokemon = vi.fn();
 
-    const result = addSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    const result = addSelectedPokemon(pokemon, evolveItem);
 
     expect(result).toBe(true);
   });

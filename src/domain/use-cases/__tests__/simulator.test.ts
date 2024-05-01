@@ -119,7 +119,7 @@ describe('useSimulator', () => {
         const { result } = renderHook(() => useSimulator());
         const { id: _, ...newPoke } = newPokemon;
         await waitFor(() => {
-            result.current.addPokemon(newPoke as any);
+            result.current.catchPokemon(newPoke as any);
         });
 
         expect(result.current.pokemonList?.[0]?.name).toBe(newPokemon.name);

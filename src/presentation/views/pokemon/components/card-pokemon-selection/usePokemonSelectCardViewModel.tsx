@@ -1,15 +1,15 @@
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
-import { useSimulator } from "@/domain/use-cases/simulator";
+import { CollectionDB, SelectionDB } from "@/domain/use-cases/simulator/usePokemonCollection";
 import { getColorByType } from "@/utils/constants";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleModalRelease } from "../../usePokemonSelectedViewModel";
 
 export const usePokemonSelectCardViewModel = (pokemonName: string, index: string) => {
+
   const navigate = useNavigate();
 
   const { data: pokemon } = usePokemonGetByName(pokemonName);
-  const { pokemonList, setSelectedPokemon, releaseSelectedPokemon } = useSimulator();
 
   const color = useMemo(() => {
     if (pokemonName) {
@@ -22,13 +22,12 @@ export const usePokemonSelectCardViewModel = (pokemonName: string, index: string
   const pokemonStats = pokemon?.stats ?? [];
 
   const onReleaseClick = () => {
-    setSelectedPokemon({ ...pokemon, pokeId: index });
-    handleModalRelease(releaseSelectedPokemon, navigate);
+    SelectionDB.select(index);
+    handleModalRelease(() => CollectionDB.delete(index), navigate);
   };
 
   const onSelectClick = () => {
-    const selectedPoke = pokemonList.find(x => x.pokeId === index);
-    setSelectedPokemon(selectedPoke);
+    SelectionDB.select(index);
   };
 
   return {

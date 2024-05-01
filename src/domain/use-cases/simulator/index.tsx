@@ -1,3 +1,4 @@
+
 import { notifications } from '@mantine/notifications';
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
@@ -9,7 +10,7 @@ import { modals } from '@mantine/modals';
 import { NavigateFunction, redirect } from 'react-router-dom';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { indexedDBStorage } from './presistor';
-import type { PokemonState, PokemonStore } from './types';
+import { type PokemonState, type PokemonStore } from './types';
 
 
 
@@ -22,6 +23,7 @@ export const useSimulator = create(
             selectedPokemon: () => {
                 return get().pokemonList.find((pokemon) => pokemon.pokeId === get().selectedPokemonId);
             },
+
             setSelectedPokemon: (pokemon) => {
                 set(() => ({ selectedPokemonId: pokemon?.pokeId }));
             },
@@ -99,14 +101,6 @@ export const useSimulator = create(
 
                     return state;
                 });
-            },
-            addPokemon: (pokemon) => {
-                const newPokemon: PokemonState = {
-                    ...pokemon,
-                    pokeId: uuidv4(),
-                    fedBerries: [],
-                };
-                set((state) => ({ pokemonList: [...state.pokemonList, newPokemon], selectedPokemonId: newPokemon.pokeId }));
             },
 
             evolveSelectedPokemon: (evolvedPokemon: PokemonState, navigate: NavigateFunction) => {

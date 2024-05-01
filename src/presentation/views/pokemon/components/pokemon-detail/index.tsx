@@ -93,7 +93,7 @@ export const PokemonDetail: React.FC<{
         </Group>
       </Paper>
 
-      <BerriesFeeder feedPokemon={binding.feedPokemon} selectedPokemonId={binding.selectedPokemonId} canFeedBerry={binding.canFeedBerry} />
+      <BerriesFeeder feedPokemon={binding.feedPokemon} selectedPokemonId={pokemonId} canFeedBerry={binding.canFeedBerry} />
 
       <Stack>
         <Title order={5} style={{ textAlign: "center" }}>

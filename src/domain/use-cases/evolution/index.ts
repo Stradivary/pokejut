@@ -2,6 +2,7 @@ import { EvolutionChain, EvolveTo } from "@/data/entities/evolution";
 
 import { useQuery } from "@tanstack/react-query";
 import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
+import { CollectionDB } from "../simulator/usePokemonCollection";
 
 
 const pokeApiEvolutionRepository = new PokeApiEntityRepository('evolution-chain');
@@ -68,10 +69,10 @@ export function mapEvolutionChain(data: any): EvolutionChain {
 
 export const addSelectedPokemon = (
     pokemon: any,
-    evolveItem: any,
-    catchPokemon: any
+    evolveItem: any
 ) => {
     if (!pokemon || !evolveItem) return false;
+
     const poke = {
         id: pokemon.id,
         name: pokemon.name,
@@ -91,10 +92,11 @@ export const addSelectedPokemon = (
         },
         species: pokemon.species,
     };
-
-    const evolves_to = mapEvolutionChain(evolveItem?.chain);
-
-    catchPokemon({ ...poke, evolves_to });
-
+    try {
+        const evolves_to = mapEvolutionChain(evolveItem?.chain);
+        CollectionDB.add({ ...poke, evolves_to });
+    } catch (error) {
+        return false;
+    }
     return true;
 };

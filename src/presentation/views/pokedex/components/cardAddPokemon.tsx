@@ -1,4 +1,3 @@
-import { useSimulator } from "@/domain/use-cases/simulator";
 import {
   Button,
   Center,
@@ -18,9 +17,9 @@ import { addSelectedPokemon, useEvolutionChainByPokemonName } from "@/domain/use
 import { usePokemonGetByName } from "@/domain/use-cases/pokemon";
 import { PokemonTypeBadge } from "@/presentation/components/pokemonTypeBadge";
 import { getColorByType, statLabels } from "@/utils/constants";
+import { getPokemonImage } from "@/utils/image";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
-import { getPokemonImage } from "@/utils/image";
 
 export default function CardAddPokemon({
   pokemonName,
@@ -29,7 +28,8 @@ export default function CardAddPokemon({
   pokemonName: string;
   pokemonType?: any[];
 }>) {
-  const { catchPokemon } = useSimulator();
+
+
   const color = useMemo(
     () => getColorByType(pokemonType?.[0] ?? ""),
     [pokemonType]
@@ -43,7 +43,7 @@ export default function CardAddPokemon({
   const navigate = useNavigate();
 
   const selectPokemon = useCallback(() => {
-    const success = addSelectedPokemon(pokemonDetail, evolveItem, catchPokemon);
+    const success = addSelectedPokemon(pokemonDetail, evolveItem);
     if (success) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
@@ -64,7 +64,7 @@ export default function CardAddPokemon({
       });
     }
 
-  }, [pokemonDetail, evolveItem, navigate, catchPokemon]);
+  }, [pokemonDetail, evolveItem, navigate]);
 
   return (
     <Paper

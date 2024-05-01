@@ -1,15 +1,26 @@
-import { useSimulator } from "@/domain/use-cases/simulator";
+import { useEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
+import { CollectionDB, SelectionDB } from "@/domain/use-cases/simulator/usePokemonCollection";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { useEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
 
 export const usePokemonCollectionViewModel = () => {
-  const { selectedPokemonId, selectedPokemon, releaseSelectedPokemon } = useSimulator();
+  const { data: pokemonSelection, refetch: selectionRefetch } = useQuery({
+    queryKey: ["selection"],
+    queryFn: SelectionDB.getSelected
+  });
+
+  const { data: selectedPokemon, refetch } = useQuery({
+    queryKey: ["selectedPokemon", pokemonSelection], queryFn: async () => {
+      const selection = pokemonSelection as string ?? "";
+      return await CollectionDB.get(selection);
+    }
+  });
+
   const [readyToEvolve, setReadyToEvolve] = useState<{ [key: string]: boolean; }>({});
-  const pokemonState = selectedPokemon();
-  const { nextEvolutionChain } = useEvolutionChain(pokemonState);
+  const { nextEvolutionChain } = useEvolutionChain(selectedPokemon);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,15 +31,19 @@ export const usePokemonCollectionViewModel = () => {
         }
       });
     }
-  }, [nextEvolutionChain, selectedPokemonId]);
-  const isNoSelectionFound = selectedPokemonId === null || selectedPokemonId === undefined;
+  }, [nextEvolutionChain]);
+
+  useEffect(() => {
+    refetch();
+    selectionRefetch();
+  }, [refetch, selectionRefetch]);
+
+  const isNoSelectionFound = pokemonSelection === undefined || selectedPokemon === undefined;
+
   return {
-    selectedPokemonId,
     selectedPokemon,
-    releaseSelectedPokemon,
     readyToEvolve,
     setReadyToEvolve,
-    pokemonState,
     nextEvolutionChain,
     isNoSelectionFound,
     navigate,
