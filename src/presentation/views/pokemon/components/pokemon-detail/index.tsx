@@ -21,7 +21,8 @@ import { usePokemonDetailViewModel } from "./usePokemonDetailViewModel";
 export const PokemonDetail: React.FC<{
   pokemonId: string;
   readyToEvolve: { [key: string]: boolean; };
-}> = ({ pokemonId, readyToEvolve }) => {
+  canEvolve: boolean;
+}> = ({ pokemonId, readyToEvolve, canEvolve }) => {
 
   const binding = usePokemonDetailViewModel(pokemonId, readyToEvolve);
   return (
@@ -93,7 +94,7 @@ export const PokemonDetail: React.FC<{
         </Group>
       </Paper>
 
-      <BerriesFeeder feedPokemon={binding.feedPokemon} selectedPokemonId={binding.selectedPokemonId} canFeedBerry={binding.canFeedBerry} />
+      <BerriesFeeder feedPokemon={binding.feedPokemon} selectedPokemonId={binding.selectedPokemonId} canFeedBerry={binding.canFeedBerry} canEvolve={canEvolve} />
 
       <Stack>
         <Title order={5} style={{ textAlign: "center" }}>

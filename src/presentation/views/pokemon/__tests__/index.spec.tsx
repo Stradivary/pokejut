@@ -119,14 +119,14 @@ describe("Component Coverage Tests", () => {
 
   // PokemonDetail
   it("should render the PokemonDetail component correctly", () => {
-    const { container } = render(<PokemonDetail pokemonId="00" readyToEvolve={{}} />);
+    const { container } = render(<PokemonDetail pokemonId="00" readyToEvolve={{}} canEvolve={false} />);
     expect(container).toBeDefined();
   });
 
   it("should render Berries Feeder component correctly", () => {
     const { container } = render(<BerriesFeeder
       feedPokemon={() => { }}
-      selectedPokemonId="1" canFeedBerry={true} />);
+      selectedPokemonId="1" canFeedBerry={true} canEvolve={true} />);
     expect(container).toBeDefined();
   });
 });

@@ -22,6 +22,6 @@ export const usePokemonDetailViewModel = (pokemonId: string, readyToEvolve: { [k
     selectedPokemonId,
     canFeedBerry,
     lastFeedBerries,
-    color
+    color,
   };
 };

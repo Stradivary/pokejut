@@ -2,7 +2,7 @@ import { Box, Button, Center, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { PokemonDetail } from "./components/pokemon-detail";
 import { EvolutionChainPage } from "./components/pokemon-detail/evolutionChain";
-import { handleModalRelease, usePokemonCollectionViewModel as usePokemonSelectedViewModel } from "./usePokemonSelectedViewModel";
+import { handleModalRelease, usePokemonSelectedViewModel } from "./usePokemonSelectedViewModel";
 
 /**
  * Pokedex detail page
@@ -29,7 +29,7 @@ export function Component() {
       )}
       {binding.selectedPokemonId && (
         <>
-          <PokemonDetail pokemonId={binding.selectedPokemonId} readyToEvolve={binding.readyToEvolve} />
+          <PokemonDetail pokemonId={binding.selectedPokemonId} canEvolve={(binding.nextEvolutionChain?.evolves_to ?? []).length > 0} readyToEvolve={binding.readyToEvolve} />
           <EvolutionChainPage
             pokemonId={binding.selectedPokemonId}
             pokemonState={binding.pokemonState}

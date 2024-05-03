@@ -16,7 +16,7 @@ import { BerryCard } from "./berryCard";
 import { BerryCardDetail } from "./berryCardDetail";
 
 export const BerriesFeeder = ({
-  feedPokemon, selectedPokemonId, canFeedBerry
+  feedPokemon, selectedPokemonId, canFeedBerry, canEvolve
 }) => {
   const { data } = useBerryGetAll({
     limit: 100,
@@ -97,9 +97,14 @@ export const BerriesFeeder = ({
           disabled={!canFeedBerry}
         />
       )}
-      {!canFeedBerry && <Alert mt={10} title="Pokemon Sudah Kenyang">
-        Pokemon sudah bisa melakukan evolusi, dan tidak bisa diberi makan lagi.
+      {!canFeedBerry && canEvolve && <Alert mt={10} title="Pokemon Sudah Kenyang">
+        Pokemon sudah tidak bisa diberi makan lagi.
       </Alert>}
+      {
+        !canFeedBerry && !canEvolve && <Alert mt={10} title="Pokemon Sudah Kenyang">
+          Pokemon sudah tidak bisa diberi makan lagi. 
+        </Alert>
+      }
     </Paper>
   );
 };

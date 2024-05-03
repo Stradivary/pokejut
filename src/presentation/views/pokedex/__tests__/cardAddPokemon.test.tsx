@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react";
 import { beforeEach, describe, it, vi } from "vitest";
 import { render } from "~/tests/test-utils";
-import CardAddPokemon from "./cardAddPokemon";
+import CardAddPokemon from "../components/cardAddPokemon";
 
 vi.mock("@/domain/use-cases/evolution", async () => {
     const original = await vi.importActual("@/domain/use-cases/evolution");

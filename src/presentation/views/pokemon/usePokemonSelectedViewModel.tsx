@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useEvolutionChain } from "@/domain/use-cases/evolution/useEvolutionChain";
 
-export const usePokemonCollectionViewModel = () => {
-  const { selectedPokemonId, selectedPokemon, releaseSelectedPokemon } = useSimulator();
-  const [readyToEvolve, setReadyToEvolve] = useState<{ [key: string]: boolean; }>({});
-  const pokemonState = selectedPokemon();
-  const { nextEvolutionChain } = useEvolutionChain(pokemonState);
-  const navigate = useNavigate();
+export const usePokemonSelectedViewModel = () => {
 
+  const { selectedPokemonId, selectedPokemon, releaseSelectedPokemon } = useSimulator();
+  const { nextEvolutionChain } = useEvolutionChain(selectedPokemon());
+  const navigate = useNavigate();
+  
+
+  const [readyToEvolve, setReadyToEvolve] = useState<{ [key: string]: boolean; }>({});
+
+  const pokemonState = selectedPokemon();
   useEffect(() => {
     if (nextEvolutionChain) {
       nextEvolutionChain?.evolves_to?.forEach((evolution) => {

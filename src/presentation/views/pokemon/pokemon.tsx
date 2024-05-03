@@ -23,4 +23,4 @@ export function Component() {
   );
 }
 
-Component.displayName = "AboutPage";
+Component.displayName = "PokemonListPage";

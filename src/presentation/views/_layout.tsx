@@ -11,18 +11,8 @@ export function Component() {
   const { online } = useNetwork();
 
   return (
-    <AppShell
-      header={{ height: { base: 1, md: 1, lg: 1, xl: 1 } }}
-      footer={{ height: { base: 86, md: 1, lg: 1, xl: 1 } }}
-      navbar={{
-        width: { base: 0, md: 240, lg: 240, xl: 240 },
-        breakpoint: "md",
-        collapsed: { mobile: !opened },
-      }}
-      padding={0}
-      layout="alt"
-    >
-      <AppShell.Header  >
+    <AppShell header={{ height: { base: 1, md: 1, lg: 1, xl: 1 } }} footer={{ height: { base: 86, md: 1, lg: 1, xl: 1 } }} navbar={{ width: { base: 0, md: 240, lg: 240, xl: 240 }, breakpoint: "md", collapsed: { mobile: !opened }, }} padding={0} layout="alt">
+      <AppShell.Header>
         <Group h="100%" px="md" visibleFrom="md" >
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Title order={3} m="md" hiddenFrom="sm">
@@ -35,7 +25,8 @@ export function Component() {
       </AppShell.Navbar>
       <AppShell.Main >
         <Outlet />
-        <Modal opened={online === false} onClose={() => { }} centered withCloseButton={false} >
+        <Modal
+          opened={online === false} onClose={() => { }} centered withCloseButton={false} >
           <Stack justify="center" align="center">
             <Image src="/pokenull.webp" alt="Pokenull Logo" w={200} h={200} />
             <Title order={4} style={{ color: "red" }}>

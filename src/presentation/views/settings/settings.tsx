@@ -28,4 +28,4 @@ export function Component() {
     </Stack>;
 }
 
-Component.displayName = 'AboutPage';
+Component.displayName = 'SettingsPage';

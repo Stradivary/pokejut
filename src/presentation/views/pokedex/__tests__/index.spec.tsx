@@ -7,6 +7,8 @@ import { render } from "~/tests/test-utils";
 import CardAddPokemon from "../components/cardAddPokemon";
 import { TypeBadge } from "../components/typeBadge";
 import { Component as PokemonList } from "../pokedex";
+import { PokemonEvolution } from "@/data/entities/evolution";
+import { Pokemon } from "@/data/entities/pokemon";
 
 const mock = new MockAdapter(axios);
 
@@ -155,7 +157,7 @@ describe("mapEvolutionChain", () => {
 
 describe("evolveSelectedPokemon", () => {
   it("should return false if either pokemon or evolveItem is not provided", () => {
-    const result = addSelectedPokemon(null, null, null);
+    const result = addSelectedPokemon();
     expect(result).toBe(false);
   });
 
@@ -196,7 +198,7 @@ describe("evolveSelectedPokemon", () => {
     };
     const catchPokemon = vi.fn();
 
-    addSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    addSelectedPokemon(pokemon, evolveItem as PokemonEvolution, catchPokemon);
 
     expect(catchPokemon).toHaveBeenCalledWith({
       id: 1,
@@ -242,6 +244,7 @@ describe("evolveSelectedPokemon", () => {
       types: ["electric"],
       height: 0.4,
       weight: 6,
+      stats: {},
       sprites: {
         front_default: "https://pokeapi.co/media/sprites/pokemon/25.png",
         other: {
@@ -272,7 +275,7 @@ describe("evolveSelectedPokemon", () => {
     };
     const catchPokemon = vi.fn();
 
-    const result = addSelectedPokemon(pokemon, evolveItem, catchPokemon);
+    const result = addSelectedPokemon(pokemon as Pokemon, evolveItem as PokemonEvolution, catchPokemon);
 
     expect(result).toBe(true);
   });

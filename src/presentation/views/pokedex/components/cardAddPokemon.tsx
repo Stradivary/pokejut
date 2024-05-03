@@ -21,6 +21,7 @@ import { getColorByType, statLabels } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
 import { getPokemonImage } from "@/utils/image";
+import { PokemonEvolution } from "@/data/entities/evolution";
 
 export default function CardAddPokemon({
   pokemonName,
@@ -43,7 +44,7 @@ export default function CardAddPokemon({
   const navigate = useNavigate();
 
   const selectPokemon = useCallback(() => {
-    const success = addSelectedPokemon(pokemonDetail, evolveItem, catchPokemon);
+    const success = addSelectedPokemon(pokemonDetail, evolveItem as PokemonEvolution, catchPokemon);
     if (success) {
       notifications.show({
         title: "Pokemon berhasil ditambahkan",
