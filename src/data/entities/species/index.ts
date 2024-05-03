@@ -1,4 +1,4 @@
-interface Species {
+export interface Species {
     id: number;
     name: string;
     evolution_chain: {

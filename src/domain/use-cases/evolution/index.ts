@@ -3,7 +3,7 @@ import { EvolutionChain, EvolveTo, PokemonEvolution } from "@/data/entities/evol
 import { Pokemon } from "@/data/entities/pokemon";
 import { useQuery } from "@tanstack/react-query";
 import { PokeApiEntityRepository } from "../../repository/pokeApiRepository";
-
+import { Species } from "@/data/entities/species";
 
 const pokeApiEvolutionRepository = new PokeApiEntityRepository('evolution-chain');
 

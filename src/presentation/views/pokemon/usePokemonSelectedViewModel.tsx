@@ -10,7 +10,6 @@ export const usePokemonSelectedViewModel = () => {
   const { selectedPokemonId, selectedPokemon, releaseSelectedPokemon } = useSimulator();
   const { nextEvolutionChain } = useEvolutionChain(selectedPokemon());
   const navigate = useNavigate();
-  
 
   const [readyToEvolve, setReadyToEvolve] = useState<{ [key: string]: boolean; }>({});
 

@@ -11,8 +11,6 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { indexedDBStorage } from './presistor';
 import type { PokemonState, PokemonStore } from './types';
 
-
-
 export const useSimulator = create(
     persist<PokemonStore>(
         (set, get) => ({
